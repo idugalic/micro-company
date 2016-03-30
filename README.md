@@ -16,10 +16,12 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 It leverages the following technologies:
 
 - [Spring Boot](http://projects.spring.io/spring-boot/) (v1.2.6)
+- [Spring Cloud](http://projects.spring.io/spring-cloud/)
+- [Spring Data](http://projects.spring.io/spring-data/)
+- [Spring Data REST](http://projects.spring.io/spring-data-rest/)
 - [Axon Framework](http://www.axonframework.org/) (v2.4)
 - [RabbitMQ](https://www.rabbitmq.com/) (v3.5.4) Axon supports any Spring AMQP supported platform.
 - [MongoDB](https://www.mongodb.com/) (v.2.14) Axon also supports JDBC & JPA based event-stores.
-
 
 
 ### Key benefits
@@ -28,6 +30,15 @@ It leverages the following technologies:
 2. Automatic publishing of events whenever data changes
 3. Faster and more scalable querying by using materialized views
 4. Reliable auditing for all updates
+
+### Modules
+
+1. BlogMicroservice (command-side and query-side)
+2. ProductMicroservice (command-side and query-side)
+3. CustomerMicroservice (command-side and query-side)
+4. Authorization server
+5. Configuration server
+6. Gateway (Proxy)
 
 ## How it works
 
