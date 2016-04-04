@@ -1,5 +1,9 @@
 # microservice-company
 
+Digital experiences are becoming essential to every business. Yet few firms have the organizational structure or technology needed to make good on their promise. In fact, research shows that the No. 1 reason for project failure is businesses hardwiring point integrations between individual customer-facing experiences and backend systems. It restricts agility and your ability to innovate. Instead, what's needed is a unified API strategy. 
+
+Companies must embrace a new way of projecting themselves in the form of secure, easy-to-consume unified APIs that are easily integrated into a wide range of digital touchpoints. 
+
 ## Architecture
 
 Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
@@ -139,4 +143,3 @@ $ curl http://localhost:9090/products
 ```
 
 As HATEOAS is switched on, you should be offered other links which you can also traverse with curl.
-
