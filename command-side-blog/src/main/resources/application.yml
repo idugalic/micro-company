@@ -1,0 +1,33 @@
+debug: true
+logging:
+    level:
+        root: INFO
+        org.springframework: INFO
+            #aop: DEBUG
+            #dao: DEBUG
+            #orm: DEBUG
+            #amqp: DEBUG
+            #data: DEBUG
+            #transaction: DEBUG
+        org.axonframework: INFO
+        com.soagrowers: DEBUG
+    file: ./build/logs/command-side-server.log
+spring:
+    application:
+        name: product-command-side
+        exchange: product.events.fanout.exchange
+        queue: product.default.queue
+        databaseName: products
+        eventsCollectionName: events
+        snapshotCollectionName: snapshots
+    rabbitmq:
+        hostname: 192.168.99.100
+        username: test
+        password: password
+    data:
+        mongodb:
+            uri: mongodb://192.168.99.100:27017/blogposts
+server:
+    port: 9000
+management:
+    port: 9001
