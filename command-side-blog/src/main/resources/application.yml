@@ -9,15 +9,15 @@ logging:
             #amqp: DEBUG
             #data: DEBUG
             #transaction: DEBUG
-        org.axonframework: INFO
-        com.soagrowers: DEBUG
+        org.axonframework: DEBUG
+        com.idugalic: DEBUG
 
 spring:
     application:
-        name: product-command-side
-        exchange: product.events.fanout.exchange
-        queue: product.default.queue
-        databaseName: products
+        name: blog-command-side
+        exchange: blog.events.fanout.exchange
+        queue: blog.default.queue
+        databaseName: blogposts
         eventsCollectionName: events
         snapshotCollectionName: snapshots
     rabbitmq:

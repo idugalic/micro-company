@@ -20,6 +20,7 @@ public class CreateBlogPostCommand extends AuditableAbstractCommand{
 	private final Boolean broadcast;
 	private final Date publishAt;
 	private final BlogPostCategory category;
+	
 
 	public CreateBlogPostCommand(String id, AuditEntry auditEntry, String title, String rawContent, String publicSlug, Boolean draft,
 			Boolean broadcast, Date publishAt, BlogPostCategory category) {

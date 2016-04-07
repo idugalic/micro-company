@@ -2,6 +2,8 @@ package com.idugalic.commandside.blog;
 
 import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.repository.ConcurrencyException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(RestResponseEntityExceptionHandler.class);
 
     public RestResponseEntityExceptionHandler() {
         super();
@@ -26,12 +30,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         final String bodyOfResponse = "HttpMessageNotReadableException";
+        LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
         final String bodyOfResponse = "MethodArgumentNotValidException";
+        LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
@@ -39,6 +45,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     protected ResponseEntity<Object> handleCommandExecution(final RuntimeException cex, final WebRequest request) {
         final String bodyOfResponse = "CommandExecutionException";
         if (null != cex.getCause()) {
+            LOG.error("CAUSED BY: {} {}", cex.getCause().getClass().getName(), cex.getCause().getMessage());
+
             if (cex.getCause() instanceof ConcurrencyException) {
             	return handleExceptionInternal(cex, bodyOfResponse+" - Concurrency issue", new HttpHeaders(), HttpStatus.CONFLICT, request);            }
         }
@@ -48,18 +56,21 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler({ InvalidDataAccessApiUsageException.class, DataAccessException.class })
     protected ResponseEntity<Object> handleConflict(final RuntimeException ex, final WebRequest request) {
         final String bodyOfResponse = "DataAccessException";
+        LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
     @ExceptionHandler({ DataIntegrityViolationException.class })
     public ResponseEntity<Object> handleBadRequest(final DataIntegrityViolationException ex, final WebRequest request) {
         final String bodyOfResponse = "DataIntegrityViolationException";
+        LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class })
     public ResponseEntity<Object> handleInternal(final RuntimeException ex, final WebRequest request) {
         final String bodyOfResponse = "Internal Error";
+        LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
     

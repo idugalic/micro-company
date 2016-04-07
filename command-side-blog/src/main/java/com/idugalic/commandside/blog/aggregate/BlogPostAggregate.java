@@ -5,6 +5,7 @@ import java.util.Date;
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
+import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,11 +55,30 @@ public class BlogPostAggregate extends AbstractAnnotatedAggregateRoot  {
     @CommandHandler
     public BlogPostAggregate(CreateBlogPostCommand command) {
         LOG.debug("Command: 'CreateBlogPostCommand' received.");
-        LOG.debug("Queuing up a new BlogPostCreatedEvent for product '{}'", command.getId());
+        LOG.debug("Queuing up a new BlogPostCreatedEvent for blog post '{}'", command.getId());
         apply(new BlogPostCreatedEvent(command.getId(), command.getAuditEntry(), command.getTitle(), command.getRawContent(), command.getPublicSlug(), command.getDraft(), command.getBroadcast(), command.getPublishAt(), command.getCategory()));
     }
     
-    
+    /**
+     * This method is marked as an EventSourcingHandler and is therefore used by the Axon framework to
+     * handle events of the specified type (BlogPostCreatedEvent). The BlogPostCreatedEvent can be
+     * raised either by the constructor during BlogPostAggregate(CreateBlogPostCommand) or by the
+     * Repository when 're-loading' the aggregate.
+     *
+     * @param event
+     */
+    @EventSourcingHandler
+    public void on(BlogPostCreatedEvent event) {
+        this.id = event.getId();
+        this.title = event.getTitle();
+        this.rawContent = event.getRawContent();
+        this.publicSlug = event.getPublicSlug();
+        this.draft = event.isDraft();
+        this.broadcast = event.isBroadcast();
+        this.publishAt = event.getPublishAt();
+        this.category = event.getCategory();
+        LOG.debug("Applied: 'BlogPostCreatedEvent' [{}]", event.getId());
+    }
     
     
 

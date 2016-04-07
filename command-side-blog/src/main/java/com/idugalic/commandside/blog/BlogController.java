@@ -1,6 +1,8 @@
 package com.idugalic.commandside.blog;
 
 import java.security.Principal;
+import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.idugalic.commandside.blog.command.CreateBlogPostCommand;
+import com.idugalic.common.model.AuditEntry;
+
+
 
 @RestController
 @RequestMapping(value = "/blog")
@@ -31,10 +36,11 @@ public class BlogController {
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void create(@RequestBody CreateBlogPostCommand request, HttpServletResponse response) {
-		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " request received: ID: {}}", request.getId());
-		commandGateway.sendAndWait(request);
-		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", request.getId());
+	public void create(@RequestBody CreateBlogPostForm request, HttpServletResponse response) {
+		LOG.debug(CreateBlogPostForm.class.getSimpleName() + " request received");
+		String id = UUID.randomUUID().toString();
+		commandGateway.sendAndWait(new CreateBlogPostCommand(id, new AuditEntry("whi", new Date()), request.getTitle(), request.getRawContent(), request.getPublicSlug(), request.getDraft(), request.getBroadcast(), request.getPublishAt(), request.getCategory()));
+		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", id);
 	}
 
 }

@@ -17,6 +17,10 @@ public class BlogPostCreatedEvent extends AuditableAbstractEvent {
 	private Boolean broadcast;
 	private Date publishAt;
 	private BlogPostCategory category; 
+	
+	public BlogPostCreatedEvent(){
+		
+	}
 
 	public BlogPostCreatedEvent(String id, AuditEntry auditEntry, String title, String rawContent, String publicSlug, Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category) {
 		super(id, auditEntry);

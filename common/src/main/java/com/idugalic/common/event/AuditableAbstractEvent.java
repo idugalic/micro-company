@@ -7,6 +7,10 @@ public abstract class AuditableAbstractEvent extends AbstractEvent {
 	private static final long serialVersionUID = -5389550139760061559L;
 	
 	private AuditEntry auditEntry;
+	
+	public AuditableAbstractEvent(){
+		
+	}
 
 	public AuditableAbstractEvent(String id, AuditEntry auditEntry) {
 		super(id);

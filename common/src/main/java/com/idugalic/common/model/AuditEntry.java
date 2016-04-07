@@ -9,6 +9,10 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class AuditEntry {
 	private String who;
 	private Date when;
+	
+	public AuditEntry(){
+		
+	}
 
 	public AuditEntry(String who, Date when) {
 		super();
