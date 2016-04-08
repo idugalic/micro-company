@@ -1,0 +1,23 @@
+logging:
+    level:
+        root: INFO
+        org.springframework: INFO
+        org.axonframework: DEBUG
+        com.idugalic: DEBUG
+spring:
+    application:
+        name: blog-query-side
+        exchange: blog.events.fanout.exchange
+        queue: blog.view.event.stream
+        terminal: blog.axon.terminal
+    rabbitmq:
+        hostname: 192.168.99.100
+        username: test
+        password: password
+    data:
+        rest:
+            #base-path: api/v1
+server:
+    port: 9090
+management:
+    port: 9091

@@ -15,6 +15,7 @@
 		<module>common</module>
 		<module>common-blog</module>
 		<module>command-side-blog</module>
+		<module>query-side-blog</module>
 	</modules>
 
 	<properties>
