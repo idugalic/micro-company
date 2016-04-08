@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.idugalic.commandside.blog.aggregate.exception.PublishBlogPostException;
+
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -41,6 +43,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
+    //TODO Consider handling validation and other errors/exceptions here
     @ExceptionHandler({ CommandExecutionException.class })
     protected ResponseEntity<Object> handleCommandExecution(final RuntimeException cex, final WebRequest request) {
         final String bodyOfResponse = "CommandExecutionException";
@@ -48,7 +51,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
             LOG.error("CAUSED BY: {} {}", cex.getCause().getClass().getName(), cex.getCause().getMessage());
 
             if (cex.getCause() instanceof ConcurrencyException) {
-            	return handleExceptionInternal(cex, bodyOfResponse+" - Concurrency issue", new HttpHeaders(), HttpStatus.CONFLICT, request);            }
+            	return handleExceptionInternal(cex, bodyOfResponse + " - Concurrency issue", new HttpHeaders(), HttpStatus.CONFLICT, request);            }
+            if (cex.getCause() instanceof PublishBlogPostException) {
+            	return handleExceptionInternal(cex, bodyOfResponse + " - " + cex.getCause().getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);            }
+       
         }
         return handleExceptionInternal(cex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }

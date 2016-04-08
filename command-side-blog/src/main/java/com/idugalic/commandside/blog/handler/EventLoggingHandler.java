@@ -6,11 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.idugalic.common.blog.event.BlogPostCreatedEvent;
+import com.idugalic.common.blog.event.BlogPostPublishedEvent;
 
 /**
  * EventHandler's (a.k.a. EventListeners) are used to react to events and
  * perform associated actions, such as updating a 'materialised-view' for
- * example. Created by ben on 24/09/15.
+ * example.
  */
 @Component
 public class EventLoggingHandler {
@@ -23,4 +24,8 @@ public class EventLoggingHandler {
 		LOG.debug("IID:{} ET:{} EID:[{}]", IID, event.getClass().getSimpleName(), event.getId());
 	}
 
+	@EventHandler
+	public void handle(BlogPostPublishedEvent event) {
+		LOG.debug("IID:{} ET:{} EID:[{}]", IID, event.getClass().getSimpleName(), event.getId());
+	}
 }
