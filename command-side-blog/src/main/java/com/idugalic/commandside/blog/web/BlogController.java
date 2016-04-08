@@ -1,14 +1,11 @@
-package com.idugalic.commandside.blog;
+package com.idugalic.commandside.blog.web;
 
-import java.security.Principal;
 import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.repository.ConcurrencyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +32,7 @@ public class BlogController {
 	private CommandGateway commandGateway;
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	@ResponseStatus(value = HttpStatus.CREATED)
 	public void create(@RequestBody CreateBlogPostForm request, HttpServletResponse response) {
 		LOG.debug(CreateBlogPostForm.class.getSimpleName() + " request received");
 		String id = UUID.randomUUID().toString();

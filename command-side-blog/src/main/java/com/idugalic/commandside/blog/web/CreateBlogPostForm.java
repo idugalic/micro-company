@@ -1,4 +1,4 @@
-package com.idugalic.commandside.blog;
+package com.idugalic.commandside.blog.web;
 
 import java.util.Date;
 

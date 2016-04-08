@@ -1,4 +1,4 @@
-package com.idugalic.commandside.blog;
+package com.idugalic.commandside.blog.web;
 
 import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.repository.ConcurrencyException;
