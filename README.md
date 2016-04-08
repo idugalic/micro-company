@@ -11,7 +11,7 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 ### Patterns and techniques used in this architecture:
 
 1. Microservices 
-2. Command and Query Responsibility Separation (CQRS)
+2. [Command and Query Responsibility Separation (CQRS)](https://bitbucket.org/idugalic_microservices_lab/micro-company/downloads/springone2gx2015eventsourcingandcqrs-150925224302-lva1-app6892.pdf)
 3. DDD - Event Sourcing
 4. DDD - Agregates
 
