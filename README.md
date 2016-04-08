@@ -12,7 +12,7 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 
 1. [Microservices](https://bitbucket.org/idugalic_microservices_lab/micro-company/downloads/Microservices.docx) 
 2. [Command and Query Responsibility Separation (CQRS)](https://bitbucket.org/idugalic_microservices_lab/micro-company/downloads/springone2gx2015eventsourcingandcqrs-150925224302-lva1-app6892.pdf)
-3. DDD - Event Sourcing
+3. [DDD - Event Sourcing](https://bitbucket.org/idugalic_microservices_lab/micro-company/downloads/springone2gx2015eventsourcingandcqrs-150925224302-lva1-app6892.pdf)
 4. DDD - Agregates
 
 ### Technologies
@@ -61,17 +61,14 @@ The command-side and the query-side both have REST API's which can be used to ac
 
 Read the [Axon documentation](http://www.axonframework.org/download/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).
 
-### Running the Demo yourself...
-
-Assuming you already have...
+### Prerequisite
 
 - [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (I'm using v1.8.0_60)
 - [Git](https://git-scm.com/) (I'm using v1.9.1)
 - [Docker](https://www.docker.com/) (I'm using v1.8.2)
 
-...then do the following...
 
-#### Step 1: Spin up the Database and Messaging servers...
+#### Step 1: Spin up the Database and Messaging servers
 
 First lets get the RabbitMQ and MongoDB servers up and running. I've used Docker for this because it's really simple.
 
@@ -89,21 +86,21 @@ If you already have MongoDB and RabbitMQ on your system (using their default por
 
 > The demo also expects the MongoDB server to have a default `guest` user with no password and for this guest user to have admin rights. If you don't want to add such a user, stop your local MongoDB server and start the docker container instead using the commands above.
 
-#### Step 2: Clone and build the project...
+#### Step 2: Clone and build the project
 
 Next we can download, build and unit test the microservices-sampler project. Here I'm using the Gradle wrapper, so there is no need to actually install Gradle if you don't want to.
 
 ```bash
 $ git clone https://idugalic@bitbucket.org/idugalic_microservices_lab/micro-company.git
 $ cd microservice-company
-$ ./gradlew clean test
+$ mvn clean install
 ```
 
-#### Step 3: Run the Integration Test...
+#### Step 3: Run
 
 So far so good. Now we want to test the delivery of event messages to other processes. To do this we need two (**2**) terminal windows. In one window we'll boot the `query-side` (which contains an event-listener and a materialised view), and in the other terminal we'll fire the `command-side` integration tests (which generate commands that generate events).
 
-#### In **Terminal #1**:
+#### In ** (Docker) Terminal #1**:
 
 Start the docker servers for RabbitMQ and MongoDB (if you haven't already).
 
@@ -112,34 +109,43 @@ $ docker start my-rabbit
 $ docker start my-mongo
 ```
 
-Now run the command-side Spring Boot application via gradle.
-
-```bash
-$ ./gradlew command-side:bootRun
-```
-After lots of logging output from Spring Boot, you should have a the command-side microservice ready and listening on port 9000.
-
 #### In **Terminal #2**:
 
-```bash
-$ ./gradlew query-side:bootRun
-```
+Now run the command-side Spring Boot application via maven.
 
-After lots of output from Spring Boot, you should have a fully booted query-side microservice listening on http port 9090.
+```bash
+$ mvn spring-boot:run
+```
+After lots of logging output from Spring Boot, you should have a the command-side microservice ready and listening on port 9000.
 
 #### In **Terminal #3**:
 
 ```bash
-$ ./gradlew integrationTest
+$ mvn spring-boot:run
 ```
 
-The integration test sends an 'AddProduct' command to the command-side REST API listening on port 9000. When the command-side has processed the command a 'ProductAdded' event is generated and sent to the query-side via RabbitMQ. The query-side processes this event and adds a record for the product to it's database. You should visually observe this process as logging output in the terminal 1 and terminal 2 windows while the test is in progress.
+After lots of output from Spring Boot, you should have a fully booted query-side microservice listening on http port 9090.
 
-#### Issuing Queries with CURL
-If you want to inspect the query-side yourself, just use CURL to query the command-side's REST API like this...
+
+#### Issuing Commands & Queries with CURL
+To issue a command:
 
 ```bash
-$ curl http://localhost:9090/products
+$ curl (POST) http://localhost:9000/blog
+
+{
+  "title": "Ivan",
+  "rawContent": "Dugalic",
+  "publicSlug": "Sulgeneckstrasse",
+  "draft": true,
+  "broadcast4": true
+}
+```
+
+If you want to inspect the query-side yourself
+
+```bash
+$ curl http://localhost:9090/blogposts
 ```
 
 As HATEOAS is switched on, you should be offered other links which you can also traverse with curl.
