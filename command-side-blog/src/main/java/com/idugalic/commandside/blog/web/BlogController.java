@@ -25,7 +25,7 @@ import com.idugalic.common.model.AuditEntry;
 
 
 @RestController
-@RequestMapping(value = "/blog")
+@RequestMapping(value = "/blogposts")
 public class BlogController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(BlogController.class);

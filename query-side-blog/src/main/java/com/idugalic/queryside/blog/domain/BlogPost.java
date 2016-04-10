@@ -3,6 +3,8 @@ package com.idugalic.queryside.blog.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 import com.idugalic.common.blog.event.BlogPostCreatedEvent;
@@ -19,6 +21,7 @@ public class BlogPost {
 	private Boolean draft;
 	private Boolean broadcast;
 	private Date publishAt;
+	@Enumerated(EnumType.STRING)
 	private BlogPostCategory category; 
 
 	public BlogPost() {
