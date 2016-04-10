@@ -3,6 +3,7 @@ package com.idugalic.queryside.blog;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
@@ -10,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 @SpringBootApplication
 @EntityScan("com.idugalic.queryside.blog.domain")
+@EnableDiscoveryClient
 public class Application {
     public static void main(String... args) {
         SpringApplication.run(Application.class, args);

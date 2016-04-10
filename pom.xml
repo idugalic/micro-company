@@ -17,6 +17,8 @@
 		<module>command-side-blog</module>
 		<module>query-side-blog</module>
 		<module>authserver</module>
+		<module>registry</module>
+		<module>configserver</module>
 	</modules>
 
 	<properties>
