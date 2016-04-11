@@ -2,12 +2,20 @@ package com.idugalic.commandside.blog.configuration;
 
 import com.idugalic.commandside.blog.aggregate.BlogPostAggregate;
 import com.mongodb.Mongo;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.commandhandling.CommandDispatchInterceptor;
+import org.axonframework.commandhandling.CommandHandlerInterceptor;
 import org.axonframework.commandhandling.SimpleCommandBus;
 import org.axonframework.commandhandling.annotation.AggregateAnnotationCommandHandler;
 import org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.commandhandling.gateway.CommandGatewayFactoryBean;
+import org.axonframework.commandhandling.interceptors.BeanValidationInterceptor;
+import org.axonframework.commandhandling.interceptors.LoggingInterceptor;
 import org.axonframework.contextsupport.spring.AnnotationDriven;
 import org.axonframework.eventhandling.*;
 import org.axonframework.eventhandling.amqp.spring.ListenerContainerLifecycleManager;
@@ -128,6 +136,12 @@ public class AxonConfiguration {
     @Bean
     CommandBus commandBus() {
         SimpleCommandBus commandBus = new SimpleCommandBus();
+        List<CommandDispatchInterceptor> dispatchInterceptors = new ArrayList<>();
+        dispatchInterceptors.add(new BeanValidationInterceptor());
+        List<CommandHandlerInterceptor> handlerInterceptors = new ArrayList<>();
+        handlerInterceptors.add(new LoggingInterceptor());
+        commandBus.setDispatchInterceptors(dispatchInterceptors);
+        commandBus.setHandlerInterceptors(handlerInterceptors);
         return commandBus;
     }
 

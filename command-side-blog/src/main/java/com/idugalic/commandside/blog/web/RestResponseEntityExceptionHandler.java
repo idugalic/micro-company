@@ -1,6 +1,7 @@
 package com.idugalic.commandside.blog.web;
 
 import org.axonframework.commandhandling.CommandExecutionException;
+import org.axonframework.commandhandling.interceptors.JSR303ViolationException;
 import org.axonframework.repository.ConcurrencyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -80,10 +82,18 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
     
-//    @ExceptionHandler({ AccessDeniedException.class })
-//    public ResponseEntity<Object> handleAccessDeniedException(Exception ex, WebRequest request) {
-//        return new ResponseEntity<Object>(
-//          "Access denied message here", new HttpHeaders(), HttpStatus.FORBIDDEN);
-//    }
+    
+    @ExceptionHandler({ JSR303ViolationException.class })
+    public ResponseEntity<Object> handleValidation(final JSR303ViolationException ex, final WebRequest request) {
+        //TODO do it properly !!!!
+    	final String bodyOfResponse = ex.getViolations().toString();
+        LOG.error("Validation error", ex);
+        return new ResponseEntity<Object>(bodyOfResponse, HttpStatus.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler({ AccessDeniedException.class })
+    public ResponseEntity<Object> handleAccessDeniedException(Exception ex, WebRequest request) {
+        return new ResponseEntity<Object>("Access denied message here", new HttpHeaders(), HttpStatus.FORBIDDEN);
+    }
 
 }
