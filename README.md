@@ -124,14 +124,14 @@ After lots of logging output from Spring Boot, you should have a the command-sid
 $ mvn spring-boot:run
 ```
 
-After lots of output from Spring Boot, you should have a fully booted query-side microservice listening on http port 9090.
+After lots of output from Spring Boot, you should have a fully booted query-side microservice listening on http port 8080.
 
 
 #### Issuing Commands & Queries with CURL
 To issue a command:
 
 ```bash
-$ curl (POST) http://localhost:9000/blog
+$ curl (POST) http://localhost:8080/blogposts
 
 {
   "title": "Ivan",
@@ -145,7 +145,13 @@ $ curl (POST) http://localhost:9000/blog
 If you want to inspect the query-side yourself
 
 ```bash
-$ curl http://localhost:9090/blogposts
+$ curl http://localhost:8081/blogposts
 ```
 
 As HATEOAS is switched on, you should be offered other links which you can also traverse with curl.
+
+### References and further reading
+
+  * http://www.infoq.com/news/2016/01/cqrs-axon-example
+  * http://www.axonframework.org
+  * http://eventuate.io
