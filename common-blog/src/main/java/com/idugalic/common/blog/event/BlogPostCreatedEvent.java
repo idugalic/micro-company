@@ -17,12 +17,13 @@ public class BlogPostCreatedEvent extends AuditableAbstractEvent {
 	private Boolean broadcast;
 	private Date publishAt;
 	private BlogPostCategory category; 
+	private String authorId;
 	
 	public BlogPostCreatedEvent(){
 		
 	}
 
-	public BlogPostCreatedEvent(String id, AuditEntry auditEntry, String title, String rawContent, String publicSlug, Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category) {
+	public BlogPostCreatedEvent(String id, AuditEntry auditEntry, String title, String rawContent, String publicSlug, Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category, String authorId) {
 		super(id, auditEntry);
 		this.title = title;
 		this.rawContent = rawContent;
@@ -31,6 +32,7 @@ public class BlogPostCreatedEvent extends AuditableAbstractEvent {
 		this.broadcast = broadcast;
 		this.publishAt = publishAt;
 		this.category = category;
+		this.authorId = authorId;
 	}
 
 	public String getTitle() {
@@ -60,5 +62,11 @@ public class BlogPostCreatedEvent extends AuditableAbstractEvent {
 	public BlogPostCategory getCategory() {
 		return category;
 	}
+
+	public String getAuthorId() {
+		return authorId;
+	}
+	
+	
 
 }

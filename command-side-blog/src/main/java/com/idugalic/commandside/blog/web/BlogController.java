@@ -1,8 +1,6 @@
 package com.idugalic.commandside.blog.web;
 
 import java.security.Principal;
-import java.util.Date;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.idugalic.commandside.blog.command.CreateBlogPostCommand;
 import com.idugalic.commandside.blog.command.PublishBlogPostCommand;
-import com.idugalic.common.model.AuditEntry;
 
 
 
@@ -38,8 +35,6 @@ public class BlogController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void create(@RequestBody CreateBlogPostCommand command, HttpServletResponse response, Principal principal) {
 		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " request received");
-		//TODO Set who and when - Audit. Maybe this can be some intercepter 
-		command.setAuditEntry(new AuditEntry(principal!=null?principal.getName():null));
 		commandGateway.sendAndWait(command);
 		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
 	}
@@ -48,8 +43,6 @@ public class BlogController {
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void publish(@PathVariable String id, @RequestBody PublishBlogPostCommand command, HttpServletResponse response, Principal principal) {
 		LOG.debug(PublishBlogPostCommand.class.getSimpleName() + " request received");
-		//TODO Set who and when - Audit. Maybe this can be some intercepter 
-		command.setAuditEntry(new AuditEntry(principal!=null?principal.getName():null));
 		command.setId(id);
 		commandGateway.sendAndWait(command);
 		LOG.debug(PublishBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());

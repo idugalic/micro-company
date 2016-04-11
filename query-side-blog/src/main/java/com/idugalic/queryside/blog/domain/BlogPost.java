@@ -22,7 +22,8 @@ public class BlogPost {
 	private Boolean broadcast;
 	private Date publishAt;
 	@Enumerated(EnumType.STRING)
-	private BlogPostCategory category; 
+	private BlogPostCategory category;
+	private String authorId;
 
 	public BlogPost() {
 		
@@ -30,7 +31,7 @@ public class BlogPost {
 	
 
 	public BlogPost(String id, String title, String rawContent, String renderContent, String publicSlug, Boolean draft,
-			Boolean broadcast, Date publishAt, BlogPostCategory category) {
+			Boolean broadcast, Date publishAt, BlogPostCategory category, String authorId) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -41,6 +42,7 @@ public class BlogPost {
 		this.broadcast = broadcast;
 		this.publishAt = publishAt;
 		this.category = category;
+		this.authorId = authorId;
 	}
 	
 	public BlogPost(BlogPostCreatedEvent event) {
@@ -48,12 +50,14 @@ public class BlogPost {
 		this.id = event.getId();
 		this.title = event.getTitle();
 		this.rawContent = event.getRawContent();
+		//TODO change this
 		this.renderContent = event.getRawContent();
 		this.publicSlug = event.getPublicSlug();
 		this.draft = event.isDraft();
 		this.broadcast = event.isBroadcast();
 		this.publishAt = event.getPublishAt();
 		this.category = event.getCategory();
+		this.authorId = event.getAuthorId();
 	}
 
 
@@ -128,6 +132,17 @@ public class BlogPost {
 	public void setRenderContent(String renderContent) {
 		this.renderContent = renderContent;
 	}
+
+
+	public String getAuthorId() {
+		return authorId;
+	}
+
+
+	public void setAuthorId(String authorId) {
+		this.authorId = authorId;
+	}
+	
 	
 
 }

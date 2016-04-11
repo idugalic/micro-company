@@ -8,6 +8,7 @@ import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.idugalic.commandside.blog.aggregate.exception.PublishBlogPostException;
 import com.idugalic.commandside.blog.command.CreateBlogPostCommand;
@@ -15,10 +16,22 @@ import com.idugalic.commandside.blog.command.PublishBlogPostCommand;
 import com.idugalic.common.blog.event.BlogPostCreatedEvent;
 import com.idugalic.common.blog.event.BlogPostPublishedEvent;
 import com.idugalic.common.blog.model.BlogPostCategory;
+import com.idugalic.common.model.AuditEntry;
 
 public class BlogPostAggregate extends AbstractAnnotatedAggregateRoot {
 
 	private static final Logger LOG = LoggerFactory.getLogger(BlogPostAggregate.class);
+	
+	private String getCurrentUser(){
+		if(SecurityContextHolder.getContext().getAuthentication()!=null){
+			return SecurityContextHolder.getContext().getAuthentication().getName();
+		}
+		return null;
+	}
+	
+	private AuditEntry createAudit(){
+		return new AuditEntry(getCurrentUser());
+	}
 
 	/**
 	 * Aggregates that are managed by Axon must have a unique identifier.
@@ -34,6 +47,7 @@ public class BlogPostAggregate extends AbstractAnnotatedAggregateRoot {
 	private Boolean broadcast;
 	private Date publishAt;
 	private BlogPostCategory category;
+	private String authorId;
 
 	/**
 	 * This default constructor is used by the Repository to construct a
@@ -58,16 +72,16 @@ public class BlogPostAggregate extends AbstractAnnotatedAggregateRoot {
 	public BlogPostAggregate(CreateBlogPostCommand command) {
 		LOG.debug("Command: 'CreateBlogPostCommand' received.");
 		LOG.debug("Queuing up a new BlogPostCreatedEvent for blog post '{}'", command.getId());
-		apply(new BlogPostCreatedEvent(command.getId(), command.getAuditEntry(), command.getTitle(),
+		apply(new BlogPostCreatedEvent(command.getId(), createAudit(), command.getTitle(),
 				command.getRawContent(), command.getPublicSlug(), command.getDraft(), command.getBroadcast(),
-				command.getPublishAt(), command.getCategory()));
+				command.getPublishAt(), command.getCategory(), getCurrentUser()));
 	}
 
 	@CommandHandler
 	public void publishBlogPost(PublishBlogPostCommand command) {
 		LOG.debug("Command: 'PublishBlogPostCommand' received.");
 		if (this.getDraft()) {
-			apply(new BlogPostPublishedEvent(id, command.getAuditEntry(), command.getPublishAt()));
+			apply(new BlogPostPublishedEvent(id, createAudit(), command.getPublishAt()));
 		} else {
 			throw new PublishBlogPostException("This BlogPostAggregate (" + this.getId() + ") is not a Draft.");
 		}
@@ -92,6 +106,7 @@ public class BlogPostAggregate extends AbstractAnnotatedAggregateRoot {
 		this.broadcast = event.isBroadcast();
 		this.publishAt = event.getPublishAt();
 		this.category = event.getCategory();
+		this.authorId = event.getAuthorId();
 		LOG.debug("Applied: 'BlogPostCreatedEvent' [{}]", event.getId());
 	}
 
@@ -137,5 +152,11 @@ public class BlogPostAggregate extends AbstractAnnotatedAggregateRoot {
 	public BlogPostCategory getCategory() {
 		return category;
 	}
+
+	public String getAuthorId() {
+		return authorId;
+	}
+	
+	
 
 }

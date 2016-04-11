@@ -7,10 +7,9 @@ import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.idugalic.common.blog.model.BlogPostCategory;
-import com.idugalic.common.command.AuditableAbstractCommand;
 import com.idugalic.common.model.AuditEntry;
 
-public class CreateBlogPostCommand extends AuditableAbstractCommand {
+public class CreateBlogPostCommand {
 
 	@JsonIgnore
 	@TargetAggregateIdentifier
@@ -26,7 +25,6 @@ public class CreateBlogPostCommand extends AuditableAbstractCommand {
 
 	public CreateBlogPostCommand(AuditEntry auditEntry, String title, String rawContent, String publicSlug,
 			Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category) {
-		super(auditEntry);
 		this.id = UUID.randomUUID().toString();
 		this.title = title;
 		this.rawContent = rawContent;
