@@ -1,31 +1,33 @@
 package com.idugalic.commandside.blog.command;
 
 import java.util.Date;
+import java.util.UUID;
 
 import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.idugalic.common.blog.model.BlogPostCategory;
 import com.idugalic.common.command.AuditableAbstractCommand;
 import com.idugalic.common.model.AuditEntry;
 
-public class CreateBlogPostCommand extends AuditableAbstractCommand{
+public class CreateBlogPostCommand extends AuditableAbstractCommand {
 
+	@JsonIgnore
 	@TargetAggregateIdentifier
-	private final String id;
+	private String id;
 
-	private final String title;
-	private final String rawContent;
-	private final String publicSlug;
-	private final Boolean draft;
-	private final Boolean broadcast;
-	private final Date publishAt;
-	private final BlogPostCategory category;
-	
+	private String title;
+	private String rawContent;
+	private String publicSlug;
+	private Boolean draft;
+	private Boolean broadcast;
+	private Date publishAt;
+	private BlogPostCategory category;
 
-	public CreateBlogPostCommand(String id, AuditEntry auditEntry, String title, String rawContent, String publicSlug, Boolean draft,
-			Boolean broadcast, Date publishAt, BlogPostCategory category) {
+	public CreateBlogPostCommand(AuditEntry auditEntry, String title, String rawContent, String publicSlug,
+			Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category) {
 		super(auditEntry);
-		this.id = id;
+		this.id = UUID.randomUUID().toString();
 		this.title = title;
 		this.rawContent = rawContent;
 		this.publicSlug = publicSlug;
@@ -33,6 +35,10 @@ public class CreateBlogPostCommand extends AuditableAbstractCommand{
 		this.broadcast = broadcast;
 		this.publishAt = publishAt;
 		this.category = category;
+	}
+
+	public CreateBlogPostCommand() {
+		this.id = UUID.randomUUID().toString();
 	}
 
 	public String getId() {

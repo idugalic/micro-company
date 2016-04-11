@@ -19,6 +19,10 @@ public class AuditEntry {
 		this.who = who;
 		this.when = when;
 	}
+	
+	public AuditEntry(String who) {
+		this(who, new Date());
+	}
 
 	public String getWho() {
 		return who;

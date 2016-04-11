@@ -1,5 +1,6 @@
 package com.idugalic.commandside.blog.web;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -35,23 +36,23 @@ public class BlogController {
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public void create(@RequestBody CreateBlogPostForm request, HttpServletResponse response) {
-		LOG.debug(CreateBlogPostForm.class.getSimpleName() + " request received");
-		String id = UUID.randomUUID().toString();
-	
-		//TODO Replace who with Principal
-		commandGateway.sendAndWait(new CreateBlogPostCommand(id, new AuditEntry("who", new Date()), request.getTitle(), request.getRawContent(), request.getPublicSlug(), request.getDraft(), request.getBroadcast(), request.getPublishAt(), request.getCategory()));
-		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", id);
+	public void create(@RequestBody CreateBlogPostCommand command, HttpServletResponse response, Principal principal) {
+		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " request received");
+		//TODO Set who and when - Audit. Maybe this can be some intercepter 
+		command.setAuditEntry(new AuditEntry(principal!=null?principal.getName():null));
+		commandGateway.sendAndWait(command);
+		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
 	}
 	
 	@RequestMapping(value = "/{id}/publishcommand", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public void publish(@PathVariable String id, @RequestBody PublishBlogPostForm request, HttpServletResponse response) {
-		LOG.debug(PublishBlogPostForm.class.getSimpleName() + " request received");
-		
-		//TODO Replace who with Principal
-		commandGateway.sendAndWait(new PublishBlogPostCommand(new AuditEntry("who", new Date()), id, request.getPublishAt()));
-		LOG.debug(PublishBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", id);
+	public void publish(@PathVariable String id, @RequestBody PublishBlogPostCommand command, HttpServletResponse response, Principal principal) {
+		LOG.debug(PublishBlogPostCommand.class.getSimpleName() + " request received");
+		//TODO Set who and when - Audit. Maybe this can be some intercepter 
+		command.setAuditEntry(new AuditEntry(principal!=null?principal.getName():null));
+		command.setId(id);
+		commandGateway.sendAndWait(command);
+		LOG.debug(PublishBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
 	}
 
 }

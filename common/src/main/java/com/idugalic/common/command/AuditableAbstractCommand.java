@@ -9,6 +9,10 @@ public class AuditableAbstractCommand {
 	public AuditableAbstractCommand(AuditEntry auditEntry) {
 		this.setAuditEntry(auditEntry);
 	}
+	
+	public AuditableAbstractCommand() {
+	}
+
 
 	public AuditEntry getAuditEntry() {
 		return auditEntry;

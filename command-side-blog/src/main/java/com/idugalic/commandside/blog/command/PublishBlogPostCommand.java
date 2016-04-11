@@ -10,17 +10,26 @@ import com.idugalic.common.model.AuditEntry;
 public class PublishBlogPostCommand extends AuditableAbstractCommand {
 
 	@TargetAggregateIdentifier
-	private final String id;
-	private final Date publishAt;
+	private String id;
+	private Date publishAt;
 
 	public PublishBlogPostCommand(AuditEntry auditEntry, String id, Date publishAt) {
 		super(auditEntry);
 		this.id = id;
 		this.publishAt = publishAt;
 	}
+	
+	public PublishBlogPostCommand() {
+		
+	}
 
 	public String getId() {
 		return id;
+	}
+	
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public Date getPublishAt() {
