@@ -226,7 +226,7 @@ Of course, you should also test your Sagas. There is a special Annotated Saga Te
 
 Those days, each mature framework in Java world should have some sort of Spring support. Each of Axon's components can be configured as a Spring bean. Axon provides also a namespace shortcut for almost everything it has, so the configuration is as short as it has to be.
 
-References and further reading
+### References and further reading
 
   * http://www.infoq.com/news/2016/01/cqrs-axon-example
   * http://www.axonframework.org
