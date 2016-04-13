@@ -10,9 +10,9 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 
 ### Patterns and techniques used in this architecture:
 
-1. [Microservices](https://bitbucket.org/idugalic_microservices_lab/micro-company/downloads/Microservices.docx) 
-2. [Command and Query Responsibility Separation (CQRS)](https://bitbucket.org/idugalic_microservices_lab/micro-company/downloads/springone2gx2015eventsourcingandcqrs-150925224302-lva1-app6892.pdf)
-3. [DDD - Event Sourcing](https://bitbucket.org/idugalic_microservices_lab/micro-company/downloads/springone2gx2015eventsourcingandcqrs-150925224302-lva1-app6892.pdf)
+1. Microservices
+2. Command and Query Responsibility Separation (CQRS)
+3. DDD - Event Sourcing
 4. DDD - Agregates
 
 ### Technologies
@@ -91,7 +91,7 @@ If you already have MongoDB and RabbitMQ on your system (using their default por
 Next we can download, build and unit test the microservices-sampler project. Here I'm using the Gradle wrapper, so there is no need to actually install Gradle if you don't want to.
 
 ```bash
-$ git clone https://idugalic@bitbucket.org/idugalic_microservices_lab/micro-company.git
+$ git clone https://github.com/idugalic/micro-company-config.git
 $ cd microservice-company
 $ mvn clean install
 ```
