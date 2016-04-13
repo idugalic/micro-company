@@ -6,7 +6,7 @@ spring:
       enabled: true
       server:
         git:
-          uri: https://bitbucket.org/idugalic_microservices_lab/micro-company-config.git
+          uri: https://github.com/idugalic/micro-company-config.git
     
 security:
   user:
