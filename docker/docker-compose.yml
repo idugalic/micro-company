@@ -1,0 +1,30 @@
+configserver:
+  image: idugalic/configserver
+  ports:
+   - "8888:8888"
+registry:
+  image: idugalic/registry
+  ports:
+   - "8761:8761"
+  links:
+   - configserver
+authserver:
+  image: idugalic/authserver
+  ports:
+   - "9999:9999"
+  links:
+   - configserver
+query-side-blog:
+  image: idugalic/query-side-blog 
+  ports:
+   - "8081:8081"
+  links:
+   - registry
+   - configserver
+command-side-blog:
+  image: idugalic/command-side-blog 
+  ports:
+   - "8080:8080"
+  links:
+   - registry
+   - configserver
