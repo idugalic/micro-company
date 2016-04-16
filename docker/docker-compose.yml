@@ -8,6 +8,8 @@ registry:
    - "8761:8761"
   links:
    - configserver
+  environment:
+    HOST_IP: $DOCKER_HOST_IP
 authserver:
   image: idugalic/authserver
   ports:
@@ -23,6 +25,7 @@ query-side-blog:
    - configserver
    - my-mongo
    - my-rabbit
+   - authserver
 command-side-blog:
   image: idugalic/command-side-blog 
   ports:
@@ -32,6 +35,7 @@ command-side-blog:
    - configserver
    - my-mongo
    - my-rabbit
+   - authserver
 my-mongo:
   image: mongo:3.0.4
   hostname: mongodb
