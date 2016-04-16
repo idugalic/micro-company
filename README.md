@@ -63,32 +63,12 @@ Read the [Axon documentation](http://www.axonframework.org/download/) for the fi
 
 ### Prerequisite
 
-- [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (I'm using v1.8.0_60)
-- [Git](https://git-scm.com/) (I'm using v1.9.1)
-- [Docker](https://www.docker.com/) (I'm using v1.8.2)
+- [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Git](https://git-scm.com/) 
+- [Docker](https://www.docker.com/)
 
 
-#### Step 1: Spin up the Database and Messaging servers
-
-First lets get the RabbitMQ and MongoDB servers up and running. I've used Docker for this because it's really simple.
-
-```bash
-$ docker run -d --name my-mongo -p 27017:27017 mongo
-$ docker run -d --name my-rabbit -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=test -e RABBITMQ_DEFAULT_PASS=password -e RABBITMQ_NODENAME=my-rabbit rabbitmq:3-management
-$ docker ps
-```
-
-Assuming you've installed Docker already, executing these commands should install the necessary docker containers for MongoDB and RabbitMQ and run them locally. They're given the names `my-rabbit` and `my-mongo` and they'll run in the background until you ask docker to stop them (using `docker stop my-mongo` for example).
-
-If you already have MongoDB and RabbitMQ on your system (using their default ports) you can use those instead once you have the required users and settings configured (see the blockquotes below for details).
-
-> The demo expects RabbitMQ to have a user with the username `test` and the password `password` and for this user to have admin rights so that it can create exchanges and queues. If you don't want to add such a user, stop your local RabbitMQ server and start the docker one instead using the commands outlined above.
-
-> The demo also expects the MongoDB server to have a default `guest` user with no password and for this guest user to have admin rights. If you don't want to add such a user, stop your local MongoDB server and start the docker container instead using the commands above.
-
-#### Step 2: Clone and build the project
-
-Next we can download, build and unit test the microservices-sampler project. Here I'm using the Gradle wrapper, so there is no need to actually install Gradle if you don't want to.
+#### Step 1: Clone and build the project
 
 ```bash
 $ git clone https://github.com/idugalic/micro-company-config.git
@@ -96,42 +76,21 @@ $ cd microservice-company
 $ mvn clean install
 ```
 
-#### Step 3: Run
-
-So far so good. Now we want to test the delivery of event messages to other processes. To do this we need two (**2**) terminal windows. In one window we'll boot the `query-side` (which contains an event-listener and a materialised view), and in the other terminal we'll fire the `command-side` integration tests (which generate commands that generate events).
-
-#### In ** (Docker) Terminal #1**:
-
-Start the docker servers for RabbitMQ and MongoDB (if you haven't already).
+#### Step 2: Spin up everything
 
 ```bash
-$ docker start my-rabbit
-$ docker start my-mongo
+$ ./run.sh 
+
 ```
 
-#### In **Terminal #2**:
-
-Now run the command-side Spring Boot application via maven.
-
-```bash
-$ mvn spring-boot:run
-```
-After lots of logging output from Spring Boot, you should have a the command-side microservice ready and listening on port 9000.
-
-#### In **Terminal #3**:
-
-```bash
-$ mvn spring-boot:run
-```
-
-After lots of output from Spring Boot, you should have a fully booted query-side microservice listening on http port 8080.
-
+Assuming you've installed Docker already, executing these commands should install the necessary docker containers for MongoDB, RabbitMQ and all other microservices, and run them locally. 
 
 #### Issuing Commands & Queries with CURL
 To issue a command:
 
 ```bash
-$ curl (POST) http://localhost:8080/blogposts
+$ curl (POST) http://192.168.99.100:8080/blogposts 
+
 
 {
   "title": "Ivan",
@@ -147,7 +106,7 @@ $ curl (POST) http://localhost:8080/blogposts
 If you want to inspect the query-side yourself
 
 ```bash
-$ curl http://localhost:8081/blogposts
+$ curl http://192.168.99.100:8081/blogposts
 ```
 
 As HATEOAS is switched on, you should be offered other links which you can also traverse with curl.
