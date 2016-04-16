@@ -92,18 +92,8 @@ Assuming you've installed Docker already, executing these commands should instal
 To issue a command:
 
 ```bash
-$ curl (POST) http://192.168.99.100:8080/blogposts 
+$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.100:8080/blogposts 
 
-
-{
-  "title": "Ivan",
-  "rawContent": "Dugalic",
-  "publicSlug": "publicslug",
-  "draft": true,
-  "broadcast": true,
-  "category": "ENGINEERING",
-  "publishAt": "2016-12-23T14:30:00+00:00"
-}
 ```
 
 If you want to inspect the query-side yourself
