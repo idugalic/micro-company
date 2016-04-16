@@ -61,6 +61,8 @@ The command-side and the query-side both have REST API's which can be used to ac
 
 Read the [Axon documentation](http://www.axonframework.org/download/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).
 
+## Running instructions
+
 ### Prerequisite
 
 - [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -68,7 +70,7 @@ Read the [Axon documentation](http://www.axonframework.org/download/) for the fi
 - [Docker](https://www.docker.com/)
 
 
-#### Step 1: Clone and build the project
+### Step 1: Clone and build the project
 
 ```bash
 $ git clone https://github.com/idugalic/micro-company-config.git
@@ -76,16 +78,17 @@ $ cd microservice-company
 $ mvn clean install
 ```
 
-#### Step 2: Spin up everything
+### Step 2: Spin up everything (from Docker terminal)
 
 ```bash
+$ cd microservice-company/docker
 $ ./run.sh 
 
 ```
 
 Assuming you've installed Docker already, executing these commands should install the necessary docker containers for MongoDB, RabbitMQ and all other microservices, and run them locally. 
 
-#### Issuing Commands & Queries with CURL
+### Issuing Commands & Queries with CURL
 To issue a command:
 
 ```bash
@@ -111,9 +114,9 @@ $ curl http://192.168.99.100:8081/blogposts
 
 As HATEOAS is switched on, you should be offered other links which you can also traverse with curl.
 
-### About AXON
+## About AXON
 
-#### Commands 
+### Commands 
 
 Commands are messages that are sent to a system with an intent of doing something. They are sent to a Command Gateway, and then a Command Bus dispatches them to concrete Command Handlers. There can be some validation, or security check done in some Interceptors. The Command should be executed in some Unit of Work, which can be implemented over database transaction. Additionally Command processing may be distributed across many nodes with JGroups.
 
@@ -121,13 +124,13 @@ Axon provides interfaces, implementation and annotations for each one of those c
 
 There are some default Interceptors already written - like Interceptor for JSR 303 Bean Validation. If you need, you can easily write your Interceptor by implementing one simple interface.
 
-#### Events
+### Events
 
 As stated before, Commands are messages with intent of doing something. On the other hand, after this something is done, another messages can be produced as a result - Events. They represent a fact.
 
 In Axon, you just need to write your own Event classes. All the infrastructure that is responsible for handling them is there for you. In previous version (1.3) you had to extend base Event class - in current version (2.0) you don't have to do it anymore. Because of that, you can use your Events to integrate with other, non-Axon-based systems easily.
 
-#### Domain
+### Domain
 
 You should model your domain very carefully. This is the place, where the essential complexity lays. There are no frameworks that can help you with that. You should spend most of your time in that place.
 
@@ -137,13 +140,13 @@ In the end, if you are using Event Sourcing, you can use Abstract Annotated Aggr
 
 You should not change the state of the Aggregate in methods that are not reacting on Events. This is normal in Event Sourcing. Axon guards you not to violate this principle, so an inexperienced person won't break anything.
 
-#### Repositories
+### Repositories
 
 Aggregates are stored in Repositories. You should be able to load Aggregate by id, and save it back. It doesn't matter if you are using SQL database, flat files, or other noSQL solution. The persistance technique should be separated from the concept.
 
 Axon gives you this separation. You can choose to use classic JPA-based Repository, or Event Sourced Repository. It additionally adds possibility to use caching for performance tuning.
 
-#### Event Stores
+### Event Stores
 
 If you choose to use Event Sourcing, you need to store effectively your Events in some Event Store.
 
@@ -153,7 +156,7 @@ When your Aggregates live for a very long time, they can have a quite long histo
 
 Your Events definition may change over the time, so those Event Stores by default give you a possibility to easily write Event Upcasters. It also gives you a support for some advanced conflict resolution when it happens. 
 
-#### Event Bus 
+### Event Bus 
 
 In CQRS, after Events are generated, they need to be processed to update the query database. They are dispatched to Event Handlers. Those Event Handlers can be located on the same machine, or distributed in a cluster.
 
@@ -165,7 +168,7 @@ If you have distributed environment, Axon gives you support for Spring AMQP.
 
 Sometimes you need to replay historical Events, and Axon also gives you the support for doing that.
 
-#### Sagas
+### Sagas
 
 Sometimes your transactions need to live longer. You cannot always finish all the work you need in a single ACID transaction. That is where Sagas come into play. On the other hand, you can use Sagas as a Workflow, or State Machine.
 
@@ -173,7 +176,7 @@ In Axon, Saga is a special Event Handler that handles the long business transact
 
 If you need to take care about time, or deadlines, Axon provides Sagas with Schedulers that can handle time management. You can use Simple Scheduler that uses pure Java implementation, or Quartz Scheduler that is much more powerfull.
 
-#### Testing 
+### Testing 
 
 You should test the code that you write, right? You can do it in a normal way, with mocks, or something like this, but if you are using Event Sourcing, you have another possibility. You have a history of Events, then you execute some Command, and a bunch of Events is generated as a result. You can test exactly that way with Axon.
 
@@ -181,11 +184,11 @@ Axon gives you a Given When Then Fixture. As Given you specify historical set of
 
 Of course, you should also test your Sagas. There is a special Annotated Saga Test Fixture for that. As Given you specify a set of historical Event, as When you specify a single Event, and as Then you specify a desired behavior, or state change. If you need, you can also mock the time for testing time-related Sagas.
 
-#### Spring support 
+### Spring support 
 
 Those days, each mature framework in Java world should have some sort of Spring support. Each of Axon's components can be configured as a Spring bean. Axon provides also a namespace shortcut for almost everything it has, so the configuration is as short as it has to be.
 
-### References and further reading
+## References and further reading
 
   * http://www.infoq.com/news/2016/01/cqrs-axon-example
   * http://www.axonframework.org
