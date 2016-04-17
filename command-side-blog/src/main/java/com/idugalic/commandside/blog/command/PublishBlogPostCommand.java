@@ -4,19 +4,19 @@ import java.util.Date;
 
 import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
 
-public class PublishBlogPostCommand{
+import com.idugalic.common.command.AuditableAbstractCommand;
+import com.idugalic.common.model.AuditEntry;
+
+public class PublishBlogPostCommand extends AuditableAbstractCommand{
 
 	@TargetAggregateIdentifier
 	private String id;
 	private Date publishAt;
 
-	public PublishBlogPostCommand(String id, Date publishAt) {
+	public PublishBlogPostCommand(String id, AuditEntry auditEntry, Date publishAt) {
 		this.id = id;
 		this.publishAt = publishAt;
-	}
-	
-	public PublishBlogPostCommand() {
-		
+		this.setAuditEntry(auditEntry);
 	}
 
 	public String getId() {

@@ -11,8 +11,10 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.idugalic.common.blog.model.BlogPostCategory;
+import com.idugalic.common.command.AuditableAbstractCommand;
+import com.idugalic.common.model.AuditEntry;
 
-public class CreateBlogPostCommand {
+public class CreateBlogPostCommand extends AuditableAbstractCommand {
 
 	@JsonIgnore
 	@TargetAggregateIdentifier
@@ -35,9 +37,10 @@ public class CreateBlogPostCommand {
 	private Date publishAt;
 	@NotNull
 	private BlogPostCategory category;
+	private String authorId;
 
-	public CreateBlogPostCommand(String title, String rawContent, String publicSlug,
-			Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category) {
+	public CreateBlogPostCommand(AuditEntry auditEntry, String title, String rawContent, String publicSlug,
+			Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category, String authorId) {
 		this.id = UUID.randomUUID().toString();
 		this.title = title;
 		this.rawContent = rawContent;
@@ -46,11 +49,11 @@ public class CreateBlogPostCommand {
 		this.broadcast = broadcast;
 		this.publishAt = publishAt;
 		this.category = category;
+		this.authorId = authorId;
+		this.setAuditEntry(auditEntry);
 	}
 
-	public CreateBlogPostCommand() {
-		this.id = UUID.randomUUID().toString();
-	}
+	
 
 	public String getId() {
 		return id;
@@ -82,6 +85,10 @@ public class CreateBlogPostCommand {
 
 	public BlogPostCategory getCategory() {
 		return category;
+	}
+
+	public String getAuthorId() {
+		return authorId;
 	}
 
 }
