@@ -5,14 +5,12 @@ import java.util.UUID;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.idugalic.common.blog.model.BlogPostCategory;
-import com.idugalic.common.model.AuditEntry;
 
 public class CreateBlogPostCommand {
 
@@ -38,7 +36,7 @@ public class CreateBlogPostCommand {
 	@NotNull
 	private BlogPostCategory category;
 
-	public CreateBlogPostCommand(AuditEntry auditEntry, String title, String rawContent, String publicSlug,
+	public CreateBlogPostCommand(String title, String rawContent, String publicSlug,
 			Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category) {
 		this.id = UUID.randomUUID().toString();
 		this.title = title;
