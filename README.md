@@ -70,7 +70,7 @@ Read the [Axon documentation](http://www.axonframework.org/download/) for the fi
 - [Docker](https://www.docker.com/)
 
 
-### Step 1: Clone and build the project
+### Step 1: Clone and build the project (from Docker terminal)
 
 ```bash
 $ git clone https://github.com/idugalic/micro-company-config.git
