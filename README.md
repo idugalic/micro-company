@@ -182,6 +182,9 @@ Those days, each mature framework in Java world should have some sort of Spring 
 
 ## References and further reading
 
+  * http://martinfowler.com/articles/microservices.html
+  * http://www.slideshare.net/chris.e.richardson/developing-eventdriven-microservices-with-event-sourcing-and-cqrs-phillyete
   * http://www.infoq.com/news/2016/01/cqrs-axon-example
   * http://www.axonframework.org
   * http://eventuate.io
+  * http://pivotal.io/platform/migrating-to-cloud-native-application-architectures-ebook
