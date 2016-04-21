@@ -75,7 +75,7 @@ Read the [Axon documentation](http://www.axonframework.org/download/) for the fi
 ```bash
 $ git clone https://github.com/idugalic/micro-company-config.git
 $ cd microservice-company
-$ mvn clean install
+$ mvn clean install (will create Docker images also)
 ```
 
 ### Step 2: Spin up everything (from Docker terminal)

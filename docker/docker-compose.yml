@@ -2,6 +2,7 @@ configserver:
   image: idugalic/configserver
   ports:
    - "8888:8888"
+  restart: always
 registry:
   image: idugalic/registry
   ports:
@@ -10,12 +11,14 @@ registry:
    - configserver
   environment:
     HOST_IP: $DOCKER_HOST_IP
+  restart: always
 authserver:
   image: idugalic/authserver
   ports:
    - "9999:9999"
   links:
    - configserver
+  restart: always
 query-side-blog:
   image: idugalic/query-side-blog 
   ports:
@@ -26,6 +29,7 @@ query-side-blog:
    - my-mongo
    - my-rabbit
    - authserver
+  restart: always
 command-side-blog:
   image: idugalic/command-side-blog 
   ports:
@@ -36,12 +40,14 @@ command-side-blog:
    - my-mongo
    - my-rabbit
    - authserver
+  restart: always
 my-mongo:
   image: mongo:3.0.4
   hostname: mongodb
   command: mongod --smallfiles
   ports:
     - "27017:27017"
+  restart: always
     
 my-rabbit:
   image: rabbitmq:3-management
@@ -53,3 +59,4 @@ my-rabbit:
     RABBITMQ_DEFAULT_USER: test
     RABBITMQ_DEFAULT_PASS: password
     RABBITMQ_NODENAME: my-rabbit
+  restart: always
