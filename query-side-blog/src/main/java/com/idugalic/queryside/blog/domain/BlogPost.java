@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 import com.idugalic.common.blog.event.BlogPostCreatedEvent;
 import com.idugalic.common.blog.model.BlogPostCategory;
@@ -14,6 +15,8 @@ import com.idugalic.common.blog.model.BlogPostCategory;
 public class BlogPost {
 	@Id
 	private String id;
+	@Version
+	private Long version;
 	private String title;
 	private String rawContent;
 	private String renderContent;
@@ -30,10 +33,11 @@ public class BlogPost {
 	}
 	
 
-	public BlogPost(String id, String title, String rawContent, String renderContent, String publicSlug, Boolean draft,
+	public BlogPost(String id, Long version, String title, String rawContent, String renderContent, String publicSlug, Boolean draft,
 			Boolean broadcast, Date publishAt, BlogPostCategory category, String authorId) {
 		super();
 		this.id = id;
+		this.version = version;
 		this.title = title;
 		this.rawContent = rawContent;
 		this.renderContent = renderContent;
@@ -45,9 +49,10 @@ public class BlogPost {
 		this.authorId = authorId;
 	}
 	
-	public BlogPost(BlogPostCreatedEvent event) {
+	public BlogPost(BlogPostCreatedEvent event, Long version) {
 		super();
 		this.id = event.getId();
+		this.version = version;
 		this.title = event.getTitle();
 		this.rawContent = event.getRawContent();
 		//TODO change this
@@ -141,6 +146,16 @@ public class BlogPost {
 
 	public void setAuthorId(String authorId) {
 		this.authorId = authorId;
+	}
+
+
+	public Long getVersion() {
+		return version;
+	}
+
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 	
 	

@@ -16,6 +16,9 @@
 		<module>common-blog</module>
 		<module>command-side-blog</module>
 		<module>query-side-blog</module>
+		<module>common-project</module>
+		<module>command-side-project</module>
+		<module>query-side-project</module>
 		<module>authserver</module>
 		<module>registry</module>
 		<module>configserver</module>
