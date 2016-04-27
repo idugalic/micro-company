@@ -9,14 +9,12 @@ import javax.validation.constraints.NotNull;
 import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.idugalic.common.blog.model.BlogPostCategory;
 import com.idugalic.common.command.AuditableAbstractCommand;
 import com.idugalic.common.model.AuditEntry;
 
 public class CreateBlogPostCommand extends AuditableAbstractCommand {
 
-	@JsonIgnore
 	@TargetAggregateIdentifier
 	private String id;
 	@NotNull(message = "Title is mandatory")
@@ -41,6 +39,7 @@ public class CreateBlogPostCommand extends AuditableAbstractCommand {
 
 	public CreateBlogPostCommand(AuditEntry auditEntry, String title, String rawContent, String publicSlug,
 			Boolean draft, Boolean broadcast, Date publishAt, BlogPostCategory category, String authorId) {
+		super(auditEntry);
 		this.id = UUID.randomUUID().toString();
 		this.title = title;
 		this.rawContent = rawContent;
@@ -50,7 +49,6 @@ public class CreateBlogPostCommand extends AuditableAbstractCommand {
 		this.publishAt = publishAt;
 		this.category = category;
 		this.authorId = authorId;
-		this.setAuditEntry(auditEntry);
 	}
 
 	

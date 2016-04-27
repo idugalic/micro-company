@@ -54,8 +54,8 @@ public class BlogController {
 		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
 	}
 
-	@RequestMapping(value = "/{id}/publishcommand", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	@RequestMapping(value = "/{id}/publishcommand", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	public void publish(@PathVariable String id, @RequestBody PublishBlogPostRequest request, HttpServletResponse response, Principal principal) {
 		LOG.debug(PublishBlogPostRequest.class.getSimpleName() + " request received");
 		

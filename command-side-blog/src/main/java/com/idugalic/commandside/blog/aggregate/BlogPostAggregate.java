@@ -18,14 +18,8 @@ import com.idugalic.common.blog.model.BlogPostCategory;
 
 public class BlogPostAggregate extends AbstractAnnotatedAggregateRoot {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2043271011122572822L;
-
-
 	private static final Logger LOG = LoggerFactory.getLogger(BlogPostAggregate.class);
-	
 
 	/**
 	 * Aggregates that are managed by Axon must have a unique identifier.

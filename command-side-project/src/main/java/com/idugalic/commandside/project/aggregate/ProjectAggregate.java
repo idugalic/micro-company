@@ -1,5 +1,8 @@
 package com.idugalic.commandside.project.aggregate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
@@ -12,14 +15,8 @@ import com.idugalic.common.project.event.ProjectCreatedEvent;
 
 public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2043271011122572733L;
-
-
 	private static final Logger LOG = LoggerFactory.getLogger(ProjectAggregate.class);
-	
 
 	/**
 	 * Aggregates that are managed by Axon must have a unique identifier.
@@ -28,7 +25,12 @@ public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
 	 */
 	@AggregateIdentifier
 	private String id;
-	
+	private String name;
+	private String repoUrl;
+	private String siteUrl;
+	private String category;
+	private String description;
+	private List<ProjectRelease> releaseList = new ArrayList<ProjectRelease>();
 
 	/**
 	 * This default constructor is used by the Repository to construct a
@@ -52,10 +54,9 @@ public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
 	@CommandHandler
 	public ProjectAggregate(CreateProjectCommand command) {
 		LOG.debug("Command: 'CreateProjectCommand' received.");
-		LOG.debug("Queuing up a new ProjectCreatedEvent for blog post '{}'", command.getId());
-		apply(new ProjectCreatedEvent());
+		LOG.debug("Queuing up a new ProjectCreatedEvent for project '{}'", command.getId());
+		apply(new ProjectCreatedEvent(command.getId(),command.getAuditEntry(), command.getName(), command.getRepoUrl(), command.getSiteUrl(), command.getCategory(), command.getDescription()));
 	}
-
 
 	/**
 	 * This method is marked as an EventSourcingHandler and is therefore used by
@@ -69,10 +70,14 @@ public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
 	@EventSourcingHandler
 	public void on(ProjectCreatedEvent event) {
 		this.id = event.getId();
-
+		this.category = event.getCategory();
+		this.description = event.getDescription();
+		this.name = event.getName();
+		this.repoUrl = event.getRepoUrl();
+		this.siteUrl = event.getSiteUrl();
 		LOG.debug("Applied: 'ProjectCreatedEvent' [{}]", event.getId());
 	}
-
+	
 
 	public static Logger getLog() {
 		return LOG;
@@ -81,6 +86,31 @@ public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
 	public String getId() {
 		return id;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getRepoUrl() {
+		return repoUrl;
+	}
+
+	public String getSiteUrl() {
+		return siteUrl;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public List<ProjectRelease> getReleaseList() {
+		return releaseList;
+	}
+	
 	
 
 }

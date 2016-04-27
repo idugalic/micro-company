@@ -1,6 +1,7 @@
 package com.idugalic.queryside.project.handler;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
+import org.axonframework.eventhandling.annotation.SequenceNumber;
 import org.axonframework.eventhandling.replay.ReplayAware;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +21,9 @@ public class ProjectViewEventHandler implements ReplayAware {
     private ProjectRepository projectRepository;
 
     @EventHandler
-    public void handle(ProjectCreatedEvent event) {
+    public void handle(ProjectCreatedEvent event, @SequenceNumber Long version) {
         LOG.info("ProjectCreatedEvent: [{}] ", event.getId());
-        projectRepository.save(new Project(event));
+        projectRepository.save(new Project(event, version));
     }
    
     public void beforeReplay() {

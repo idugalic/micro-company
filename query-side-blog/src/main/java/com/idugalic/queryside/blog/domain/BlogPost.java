@@ -17,6 +17,7 @@ public class BlogPost {
 	private String id;
 	@Version
 	private Long version;
+	private Long aggregateVersion;
 	private String title;
 	private String rawContent;
 	private String renderContent;
@@ -29,15 +30,13 @@ public class BlogPost {
 	private String authorId;
 
 	public BlogPost() {
-		
 	}
 	
-
-	public BlogPost(String id, Long version, String title, String rawContent, String renderContent, String publicSlug, Boolean draft,
+	public BlogPost(String id, Long aggregateVersion, String title, String rawContent, String renderContent, String publicSlug, Boolean draft,
 			Boolean broadcast, Date publishAt, BlogPostCategory category, String authorId) {
 		super();
 		this.id = id;
-		this.version = version;
+		this.aggregateVersion = aggregateVersion;
 		this.title = title;
 		this.rawContent = rawContent;
 		this.renderContent = renderContent;
@@ -49,10 +48,10 @@ public class BlogPost {
 		this.authorId = authorId;
 	}
 	
-	public BlogPost(BlogPostCreatedEvent event, Long version) {
+	public BlogPost(BlogPostCreatedEvent event, Long aggregateVersion) {
 		super();
 		this.id = event.getId();
-		this.version = version;
+		this.aggregateVersion = aggregateVersion;
 		this.title = event.getTitle();
 		this.rawContent = event.getRawContent();
 		//TODO change this
@@ -150,14 +149,22 @@ public class BlogPost {
 
 
 	public Long getVersion() {
-		return version;
+		return aggregateVersion;
 	}
 
 
 	public void setVersion(Long version) {
-		this.version = version;
+		this.aggregateVersion = version;
+	}
+
+
+	public Long getAggregateVersion() {
+		return aggregateVersion;
+	}
+
+
+	public void setAggregateVersion(Long aggregateVersion) {
+		this.aggregateVersion = aggregateVersion;
 	}
 	
-	
-
 }

@@ -41,6 +41,28 @@ command-side-blog:
    - my-rabbit
    - authserver
   restart: always
+query-side-project:
+  image: idugalic/query-side-project 
+  ports:
+   - "8083:8083"
+  links:
+   - registry
+   - configserver
+   - my-mongo
+   - my-rabbit
+   - authserver
+  restart: always
+command-side-project:
+  image: idugalic/command-side-project 
+  ports:
+   - "8082:8082"
+  links:
+   - registry
+   - configserver
+   - my-mongo
+   - my-rabbit
+   - authserver
+  restart: always
 my-mongo:
   image: mongo:3.0.4
   hostname: mongodb

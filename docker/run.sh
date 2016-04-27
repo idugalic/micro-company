@@ -3,10 +3,11 @@
 set -e
 
 
-if [ -z "$DOCKER_HOST_IP" ] ; then
-  export DOCKER_HOST_IP=$(docker-machine ip default)
-  echo set DOCKER_HOST_IP $DOCKER_HOST_IP
-fi
+# Export the active docker machine IP
+ export DOCKER_HOST_IP=$(docker-machine ip $(docker-machine active))
+ # docker-machine doesn't exist in Linux, assign default ip if it's not set
+ DOCKER_HOST_IP=${DOCKER_HOST_IP:-0.0.0.0}
+ echo set DOCKER_HOST_IP $DOCKER_HOST_IP
 
 DOCKER_COMPOSE="docker-compose -p micro-company"
 

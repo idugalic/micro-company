@@ -44,10 +44,9 @@ public class ProjectController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void create(@RequestBody CreateProjectRequest request, HttpServletResponse response, Principal principal) {
 		LOG.debug(CreateProjectRequest.class.getSimpleName() + " request received");
-
-		CreateProjectCommand command = new CreateProjectCommand(createAudit());
+		CreateProjectCommand command = new CreateProjectCommand(createAudit(), request.getName(), request.getRepoUrl(), request.getSiteUrl(), request.getCategory(), request.getDescription());
 		commandGateway.sendAndWait(command);
-		LOG.debug(CreateProjectCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
+		LOG.debug(CreateProjectCommand.class.getSimpleName() + " sent to command gateway: Project [{}] ", command.getId());
 	}
 
 }
