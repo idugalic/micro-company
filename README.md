@@ -108,8 +108,7 @@ $ curl http://192.168.99.100:8081/blogposts
 ```
 
 ```bash
-curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.101:8082/projects
-If you want to inspect the query-side yourself
+$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.101:8082/projects
 
 ```
 
