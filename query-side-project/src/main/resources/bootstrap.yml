@@ -1,6 +1,6 @@
 spring:
   application:
-    name: query-side-blog
+    name: query-side-project
   cloud:
     config:
       enabled: true

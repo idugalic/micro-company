@@ -98,11 +98,25 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawConten
 
 ```
 
-If you want to inspect the query-side yourself
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.101:8080/blogposts/{id}/publishcommand
+
+```
 
 ```bash
 $ curl http://192.168.99.100:8081/blogposts
 ```
+
+```bash
+curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.101:8082/projects
+If you want to inspect the query-side yourself
+
+```
+
+```bash
+$ curl http://192.168.99.100:8083/projects
+```
+
 
 As HATEOAS is switched on, you should be offered other links which you can also traverse with curl.
 
