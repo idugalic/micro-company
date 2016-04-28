@@ -51,6 +51,7 @@ For issuing tokens and authorize requests.
 
 #### Configuration server
 The configuration service is a vital component of any microservices architecture. Based on the twelve-factor app methodology, configurations for your microservice applications should be stored in the environment and not in the project.
+Configuration is hosted here: https://github.com/idugalic/micro-company-config.git
 
 #### Gateway
 Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.
@@ -84,7 +85,7 @@ Read the [Axon documentation](http://www.axonframework.org/download/) for the fi
 ### Step 1: Clone and build the project (from Docker terminal)
 
 ```bash
-$ git clone https://github.com/idugalic/micro-company-config.git
+$ git clone https://github.com/idugalic/micro-company.git
 $ cd microservice-company
 $ mvn clean install (will create Docker images also)
 ```
