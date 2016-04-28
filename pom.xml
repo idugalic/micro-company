@@ -22,6 +22,7 @@
 		<module>authserver</module>
 		<module>registry</module>
 		<module>configserver</module>
+		<module>circuit-breaker</module>
 	</modules>
 
 	<properties>

@@ -19,6 +19,14 @@ authserver:
   links:
    - configserver
   restart: always
+circuit-breaker:
+  image: idugalic/circuit-breaker 
+  ports:
+   - "6161:6161"
+  links:
+   - registry
+   - configserver
+  restart: always
 query-side-blog:
   image: idugalic/query-side-blog 
   ports:
