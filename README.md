@@ -10,7 +10,7 @@ Companies must embrace a new way of projecting themselves in the form of secure,
 
 Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
 
-### Patterns and techniques used in this architecture:
+### Patterns and techniques:
 
 1. Microservices
 2. Command and Query Responsibility Separation (CQRS)
@@ -18,8 +18,6 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 4. DDD - Agregates
 
 ### Technologies
-
-It leverages the following technologies:
 
 - [Spring Boot](http://projects.spring.io/spring-boot/) (v1.2.6)
 - [Spring Cloud](http://projects.spring.io/spring-cloud/)
@@ -39,12 +37,24 @@ It leverages the following technologies:
 
 ### Modules
 
-1. BlogMicroservice (command-side and query-side)
-2. ProductMicroservice (command-side and query-side)
-3. CustomerMicroservice (command-side and query-side)
-4. Authorization server
-5. Configuration server
-6. Gateway (Proxy)
+#### BlogMicroservice
+A Blog service is used for manging and quering the posts of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
+
+#### ProjectMicroservice
+A Project service is used for manging and quering the projects of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
+
+#### CustomerMicroservice
+A Customer service is used for manging and quering customers of yours. It is split into a *command-side* microservice application and a *query-side* microservice application.
+
+#### Authorization server (Oauth2)
+For issuing tokens and authorize requests.
+
+#### Configuration server
+The configuration service is a vital component of any microservices architecture. Based on the twelve-factor app methodology, configurations for your microservice applications should be stored in the environment and not in the project.
+Configuration is hosted here: https://github.com/idugalic/micro-company-config.git
+
+#### Gateway
+Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.
 
 ## How it works
 
@@ -75,7 +85,7 @@ Read the [Axon documentation](http://www.axonframework.org/download/) for the fi
 ### Step 1: Clone and build the project (from Docker terminal)
 
 ```bash
-$ git clone https://github.com/idugalic/micro-company-config.git
+$ git clone https://github.com/idugalic/micro-company.git
 $ cd microservice-company
 $ mvn clean install (will create Docker images also)
 ```
@@ -108,8 +118,7 @@ $ curl http://192.168.99.100:8081/blogposts
 ```
 
 ```bash
-curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.101:8082/projects
-If you want to inspect the query-side yourself
+$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.101:8082/projects
 
 ```
 
@@ -202,3 +211,4 @@ Those days, each mature framework in Java world should have some sort of Spring 
   * http://www.axonframework.org
   * http://eventuate.io
   * http://pivotal.io/platform/migrating-to-cloud-native-application-architectures-ebook
+  * https://programmaticponderings.wordpress.com/2016/02/15/diving-deeper-into-getting-started-with-spring-cloud/
