@@ -211,3 +211,4 @@ Those days, each mature framework in Java world should have some sort of Spring 
   * http://www.axonframework.org
   * http://eventuate.io
   * http://pivotal.io/platform/migrating-to-cloud-native-application-architectures-ebook
+  * https://programmaticponderings.wordpress.com/2016/02/15/diving-deeper-into-getting-started-with-spring-cloud/
