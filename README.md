@@ -106,7 +106,7 @@ Assuming you've installed Docker already, executing these commands should instal
 ### Issuing Commands & Queries with CURL
 Please note that my current docker host IP is 192.168.99.103
 
-To issue a command:
+#### Create Blog post
 
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:8080/blogposts 
@@ -118,6 +118,7 @@ or on gateway:
 $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:8080/command/blog/blogposts 
 
 ```
+#### Publish Blog post
 
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:8080/blogposts/{id}/publishcommand
@@ -129,7 +130,7 @@ or on gateway:
 $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:9000/command/blog/blogposts/{id}/publishcommand
 
 ```
-
+#### Query Blog posts
 ```bash
 $ curl http://192.168.99.103:8081/blogposts
 ```
@@ -139,6 +140,7 @@ or on gateway:
 $ curl http://192.168.99.103:9000/query/blog/blogposts
 ```
 
+#### Create Project
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.103:8082/projects
 
@@ -150,7 +152,7 @@ or on gateway:
 $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.103:9000/command/project/projects
 
 ```
-
+#### Query Projects
 ```bash
 $ curl http://192.168.99.103:8083/projects
 ```
