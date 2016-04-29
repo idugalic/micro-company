@@ -24,6 +24,7 @@
 		<module>configserver</module>
 		<module>circuit-breaker</module>
 		<module>api-gateway</module>
+		<module>adminserver</module>
 	</modules>
 
 	<properties>

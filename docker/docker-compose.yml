@@ -19,6 +19,14 @@ authserver:
   links:
    - configserver
   restart: always
+adminserver:
+  image: idugalic/adminserver
+  ports:
+   - "9998:9998"
+  links:
+   - configserver
+   - registry
+  restart: always
 circuit-breaker:
   image: idugalic/circuit-breaker 
   ports:
