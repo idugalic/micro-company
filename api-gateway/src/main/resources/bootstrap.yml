@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    config:
+      uri: ${vcap.services.config-server.credentials.uri:http://localhost:8888}
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+     config:
+        uri: http://configserver:8888
+        fail-fast: true

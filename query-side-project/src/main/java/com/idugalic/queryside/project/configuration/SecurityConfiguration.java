@@ -12,7 +12,7 @@ class SecurityConfiguration extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.requestMatchers().and().authorizeRequests().antMatchers("/blogposts/**").permitAll();
+		http.requestMatchers().and().authorizeRequests().antMatchers("/projects/**").permitAll();
 
 	}
 

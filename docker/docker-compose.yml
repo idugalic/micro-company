@@ -71,6 +71,15 @@ command-side-project:
    - my-rabbit
    - authserver
   restart: always
+api-gateway:
+  image: idugalic/api-gateway 
+  ports:
+   - "9000:9000"
+  links:
+   - registry
+   - configserver
+   - authserver
+  restart: always
 my-mongo:
   image: mongo:3.0.4
   hostname: mongodb

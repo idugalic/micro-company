@@ -56,6 +56,9 @@ Configuration is hosted here: https://github.com/idugalic/micro-company-config.g
 #### Gateway
 Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.
 
+#### Circuit Breaker - Histrix (Dashboard)
+Netflix implementation of circuit breaker pattern.
+
 ## How it works
 
 The domain is literally split into a *command-side* microservice application and a *query-side* microservice application (this is CQRS in its most literal form).

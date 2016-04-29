@@ -23,6 +23,7 @@
 		<module>registry</module>
 		<module>configserver</module>
 		<module>circuit-breaker</module>
+		<module>api-gateway</module>
 	</modules>
 
 	<properties>
