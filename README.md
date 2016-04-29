@@ -53,7 +53,7 @@ For issuing tokens and authorize requests.
 The configuration service is a vital component of any microservices architecture. Based on the twelve-factor app methodology, configurations for your microservice applications should be stored in the environment and not in the project.
 Configuration is hosted here: https://github.com/idugalic/micro-company-config.git
 
-#### Gateway
+#### API Gateway
 Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.
 
 #### Circuit Breaker - Histrix (Dashboard)
@@ -104,31 +104,61 @@ $ ./run.sh
 Assuming you've installed Docker already, executing these commands should install the necessary docker containers for MongoDB, RabbitMQ and all other microservices, and run them locally. 
 
 ### Issuing Commands & Queries with CURL
+Please note that my current docker host IP is 192.168.99.103
+
 To issue a command:
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.100:8080/blogposts 
+$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:8080/blogposts 
+
+```
+or on gateway:
+
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:8080/command/blog/blogposts 
 
 ```
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.101:8080/blogposts/{id}/publishcommand
+$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:8080/blogposts/{id}/publishcommand
+
+```
+or on gateway:
+
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:9000/command/blog/blogposts/{id}/publishcommand
 
 ```
 
 ```bash
-$ curl http://192.168.99.100:8081/blogposts
+$ curl http://192.168.99.103:8081/blogposts
+```
+or on gateway:
+
+```bash
+$ curl http://192.168.99.103:9000/query/blog/blogposts
 ```
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.101:8082/projects
+$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.103:8082/projects
+
+```
+
+or on gateway:
+
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.103:9000/command/project/projects
 
 ```
 
 ```bash
-$ curl http://192.168.99.100:8083/projects
+$ curl http://192.168.99.103:8083/projects
 ```
-
+ or on gateway:
+ 
+ ```bash
+$ curl http://192.168.99.103:9000/query/project/projects
+```
 
 As HATEOAS is switched on, you should be offered other links which you can also traverse with curl.
 
