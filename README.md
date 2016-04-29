@@ -46,6 +46,9 @@ A Project service is used for manging and quering the projects of your company. 
 #### CustomerMicroservice
 A Customer service is used for manging and quering customers of yours. It is split into a *command-side* microservice application and a *query-side* microservice application.
 
+#### (Service) Registry
+Netflix Eureka is a service registry. It provides a REST API for service instance registration management and for querying available instances. Netflix Ribbon is an IPC client that works with Eureka to load balance(client side) requests across the available service instances.
+
 #### Authorization server (Oauth2)
 For issuing tokens and authorize requests.
 
