@@ -10,6 +10,9 @@ Companies must embrace a new way of projecting themselves in the form of secure,
 
 Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
 
+<img class="img-responsive" src="micro-company.png">
+
+
 ### Patterns and techniques:
 
 1. Microservices
