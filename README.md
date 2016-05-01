@@ -1,4 +1,4 @@
-# microservice-company
+# Micro Company application
 
 Digital experiences are becoming essential to every business. Yet few firms have the organizational structure or technology needed to make good on their promise. In fact, research shows that the No. 1 reason for project failure is businesses hardwiring point integrations between individual customer-facing experiences and backend systems. It restricts agility and your ability to innovate. 
 
