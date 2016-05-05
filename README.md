@@ -8,6 +8,14 @@ Companies must embrace a new way of projecting themselves in the form of secure,
 
 When working with cloud-native software, you need the trio of microservices, DevOps, and continuous delivery. Microservices is the architecture, DevOps—specifically CALMS (collaboration, automation, learning, measuring, and sharing)—is the culture, and continuous delivery is the process. All three aspects are required to achieve consistent throughput with low risk in your software-delivery process.
 
+Please note that this repository is going to be transformed into 'organization' repo on next step, containing other microservices as separate respositories. We want to be more inline with '12-factor app' (code base, build, release run,...) and to automate CI/CD with 
+ * Jenkins (DSL)
+ * Nexus
+ * Sonar
+ * Docker
+ 
+It will be more a microservices(digitalization) platform then an aplication. Stay tuned!
+
 
 ## Architecture
 
@@ -254,8 +262,9 @@ Those days, each mature framework in Java world should have some sort of Spring 
 
   * http://martinfowler.com/articles/microservices.html
   * http://www.slideshare.net/chris.e.richardson/developing-eventdriven-microservices-with-event-sourcing-and-cqrs-phillyete
+  * http://12factor.net/
+  * http://pivotal.io/platform/migrating-to-cloud-native-application-architectures-ebook
+  * http://pivotal.io/beyond-the-twelve-factor-app
   * http://www.infoq.com/news/2016/01/cqrs-axon-example
   * http://www.axonframework.org
   * http://eventuate.io
-  * http://pivotal.io/platform/migrating-to-cloud-native-application-architectures-ebook
-  * https://programmaticponderings.wordpress.com/2016/02/15/diving-deeper-into-getting-started-with-spring-cloud/
