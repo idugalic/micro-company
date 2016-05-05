@@ -4,7 +4,10 @@ Digital experiences are becoming essential to every business. Yet few firms have
 
 Strategic application architects need to establish consistent, holistic approaches that enable the flexibility, scalability and versatility that digital business requires. Organizations that delay or fail to implement these new approaches risk falling seriously behind. 
 
-Companies must embrace a new way of projecting themselves in the form of secure, easy-to-consume unified APIs that are easily integrated into a wide range of digital touchpoints. 
+Companies must embrace a new way of projecting themselves in the form of secure, easy-to-consume unified APIs that are easily integrated into a wide range of digital touchpoints.
+
+When working with cloud-native software, you need the trio of microservices, DevOps, and continuous delivery. Microservices is the architecture, DevOps—specifically CALMS (collaboration, automation, learning, measuring, and sharing)—is the culture, and continuous delivery is the process. All three aspects are required to achieve consistent throughput with low risk in your software-delivery process.
+
 
 ## Architecture
 
