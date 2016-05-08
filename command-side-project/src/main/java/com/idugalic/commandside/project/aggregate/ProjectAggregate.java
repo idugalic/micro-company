@@ -11,11 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.idugalic.commandside.project.command.CreateProjectCommand;
+import com.idugalic.commandside.project.command.UpdateProjectCommand;
 import com.idugalic.common.project.event.ProjectCreatedEvent;
+import com.idugalic.common.project.event.ProjectUpdatedEvent;
 
 public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
 
-	private static final long serialVersionUID = 2043271011122572733L;
+	private static final long serialVersionUID = 2043271011232572733L;
 	private static final Logger LOG = LoggerFactory.getLogger(ProjectAggregate.class);
 
 	/**
@@ -57,6 +59,15 @@ public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
 		LOG.debug("Queuing up a new ProjectCreatedEvent for project '{}'", command.getId());
 		apply(new ProjectCreatedEvent(command.getId(),command.getAuditEntry(), command.getName(), command.getRepoUrl(), command.getSiteUrl(), command.getCategory(), command.getDescription()));
 	}
+	
+	@CommandHandler
+	public void updateProject(UpdateProjectCommand command) {
+		LOG.debug("Command: 'UpdateProjectCommand' received.");
+	    LOG.debug("Queuing up a new ProjectUpdatedEvent for project '{}'", command.getId());
+		apply(new ProjectUpdatedEvent(command.getId(),command.getAuditEntry(), command.getName(), command.getRepoUrl(), command.getSiteUrl(), command.getDescription()));
+
+		
+	}
 
 	/**
 	 * This method is marked as an EventSourcingHandler and is therefore used by
@@ -76,6 +87,15 @@ public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
 		this.repoUrl = event.getRepoUrl();
 		this.siteUrl = event.getSiteUrl();
 		LOG.debug("Applied: 'ProjectCreatedEvent' [{}]", event.getId());
+	}
+	
+	@EventSourcingHandler
+	public void on(ProjectUpdatedEvent event) {
+		this.description = event.getDescription();
+		this.name = event.getName();
+		this.repoUrl = event.getRepoUrl();
+		this.siteUrl = event.getSiteUrl();
+		LOG.debug("Applied: 'ProjectUpdatedEvent' [{}]", event.getId());
 	}
 	
 
