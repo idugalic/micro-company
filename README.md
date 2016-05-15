@@ -182,7 +182,9 @@ $ curl http://192.168.99.103:8083/projects
 $ curl http://192.168.99.103:9000/query/project/projects
 ```
 
-As HATEOAS is switched on, you should be offered other links which you can also traverse with curl.
+#### WebSocket on the gateway
+
+All the events will be sent to browser via WebSocket and displayed on http://192.168.99.103:9000/socket/index.html
 
 ## About AXON
 
