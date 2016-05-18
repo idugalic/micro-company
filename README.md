@@ -1,21 +1,12 @@
 # Micro Company application
 
-Digital experiences are becoming essential to every business. Yet few firms have the organizational structure or technology needed to make good on their promise. In fact, research shows that the No. 1 reason for project failure is businesses hardwiring point integrations between individual customer-facing experiences and backend systems. It restricts agility and your ability to innovate. 
+Digital experiences are becoming essential to every business. 
 
 Strategic application architects need to establish consistent, holistic approaches that enable the flexibility, scalability and versatility that digital business requires. Organizations that delay or fail to implement these new approaches risk falling seriously behind. 
 
 Companies must embrace a new way of projecting themselves in the form of secure, easy-to-consume unified APIs that are easily integrated into a wide range of digital touchpoints.
 
-When working with cloud-native software, you need the trio of microservices, DevOps, and continuous delivery. Microservices is the architecture, DevOps—specifically CALMS (collaboration, automation, learning, measuring, and sharing)—is the culture, and continuous delivery is the process. All three aspects are required to achieve consistent throughput with low risk in your software-delivery process.
-
-Please note that this repository is going to be transformed into 'organization' repo on next step, containing other microservices as separate respositories. We want to be more inline with '12-factor app' (code base, build, release run,...) and to automate CI/CD with 
- * Jenkins (DSL)
- * Nexus
- * Sonar
- * Docker
- 
-It will be more a microservices(digitalization) platform then an aplication. Stay tuned!
-
+The project is intended to demonstrate end-to-end best practices for building a Netflix-like microservice architecture using Spring Cloud.
 
 ## Architecture
 
