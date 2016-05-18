@@ -41,7 +41,7 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 4. Reliable auditing for all updates
 
 
-## How it works
+### How it works
 
 The domain is literally split into a *command-side* microservice application and a *query-side* microservice application (this is CQRS in its most literal form).
 
