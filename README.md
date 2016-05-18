@@ -173,7 +173,7 @@ $ curl http://192.168.99.103:9000/query/project/projects
 
 #### WebSocket on the gateway
 
-All the events will be sent to browser via WebSocket and displayed on http://192.168.99.103:9000/socket/index.html
+All events will be sent to browser via WebSocket, and displayed on http://192.168.99.103:9000/socket/index.html
 
 ## About AXON
 
