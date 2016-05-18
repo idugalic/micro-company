@@ -40,6 +40,21 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 3. Faster and more scalable querying by using materialized views
 4. Reliable auditing for all updates
 
+
+## How it works
+
+The domain is literally split into a *command-side* microservice application and a *query-side* microservice application (this is CQRS in its most literal form).
+
+Communication between the two microservices is `event-driven` and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).
+
+The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
+
+The **query-side** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.
+
+The command-side and the query-side both have REST API's which can be used to access their capabilities.
+
+Read the [Axon documentation](http://www.axonframework.org/download/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).
+
 ### Modules
 
 #### BlogMicroservice
@@ -69,21 +84,6 @@ Implementation of an API gateway that is the single entry point for all clients.
 
 #### Circuit Breaker - Histrix (Dashboard)
 Netflix implementation of circuit breaker pattern.
-
-## How it works
-
-The domain is literally split into a *command-side* microservice application and a *query-side* microservice application (this is CQRS in its most literal form).
-
-Communication between the two microservices is `event-driven` and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).
-
-The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
-
-The **query-side** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.
-
-The command-side and the query-side both have REST API's which can be used to access their capabilities.
-
-
-Read the [Axon documentation](http://www.axonframework.org/download/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).
 
 ## Running instructions
 
