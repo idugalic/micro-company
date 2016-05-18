@@ -6,7 +6,7 @@ Strategic application architects need to establish consistent, holistic approach
 
 Companies must embrace a new way of projecting themselves in the form of secure, easy-to-consume unified APIs that are easily integrated into a wide range of digital touchpoints.
 
-The project is intended to demonstrate end-to-end best practices for building a Netflix-like microservice architecture using Spring Cloud.
+**This project is intended to demonstrate end-to-end best practices for building a Netflix-like microservice architecture using Spring Cloud.**
 
 ## Architecture
 
