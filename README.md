@@ -74,8 +74,6 @@ Netflix implementation of circuit breaker pattern.
 
 The domain is literally split into a *command-side* microservice application and a *query-side* microservice application (this is CQRS in its most literal form).
 
-Both microservices use spring-boot.
-
 Communication between the two microservices is `event-driven` and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).
 
 The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
