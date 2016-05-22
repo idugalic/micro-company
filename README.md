@@ -6,11 +6,20 @@ Strategic application architects need to establish consistent, holistic approach
 
 Companies must embrace a new way of projecting themselves in the form of secure, easy-to-consume unified APIs that are easily integrated into a wide range of digital touchpoints.
 
-**This project is intended to demonstrate end-to-end best practices for building a Netflix-like microservice architecture using Spring Cloud.**
+**This project is intended to demonstrate end-to-end best practices for building a cloud native, microservice architecture using Spring Cloud.**
+
+## What is cloud native
+
+To understand “cloud native,” we must first understand “cloud.”
+In the context of this application, **cloud refers to Platform as a Service**. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS).
+
+A **cloud-native application** is an application that has been designed and implemented to run on a Platform-as-a-Service installation and to embrace horizontal elastic scaling.
 
 ## Architecture
 
-Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
+The **microservice architectural style** is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API or via events (event-driven).
+
+**Microservices** enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
 
 <img class="img-responsive" src="micro-company.png">
 
