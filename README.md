@@ -1,25 +1,25 @@
 # Micro Company application
 
-Digital experiences are becoming essential to every business. Yet few firms have the organizational structure or technology needed to make good on their promise. In fact, research shows that the No. 1 reason for project failure is businesses hardwiring point integrations between individual customer-facing experiences and backend systems. It restricts agility and your ability to innovate. 
+Digital experiences are becoming essential to every business. 
 
 Strategic application architects need to establish consistent, holistic approaches that enable the flexibility, scalability and versatility that digital business requires. Organizations that delay or fail to implement these new approaches risk falling seriously behind. 
 
 Companies must embrace a new way of projecting themselves in the form of secure, easy-to-consume unified APIs that are easily integrated into a wide range of digital touchpoints.
 
-When working with cloud-native software, you need the trio of microservices, DevOps, and continuous delivery. Microservices is the architecture, DevOps—specifically CALMS (collaboration, automation, learning, measuring, and sharing)—is the culture, and continuous delivery is the process. All three aspects are required to achieve consistent throughput with low risk in your software-delivery process.
+**This project is intended to demonstrate end-to-end best practices for building a cloud native, microservice architecture using Spring Cloud.**
 
-Please note that this repository is going to be transformed into 'organization' repo on next step, containing other microservices as separate respositories. We want to be more inline with '12-factor app' (code base, build, release run,...) and to automate CI/CD with 
- * Jenkins (DSL)
- * Nexus
- * Sonar
- * Docker
- 
-It will be more a microservices(digitalization) platform then an aplication. Stay tuned!
+## What is cloud native
 
+To understand “cloud native,” we must first understand “cloud.”
+In the context of this application, **cloud refers to Platform as a Service**. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS).
+
+A **cloud-native application** is an application that has been designed and implemented to run on a Platform-as-a-Service installation and to embrace horizontal elastic scaling.
 
 ## Architecture
 
-Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
+The **microservice architectural style** is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API or via events (event-driven).
+
+**Microservices** enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
 
 <img class="img-responsive" src="micro-company.png">
 
@@ -48,6 +48,21 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 2. Automatic publishing of events whenever data changes
 3. Faster and more scalable querying by using materialized views
 4. Reliable auditing for all updates
+
+
+### How it works
+
+The domain is literally split into a *command-side* microservice application and a *query-side* microservice application (this is CQRS in its most literal form).
+
+Communication between the two microservices is `event-driven` and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).
+
+The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
+
+The **query-side** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.
+
+The command-side and the query-side both have REST API's which can be used to access their capabilities.
+
+Read the [Axon documentation](http://www.axonframework.org/download/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).
 
 ### Modules
 
@@ -78,23 +93,6 @@ Implementation of an API gateway that is the single entry point for all clients.
 
 #### Circuit Breaker - Histrix (Dashboard)
 Netflix implementation of circuit breaker pattern.
-
-## How it works
-
-The domain is literally split into a *command-side* microservice application and a *query-side* microservice application (this is CQRS in its most literal form).
-
-Both microservices use spring-boot.
-
-Communication between the two microservices is `event-driven` and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).
-
-The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
-
-The **query-side** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.
-
-The command-side and the query-side both have REST API's which can be used to access their capabilities.
-
-
-Read the [Axon documentation](http://www.axonframework.org/download/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).
 
 ## Running instructions
 
@@ -192,6 +190,7 @@ $ curl http://127.0.0.1:9000/query/project/projects
 #### WebSocket on the gateway
 
 All the events will be sent to browser via WebSocket and displayed on http://127.0.0.1:9000/socket/index.html
+
 
 ## About AXON
 
