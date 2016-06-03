@@ -87,6 +87,8 @@ api-gateway:
    - registry
    - configserver
    - authserver
+   - my-mongo
+   - my-rabbit
   restart: always
 my-mongo:
   image: mongo:3.0.4

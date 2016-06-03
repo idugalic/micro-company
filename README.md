@@ -110,7 +110,12 @@ Read the [Axon documentation](http://www.axonframework.org/download/) for the fi
 ```bash
 $ git clone https://github.com/idugalic/micro-company.git
 $ cd microservice-company
-$ mvn clean install (will create Docker images also)
+$ mvn clean install
+```
+I had some problems on Mac with docker beta and maven plugin. This should work:
+
+```bash
+$ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 ```
 
 ### Step 2: Spin up everything (from Docker terminal)
@@ -123,68 +128,70 @@ $ ./run.sh
 
 Assuming you've installed Docker already, executing these commands should install the necessary docker containers for MongoDB, RabbitMQ and all other microservices, and run them locally. 
 
+Please adjust your run.sh (DOCKER_HOST_IP=127.0.0.1)
+
 ### Issuing Commands & Queries with CURL
-Please note that my current docker host IP is 192.168.99.103
+Please note that my current docker host IP is 127.0.0.1
 
 #### Create Blog post
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:8080/blogposts 
+$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogposts 
 
 ```
 or on gateway:
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:8080/command/blog/blogposts 
+$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogposts 
 
 ```
 #### Publish Blog post
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:8080/blogposts/{id}/publishcommand
+$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogposts/{id}/publishcommand
 
 ```
 or on gateway:
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://192.168.99.103:9000/command/blog/blogposts/{id}/publishcommand
+$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogposts/{id}/publishcommand
 
 ```
 #### Query Blog posts
 ```bash
-$ curl http://192.168.99.103:8081/blogposts
+$ curl http://127.0.0.1:8081/blogposts
 ```
 or on gateway:
 
 ```bash
-$ curl http://192.168.99.103:9000/query/blog/blogposts
+$ curl http://127.0.0.1:9000/query/blog/blogposts
 ```
 
 #### Create Project
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.103:8082/projects
+$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8082/projects
 
 ```
 
 or on gateway:
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://192.168.99.103:9000/command/project/projects
+$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:9000/command/project/projects
 
 ```
 #### Query Projects
 ```bash
-$ curl http://192.168.99.103:8083/projects
+$ curl http://127.0.0.1:8083/projects
 ```
  or on gateway:
  
  ```bash
-$ curl http://192.168.99.103:9000/query/project/projects
+$ curl http://127.0.0.1:9000/query/project/projects
 ```
 
 #### WebSocket on the gateway
 
-All the events will be sent to browser via WebSocket and displayed on http://192.168.99.103:9000/socket/index.html
+All the events will be sent to browser via WebSocket and displayed on http://127.0.0.1:9000/socket/index.html
 
 ## About AXON
 
