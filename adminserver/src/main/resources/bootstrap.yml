@@ -3,6 +3,7 @@ spring:
     name: adminserver
   cloud:
     config:
+      label: swarm
       enabled: true
       uri: ${vcap.services.config-server.credentials.uri:http://localhost:8888}
       

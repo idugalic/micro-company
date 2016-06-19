@@ -7,6 +7,7 @@ spring:
       server:
         git:
           uri: https://github.com/idugalic/micro-company-config.git
+          default-label: swarm
     
 security:
   user:
