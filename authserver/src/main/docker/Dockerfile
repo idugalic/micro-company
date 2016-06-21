@@ -1,6 +1,8 @@
 FROM java:8
 VOLUME /tmp
 ADD *.jar /app.jar
+ADD wait-for-it.sh /wait-for-it.sh
 RUN bash -c 'touch /app.jar'
-EXPOSE 9000
-ENTRYPOINT ["java","-Dspring.profiles.active=docker","-jar","/app.jar"]
+RUN bash -c 'chmod 777 /wait-for-it.sh'
+EXPOSE 9999
+CMD ["java","-Dspring.profiles.active=docker","-jar","/app.jar"]

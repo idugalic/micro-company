@@ -104,7 +104,9 @@ Netflix implementation of circuit breaker pattern.
 
 
 ### Step 1: Clone and build the project (from Docker terminal)
-
+Install will trigger docker images creation. 
+Please note that images are available on the docker hub, and steps 2.1 and 2.2 should work without docker images on the host.
+ 
 ```bash
 $ git clone https://github.com/idugalic/micro-company.git
 $ cd microservice-company
@@ -116,17 +118,26 @@ I had some problems on Mac with docker beta and maven plugin. This should work:
 $ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 ```
 
-### Step 2: Spin up everything (from Docker terminal)
+### Step 2.1 : Run on local host machine
 
 ```bash
 $ cd microservice-company/docker
-$ ./run.sh 
+$ docker-compose up -d 
+```
+### Step 2.2 : Run on local Swarm cluster using Consule 
 
+```bash
+$ cd microservice-company/docker
+$ ./swarm-local.sh
+```
+Connect to the Swarm cluster 
+
+```bash
+$ eval "$(docker-machine env --swarm swl-demo0)"
+$ docker info
+$ docker-compose up -d 
 ```
 
-Assuming you've installed Docker already, executing these commands should install the necessary docker containers for MongoDB, RabbitMQ and all other microservices, and run them locally. 
-
-Please adjust your run.sh (DOCKER_HOST_IP=127.0.0.1)
 
 ### Issuing Commands & Queries with CURL
 Please note that my current docker host IP is 127.0.0.1
@@ -275,4 +286,4 @@ Those days, each mature framework in Java world should have some sort of Spring 
   * http://pivotal.io/beyond-the-twelve-factor-app
   * http://www.infoq.com/news/2016/01/cqrs-axon-example
   * http://www.axonframework.org
-  * http://eventuate.io
+  * http://blog.arungupta.me/docker-swarm-cluster-using-consul/
