@@ -1,0 +1,262 @@
+{
+  "services": {
+    "adminserver": {
+      "Command": [
+        "./wait-for-it.sh", 
+        "configserver:8888", 
+        "-t", 
+        "60", 
+        "--", 
+        "java", 
+        "-Dspring.profiles.active=docker", 
+        "-jar", 
+        "/app.jar"
+      ], 
+      "Image": "idugalic/adminserver@sha256:029a71706ae90fe9f069295bb00fed5e21a8e4457d94a25207ecaa2ec1984253", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 9998, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "api-gateway": {
+      "Command": [
+        "./wait-for-it.sh", 
+        "configserver:8888", 
+        "-t", 
+        "60", 
+        "--", 
+        "java", 
+        "-Dspring.profiles.active=docker", 
+        "-jar", 
+        "/app.jar"
+      ], 
+      "Image": "idugalic/api-gateway@sha256:04ab8ac0a97b3aac1fca8e3be37da9963a890a361e961e81b7e2447483e618e0", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 9000, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "authserver": {
+      "Command": [
+        "./wait-for-it.sh", 
+        "configserver:8888", 
+        "-t", 
+        "60", 
+        "--", 
+        "java", 
+        "-Dspring.profiles.active=docker", 
+        "-jar", 
+        "/app.jar"
+      ], 
+      "Image": "idugalic/authserver@sha256:18857ed4ae3fe45ac9b9983c55629247152d3c7b9518a6d31150a477d428ef00", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 9999, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "circuit-breaker": {
+      "Command": [
+        "./wait-for-it.sh", 
+        "configserver:8888", 
+        "-t", 
+        "60", 
+        "--", 
+        "java", 
+        "-Dspring.profiles.active=docker", 
+        "-jar", 
+        "/app.jar"
+      ], 
+      "Image": "idugalic/circuit-breaker@sha256:8e158ca68cf81a7fea0251de38f6ecb3a7cff8934cf3081046606674aadea959", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 6161, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "command-side-blog": {
+      "Command": [
+        "./wait-for-it.sh", 
+        "configserver:8888", 
+        "-t", 
+        "60", 
+        "--", 
+        "java", 
+        "-Dspring.profiles.active=docker", 
+        "-jar", 
+        "/app.jar"
+      ], 
+      "Image": "idugalic/command-side-blog@sha256:b708c10dcf2e87b7001cb88ada7c588b74846e2d57c2c72f2a860e5a06a59810", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 8080, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "command-side-project": {
+      "Command": [
+        "./wait-for-it.sh", 
+        "configserver:8888", 
+        "-t", 
+        "60", 
+        "--", 
+        "java", 
+        "-Dspring.profiles.active=docker", 
+        "-jar", 
+        "/app.jar"
+      ], 
+      "Image": "idugalic/command-side-project@sha256:3d300de3d35bd5fcd2d04af2b5db12e006c1dc58b3191d9073f3df8bae4ab189", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 8082, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "configserver": {
+      "Image": "idugalic/configserver@sha256:a0590646deaf9eade6748f4d98c178d01a7ce5c531d701269d9c7bd5c400a0ee", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 8888, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "my-mongo": {
+      "Args": [
+        "mongod", 
+        "--smallfiles"
+      ], 
+      "Image": "mongo@sha256:2baf8c840c629704b838e326d5154cff7b6bcd5ed6f39476e8065b925e0d77a8", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 27017, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "my-rabbit": {
+      "Env": [
+        "RABBITMQ_DEFAULT_USER=test", 
+        "RABBITMQ_DEFAULT_PASS=password", 
+        "RABBITMQ_NODENAME=my-rabbit"
+      ], 
+      "Image": "rabbitmq@sha256:8fefcd17d64b8f3714d3d6c72682af3b74962ec517f3dc9cc442bead63d7d879", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 5672, 
+          "Protocol": "tcp"
+        }, 
+        {
+          "Port": 15672, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "query-side-blog": {
+      "Command": [
+        "./wait-for-it.sh", 
+        "configserver:8888", 
+        "-t", 
+        "60", 
+        "--", 
+        "java", 
+        "-Dspring.profiles.active=docker", 
+        "-jar", 
+        "/app.jar"
+      ], 
+      "Image": "idugalic/query-side-blog@sha256:6e824d1899de836416a9682c023756da062033941fba4a991ab7f0a78d37ffa9", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 8081, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "query-side-project": {
+      "Command": [
+        "./wait-for-it.sh", 
+        "configserver:8888", 
+        "-t", 
+        "60", 
+        "--", 
+        "java", 
+        "-Dspring.profiles.active=docker", 
+        "-jar", 
+        "/app.jar"
+      ], 
+      "Image": "idugalic/query-side-project@sha256:d4444210ac7120030a327cd8688bcd852e7d73c670b0b6e0d7810f81ee3636f4", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 8083, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "registry": {
+      "Command": [
+        "./wait-for-it.sh", 
+        "configserver:8888", 
+        "-t", 
+        "60", 
+        "--", 
+        "java", 
+        "-Dspring.profiles.active=docker", 
+        "-jar", 
+        "/app.jar"
+      ], 
+      "Env": [], 
+      "Image": "idugalic/registry@sha256:800d95d7254c6fb29029111b7880224ae7c9315eedb13490a429e3aad920e1bb", 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 8761, 
+          "Protocol": "tcp"
+        }
+      ]
+    }
+  }, 
+  "version": "0.1"
+}

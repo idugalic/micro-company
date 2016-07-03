@@ -101,6 +101,7 @@ Netflix implementation of circuit breaker pattern.
 - [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Git](https://git-scm.com/) 
 - [Docker](https://www.docker.com/)
+- VirtualBox
 
 
 ### Step 1: Clone and build the project (from Docker terminal)
@@ -124,13 +125,13 @@ $ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 $ cd microservice-company/docker
 $ docker-compose up -d 
 ```
-### Step 2.2 : Run on local Swarm cluster using Consule 
+### Step 2.2 : or Run on local Swarm cluster using Consule 
 
 ```bash
 $ cd microservice-company/docker
 $ ./swarm-local.sh
 ```
-Connect to the Swarm cluster 
+Connect & Deploy to the Swarm cluster 
 
 ```bash
 $ eval "$(docker-machine env --swarm swl-demo0)"
@@ -138,6 +139,12 @@ $ docker info
 $ docker-compose up -d 
 ```
 
+### Step 2.3 : or Run on local Swarm cluster - 1.12 (beta)
+
+```bash
+$ cd microservice-company/docker
+$ ./swarm-mode-local.sh
+```
 
 ### Issuing Commands & Queries with CURL
 Please note that my current docker host IP is 127.0.0.1
