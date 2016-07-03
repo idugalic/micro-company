@@ -57,3 +57,7 @@ docker-machine create \
     --engine-opt="cluster-advertise=eth1:0" \
     swl-demo4
 
+eval "$(docker-machine env --swarm swl-demo0)"
+docker-compose up -d
+
+

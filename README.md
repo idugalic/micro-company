@@ -131,13 +131,6 @@ $ docker-compose up -d
 $ cd microservice-company/docker
 $ ./swarm-local.sh
 ```
-Connect & Deploy to the Swarm cluster 
-
-```bash
-$ eval "$(docker-machine env --swarm swl-demo0)"
-$ docker info
-$ docker-compose up -d 
-```
 
 ### Step 2.3 : or Run on local Swarm cluster - 1.12 (beta)
 
