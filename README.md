@@ -5,7 +5,10 @@
 ## What is cloud native
 
 To understand “cloud native,” we must first understand “cloud.”
-In the context of this application, **cloud refers to Platform as a Service**. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS).
+In the context of this application, **cloud refers to Platform as a Service**. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS). It is special kind of PaaS. It is CaaS. 
+
+### CaaS
+Containers as a service (CaaS) is a offering from cloud providers that includes compute resources, a container engine, and container orchestration tools. Developers can use the framework, via API or a web interface, to facilitate and manage container and application deployment. It can be considered a new layer for cloud platforms that lies somewhere between Infrastructure-as-a-Service and Platform-as-a-Service offerings for application development.
 
 A **cloud-native application** is an application that has been designed and implemented to run on a Platform-as-a-Service installation and to embrace horizontal elastic scaling.
 
@@ -282,3 +285,5 @@ Those days, each mature framework in Java world should have some sort of Spring 
   * http://www.infoq.com/news/2016/01/cqrs-axon-example
   * http://www.axonframework.org
   * http://blog.arungupta.me/docker-swarm-cluster-using-consul/
+  * https://blog.docker.com/2016/02/containers-as-a-service-caas/
+  * https://www.linux.com/news/5-next-gen-cloud-technologies-you-should-know
