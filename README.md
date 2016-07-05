@@ -1,12 +1,6 @@
 # Micro Company application
 
-Digital experiences are becoming essential to every business. 
-
-Strategic application architects need to establish consistent, holistic approaches that enable the flexibility, scalability and versatility that digital business requires. Organizations that delay or fail to implement these new approaches risk falling seriously behind. 
-
-Companies must embrace a new way of projecting themselves in the form of secure, easy-to-consume unified APIs that are easily integrated into a wide range of digital touchpoints.
-
-**This project is intended to demonstrate end-to-end best practices for building a cloud native, microservice architecture using Spring Cloud.**
+**This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.**
 
 ## What is cloud native
 
