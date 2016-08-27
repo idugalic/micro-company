@@ -5,7 +5,7 @@
 ## What is cloud native
 
 To understand “cloud native,” we must first understand “cloud.”
-In the context of this application, **cloud refers to Platform as a Service**. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS). It is special kind of PaaS. It is CaaS. 
+In the context of this application, **cloud refers to Platform as a Service**. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS). 
 
 ### CaaS
 Containers as a service (CaaS) is a offering from cloud providers that includes compute resources, a container engine, and container orchestration tools. Developers can use the framework, via API or a web interface, to facilitate and manage container and application deployment. It can be considered a new layer for cloud platforms that lies somewhere between Infrastructure-as-a-Service and Platform-as-a-Service offerings for application development.
@@ -85,7 +85,9 @@ Spring Boot Admin is a simple application to manage and monitor your Spring Boot
 Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.
 
 
-#### Microservices
+#### Backend Microservices
+
+While the backing services in the middle layer are still considered to be microservices, they solve a set of concerns that are purely operational and security-related. The business logic of this application sits almost entirely in our bottom layer.
 
 ##### BlogMicroservice
 A Blog service is used for manging and quering the posts of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
