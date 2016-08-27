@@ -61,35 +61,41 @@ The command-side and the query-side both have REST API's which can be used to ac
 
 Read the [Axon documentation](http://www.axonframework.org/download/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).
 
-### Modules
+### Services
 
-#### BlogMicroservice
-A Blog service is used for manging and quering the posts of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
+#### Backing services
 
-#### ProjectMicroservice
-A Project service is used for manging and quering the projects of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
+The premise is that there are third-party service dependencies that should be treated as attached resources to your cloud native applications. The key trait of backing services are that they are provided as bindings to an application in its deployment environment by a cloud platform.
+Each of the backing services must be located using a statically defined route
 
-#### CustomerMicroservice
-A Customer service is used for manging and quering customers of yours. It is split into a *command-side* microservice application and a *query-side* microservice application.
-
-#### (Service) Registry
+##### (Service) Registry
 Netflix Eureka is a service registry. It provides a REST API for service instance registration management and for querying available instances. Netflix Ribbon is an IPC client that works with Eureka to load balance(client side) requests across the available service instances.
 
-#### Authorization server (Oauth2)
+##### Authorization server (Oauth2)
 For issuing tokens and authorize requests.
 
-#### Configuration server
+##### Configuration server
 The configuration service is a vital component of any microservices architecture. Based on the twelve-factor app methodology, configurations for your microservice applications should be stored in the environment and not in the project.
 Configuration is hosted here: https://github.com/idugalic/micro-company-config.git
 
-#### Admin server (http://codecentric.github.io/spring-boot-admin/1.3.2/)
+##### Admin server (http://codecentric.github.io/spring-boot-admin/1.3.2/)
 Spring Boot Admin is a simple application to manage and monitor your Spring Boot Applications. The applications register with our Spring Boot Admin Client (via http) or are discovered using Spring Cloud (e.g. Eureka). The UI is just an Angular.js application on top of the Spring Boot Actuator endpoints. In case you want to use the more advanced features (e.g. jmx-, loglevel-management), Jolokia must be included in the client application.
 
-#### API Gateway
+##### API Gateway
 Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.
 
-#### Circuit Breaker - Histrix (Dashboard)
-Netflix implementation of circuit breaker pattern.
+
+#### Microservices
+
+##### BlogMicroservice
+A Blog service is used for manging and quering the posts of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
+
+##### ProjectMicroservice
+A Project service is used for manging and quering the projects of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
+
+##### CustomerMicroservice
+A Customer service is used for manging and quering customers of yours. It is split into a *command-side* microservice application and a *query-side* microservice application.
+
 
 ## Running instructions
 
