@@ -1,5 +1,5 @@
 {
-  "services": {
+  "Services": {
     "adminserver": {
       "Command": [
         "./wait-for-it.sh", 
@@ -258,5 +258,5 @@
       ]
     }
   }, 
-  "version": "0.1"
+  "Version": "0.1"
 }
