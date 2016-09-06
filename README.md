@@ -128,7 +128,7 @@ Pull already created images from the docker hub (or your local registry, if you 
 
 - localhost or
 - swarm cluster with Consule or
-- swarm cluster
+- swarm cluster, natively managed.
 
 #### Run on local host machine
 
@@ -144,6 +144,7 @@ $ ./swarm-local.sh
 ```
 
 #### Run on local Swarm cluster - 1.12+ (beta)
+Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
 ```bash
 $ cd microservice-company/docker
