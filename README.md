@@ -124,11 +124,11 @@ $ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 ```
 ### Step 2 Run the application
 
-In this step you will pull already created images from the docker hub (or your local registry, if you performed step 1) and run them on:
+Pull already created images from the docker hub (or your local registry, if you performed step 1) and run them on:
 
-- localhost (step 2.1) or
-- swarm cluster with Consule (step 2.2) or
-- swarm cluster (step 2.3)
+- localhost or
+- swarm cluster with Consule or
+- swarm cluster
 
 #### Run on local host machine
 
