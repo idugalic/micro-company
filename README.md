@@ -291,8 +291,8 @@ Those days, each mature framework in Java world should have some sort of Spring 
 
 ## References and further reading
 
-  * https://benwilcock.wordpress.com/2016/06/20/microservices-with-spring-boot-axon-cqrses-and-docker/
   * http://martinfowler.com/articles/microservices.html
+  * http://microservices.io/
   * http://www.slideshare.net/chris.e.richardson/developing-eventdriven-microservices-with-event-sourcing-and-cqrs-phillyete
   * http://12factor.net/
   * http://pivotal.io/platform/migrating-to-cloud-native-application-architectures-ebook
@@ -301,4 +301,6 @@ Those days, each mature framework in Java world should have some sort of Spring 
   * http://www.axonframework.org
   * http://blog.arungupta.me/docker-swarm-cluster-using-consul/
   * https://blog.docker.com/2016/02/containers-as-a-service-caas/
-  * https://www.linux.com/news/5-next-gen-cloud-technologies-you-should-know
+  * http://www.kennybastani.com/2016/04/event-sourcing-microservices-spring-cloud.html
+  * https://benwilcock.wordpress.com/2016/06/20/microservices-with-spring-boot-axon-cqrses-and-docker/
+  
