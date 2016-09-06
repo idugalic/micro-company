@@ -109,9 +109,8 @@ A Customer service is used for manging and quering customers of yours. It is spl
 - VirtualBox
 
 
-### Step 1: Clone and build the project (from Docker terminal)
-Install will trigger docker images creation. 
-Please note that images are available on the docker hub, and steps 2.1 and 2.2 should work without docker images on the host.
+### Step 1 (Optional): Clone and build the project
+Please note that images are available on the docker hub, so if you do not want to build the services, simply skip to Step 2
  
 ```bash
 $ git clone https://github.com/idugalic/micro-company.git
@@ -123,21 +122,28 @@ I had some problems on Mac with docker beta and maven plugin. This should work:
 ```bash
 $ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 ```
+### Step 2 Run the application
 
-### Step 2.1 : Run on local host machine
+In this step you will pull already created images from the docker hub (or your local registry, if you performed step 1) and run them on:
+
+- localhost (step 2.1) or
+- swarm cluster with Consule (step 2.2) or
+- swarm cluster (step 2.3)
+
+#### Run on local host machine
 
 ```bash
 $ cd microservice-company/docker
 $ docker-compose up -d 
 ```
-### Step 2.2 : or Run on local Swarm cluster using Consule 
+#### Run on local Swarm cluster using Consule 
 
 ```bash
 $ cd microservice-company/docker
 $ ./swarm-local.sh
 ```
 
-### Step 2.3 : or Run on local Swarm cluster - 1.12 (beta)
+#### Run on local Swarm cluster - 1.12+ (beta)
 
 ```bash
 $ cd microservice-company/docker
