@@ -1,0 +1,28 @@
+version: "2"
+
+services:  
+  
+  monolithic:
+    image: idugalic/monolithic
+    ports:
+     - "8080:8080"
+    command: java -Dspring.profiles.active=docker -jar /app.jar
+ 
+  my-mongo:
+    image: mongo:3.0.4
+    hostname: mongodb
+    command: mongod --smallfiles
+    ports:
+      - "27017:27017"
+    
+  my-rabbit:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: test
+      RABBITMQ_DEFAULT_PASS: password
+      RABBITMQ_NODENAME: my-rabbit
+ 

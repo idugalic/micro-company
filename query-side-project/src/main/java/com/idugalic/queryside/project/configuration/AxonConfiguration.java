@@ -19,7 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @AnnotationDriven
-class AxonConfiguration {
+public class AxonConfiguration {
 
 	private static final String AMQP_CONFIG_KEY = "AMQP.Config";
 

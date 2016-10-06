@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Component;
 
 import com.idugalic.common.blog.model.BlogPostCategory;
 import com.idugalic.queryside.blog.domain.BlogPost;
