@@ -108,23 +108,25 @@ A Customer service is used for manging and quering customers of yours. It is spl
 - [Docker](https://www.docker.com/)
 - VirtualBox
 
+### Step 1: Clone the project
 
-### Step 1 (Optional): Clone and build the project
-Please note that images are available on the docker hub (https://hub.docker.com/u/idugalic), so if you do not want to build the services, simply skip to Step 2
- 
 ```bash
 $ git clone https://github.com/idugalic/micro-company.git
-$ cd microservice-company
-$ mvn clean install
 ```
-I had some problems on Mac with docker beta and maven plugin. This should work:
 
+### Step 2 (Optional): Build the project
+Please note that images are available on the docker hub (https://hub.docker.com/u/idugalic), so if you do not want to build the services, simply skip to Step 3
+
+Build project and create docker images:
+ 
 ```bash
+$ cd microservice-company
 $ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 ```
-### Step 2: Run the application
 
-Pull already created images from the docker hub (or your local registry, if you performed step 1) and run them on:
+### Step 3: Run the application
+
+Pull already created images from the docker hub (or your local registry, if you performed step 2) and run them on:
 
 - localhost or
 - swarm cluster with Consule or
