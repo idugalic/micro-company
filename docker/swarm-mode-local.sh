@@ -18,32 +18,38 @@ docker-machine create \
  docker-machine create \
  	-d virtualbox \
  	swnode3
+
+# Point your local docker client to the swarm master
+eval $(docker-machine env swmaster)
+
 # Configure swarm mode cluster - initialization on master
 docker $(docker-machine config swmaster) swarm init \
 	--advertise-addr $(docker-machine ip swmaster):2377
 
-# CHECK TOKEN returned in output of the INIT command!!!!!!
 
 # Configure swarm mode cluster - join nodes
-docker $(docker-machine config swnode1) swarm join --token SWMTKN-1-65kph7zg7e7rbyr1siz4ecguq8m9b9xppdw8w3eo13j2smwuer-0100l08ehvk4ogump94fcyluk $(docker-machine ip swmaster):2377
-docker $(docker-machine config swnode2) swarm join --token SWMTKN-1-65kph7zg7e7rbyr1siz4ecguq8m9b9xppdw8w3eo13j2smwuer-0100l08ehvk4ogump94fcyluk $(docker-machine ip swmaster):2377
-docker $(docker-machine config swnode3) swarm join --token SWMTKN-1-65kph7zg7e7rbyr1siz4ecguq8m9b9xppdw8w3eo13j2smwuer-0100l08ehvk4ogump94fcyluk $(docker-machine ip swmaster):2377
+docker $(docker-machine config swnode1) swarm join --token $(docker swarm join-token --quiet worker) $(docker-machine ip swmaster):2377
+docker $(docker-machine config swnode2) swarm join --token $(docker swarm join-token --quiet worker) $(docker-machine ip swmaster):2377
+docker $(docker-machine config swnode3) swarm join --token $(docker swarm join-token --quiet worker) $(docker-machine ip swmaster):2377
 
 # Create Bundle from compose file
 #docker-compose bundle -o micro-company.dsb
-# Point your local docker client to the swarm master 
-eval $(docker-machine env swmaster)
+
 #List all nodes
 docker node ls
+
 # Create a stack using docker deploy command
 docker deploy --file micro-company.dsb micro-company
+
 # List all services
 docker service ls
+
 # Inspect task. Please check the PublishedPort and use it to test the API latter on.
 docker service inspect micro-company_api-gateway
+
 # Scale service  'scale micro-company_api-gateway'
-docker idugalic$ docker service scale micro-company_api-gateway=2
-docker service ps micro-company_api-gateway
+# docker idugalic$ docker service scale micro-company_api-gateway=2
+# docker service ps micro-company_api-gateway
 # List all services
 docker service ls
 
