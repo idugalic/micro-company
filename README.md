@@ -143,7 +143,7 @@ $ cd microservice-company/docker
 $ ./swarm-local.sh
 ```
 
-#### Run on local Swarm cluster - 1.12+ (beta)
+#### Run on local native Swarm cluster - 1.12+ (BETA !!!)
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
 ```bash
