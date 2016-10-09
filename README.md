@@ -128,9 +128,8 @@ $ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 
 Pull already created images from the docker hub (or your local registry, if you performed step 2) and run them on:
 
-- localhost or
-- swarm cluster with Consule or
-- swarm cluster, natively managed.
+- local host or
+- swarm (mode) cluster of virtual machines
 
 #### Run on local host machine
 
@@ -138,14 +137,8 @@ Pull already created images from the docker hub (or your local registry, if you 
 $ cd microservice-company/docker
 $ docker-compose up -d 
 ```
-#### Run on local Swarm cluster using Consule 
 
-```bash
-$ cd microservice-company/docker
-$ ./swarm-local.sh
-```
-
-#### Run on local native Swarm cluster - 1.12+ (BETA !!!)
+#### Run on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
 ```bash
