@@ -47,11 +47,12 @@ docker service ls
 # Inspect task. Please check the PublishedPort and use it to test the API latter on.
 docker service inspect micro-company_api-gateway
 
-# Scale service  'scale micro-company_api-gateway'
-# docker idugalic$ docker service scale micro-company_api-gateway=2
-# docker service ps micro-company_api-gateway
 # List all services
 docker service ls
+
+# Scale service  'scale micro-company_api-gateway'
+# docker service scale micro-company_api-gateway=2
+# docker service ps micro-company_api-gateway
 
 # CURL. Please note to use PublishedPort instead of 30006
 # curl $(docker-machine ip swmaster):30006/info
