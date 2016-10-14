@@ -12,50 +12,50 @@ import com.idugalic.common.model.AuditEntry;
 
 public class CreateProjectCommand extends AuditableAbstractCommand {
 
-	@TargetAggregateIdentifier
-	private String id;
-	@NotNull(message = "Name is mandatory")
-	@NotBlank(message = "Name is mandatory")
-	private String name;
-	@NotNull(message = "Repo Url is mandatory")
-	@NotBlank(message = "Repo Url is mandatory")
-	private String repoUrl;
-	private String siteUrl;
-	private String category;
-	private String description;
-	
-	public CreateProjectCommand(AuditEntry auditEntry, String name, String repoUrl, String siteUrl, String category, String description) {
-		super(auditEntry);
-		this.id = UUID.randomUUID().toString();
-		this.name = name;
-		this.repoUrl = repoUrl;
-		this.siteUrl = siteUrl;
-		this.category = category;
-		this.description = description;
-	}
+    @TargetAggregateIdentifier
+    private String id;
+    @NotNull(message = "Name is mandatory")
+    @NotBlank(message = "Name is mandatory")
+    private String name;
+    @NotNull(message = "Repo Url is mandatory")
+    @NotBlank(message = "Repo Url is mandatory")
+    private String repoUrl;
+    private String siteUrl;
+    private String category;
+    private String description;
 
-	public String getId() {
-		return id;
-	}
+    public CreateProjectCommand(AuditEntry auditEntry, String name, String repoUrl, String siteUrl, String category, String description) {
+        super(auditEntry);
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.repoUrl = repoUrl;
+        this.siteUrl = siteUrl;
+        this.category = category;
+        this.description = description;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getRepoUrl() {
-		return repoUrl;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getSiteUrl() {
-		return siteUrl;
-	}
+    public String getRepoUrl() {
+        return repoUrl;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public String getSiteUrl() {
+        return siteUrl;
+    }
 
-	public String getDescription() {
-		return description;
-	}
-	
+    public String getCategory() {
+        return category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
 }

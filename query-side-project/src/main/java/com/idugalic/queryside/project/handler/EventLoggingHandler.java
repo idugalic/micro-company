@@ -12,13 +12,13 @@ import com.idugalic.common.project.event.ProjectCreatedEvent;
 @Component
 public class EventLoggingHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EventLoggingHandler.class);
-	private static final String IID = String.valueOf(Double.valueOf(Math.random() * 100).intValue());
+    private static final Logger LOG = LoggerFactory.getLogger(EventLoggingHandler.class);
+    private static final String IID = String.valueOf(Double.valueOf(Math.random() * 100).intValue());
 
-	@EventHandler
-	public void handle(ProjectCreatedEvent event, @SequenceNumber Long version, @Timestamp org.joda.time.DateTime time) {
-		LOG.debug("IID:{} ET:{} EID:[{}]", IID, event.getClass().getSimpleName(), event.getId());
-		LOG.debug("at {} with version {}",time.toString(), version);
-	}
+    @EventHandler
+    public void handle(ProjectCreatedEvent event, @SequenceNumber Long version, @Timestamp org.joda.time.DateTime time) {
+        LOG.debug("IID:{} ET:{} EID:[{}]", IID, event.getClass().getSimpleName(), event.getId());
+        LOG.debug("at {} with version {}", time.toString(), version);
+    }
 
 }

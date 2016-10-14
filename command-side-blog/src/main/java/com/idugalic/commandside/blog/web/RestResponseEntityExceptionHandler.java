@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.idugalic.commandside.blog.aggregate.exception.PublishBlogPostException;
 
-
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger LOG = LoggerFactory.getLogger(RestResponseEntityExceptionHandler.class);
@@ -30,22 +29,23 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         super();
     }
 
- 
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status,
+                                                                  final WebRequest request) {
         final String bodyOfResponse = "HttpMessageNotReadableException";
         LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status,
+                                                                  final WebRequest request) {
         final String bodyOfResponse = "MethodArgumentNotValidException";
         LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    //TODO Consider handling validation and other errors/exceptions here
+    // TODO Consider handling validation and other errors/exceptions here
     @ExceptionHandler({ CommandExecutionException.class })
     protected ResponseEntity<Object> handleCommandExecution(final RuntimeException cex, final WebRequest request) {
         final String bodyOfResponse = "CommandExecutionException";
@@ -53,10 +53,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
             LOG.error("CAUSED BY: {} {}", cex.getCause().getClass().getName(), cex.getCause().getMessage());
 
             if (cex.getCause() instanceof ConcurrencyException) {
-            	return handleExceptionInternal(cex, bodyOfResponse + " - Concurrency issue", new HttpHeaders(), HttpStatus.CONFLICT, request);            }
+                return handleExceptionInternal(cex, bodyOfResponse + " - Concurrency issue", new HttpHeaders(), HttpStatus.CONFLICT, request);
+            }
             if (cex.getCause() instanceof PublishBlogPostException) {
-            	return handleExceptionInternal(cex, bodyOfResponse + " - " + cex.getCause().getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);            }
-       
+                return handleExceptionInternal(cex, bodyOfResponse + " - " + cex.getCause().getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
+            }
+
         }
         return handleExceptionInternal(cex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
@@ -81,16 +83,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         LOG.error(bodyOfResponse, ex);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
-    
-    
+
     @ExceptionHandler({ JSR303ViolationException.class })
     public ResponseEntity<Object> handleValidation(final JSR303ViolationException ex, final WebRequest request) {
-        //TODO do it properly !!!!
-    	final String bodyOfResponse = ex.getViolations().toString();
+        // TODO do it properly !!!!
+        final String bodyOfResponse = ex.getViolations().toString();
         LOG.error("Validation error", ex);
         return new ResponseEntity<Object>(bodyOfResponse, HttpStatus.BAD_REQUEST);
     }
-    
+
     @ExceptionHandler({ AccessDeniedException.class })
     public ResponseEntity<Object> handleAccessDeniedException(Exception ex, WebRequest request) {
         return new ResponseEntity<Object>("Access denied message here", new HttpHeaders(), HttpStatus.FORBIDDEN);

@@ -1,55 +1,54 @@
 package com.idugalic.commandside.project.web;
 
 public class CreateProjectRequest {
-	
-	private String name;
-	private String repoUrl;
-	private String siteUrl;
-	private String category;
-	private String description;
 
-	public CreateProjectRequest() {
-	}
+    private String name;
+    private String repoUrl;
+    private String siteUrl;
+    private String category;
+    private String description;
 
-	public String getName() {
-		return name;
-	}
+    public CreateProjectRequest() {
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getRepoUrl() {
-		return repoUrl;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setRepoUrl(String repoUrl) {
-		this.repoUrl = repoUrl;
-	}
+    public String getRepoUrl() {
+        return repoUrl;
+    }
 
-	public String getSiteUrl() {
-		return siteUrl;
-	}
+    public void setRepoUrl(String repoUrl) {
+        this.repoUrl = repoUrl;
+    }
 
-	public void setSiteUrl(String siteUrl) {
-		this.siteUrl = siteUrl;
-	}
+    public String getSiteUrl() {
+        return siteUrl;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public void setSiteUrl(String siteUrl) {
+        this.siteUrl = siteUrl;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }

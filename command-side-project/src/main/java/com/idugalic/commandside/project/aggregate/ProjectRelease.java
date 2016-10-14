@@ -39,7 +39,7 @@ public class ProjectRelease implements Comparable<ProjectRelease> {
     public ProjectRelease(String versionName, ReleaseStatus releaseStatus, boolean isCurrent, String refDocUrl,
                           String apiDocUrl, String groupId, String artifactId) {
         setVersion(versionName);
-        if (releaseStatus!=null) {
+        if (releaseStatus != null) {
             this.releaseStatus = releaseStatus;
         }
         this.isCurrent = isCurrent;
@@ -82,7 +82,7 @@ public class ProjectRelease implements Comparable<ProjectRelease> {
         String versionLabel = "";
         if (versionName.contains(".")) {
             versionNumber = versionName.substring(0, versionName.lastIndexOf("."));
-            versionLabel = " " + versionName.substring(versionName.lastIndexOf(".")+1);
+            versionLabel = " " + versionName.substring(versionName.lastIndexOf(".") + 1);
             if (versionLabel.contains("SNAPSHOT") || versionLabel.equals(" RELEASE")) {
                 versionLabel = "";
             }
@@ -142,7 +142,6 @@ public class ProjectRelease implements Comparable<ProjectRelease> {
     public void setArtifactId(String artifactId) {
         this.artifactId = artifactId;
     }
-
 
     @Override
     public int compareTo(ProjectRelease other) {

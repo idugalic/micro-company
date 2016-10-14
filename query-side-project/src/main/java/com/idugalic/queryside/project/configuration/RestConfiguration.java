@@ -9,8 +9,8 @@ import com.idugalic.queryside.project.domain.Project;
 @Configuration
 class RestConfiguration extends RepositoryRestMvcConfiguration {
 
-	@Override
-	protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(Project.class);
-	}
+    @Override
+    protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+        config.exposeIdsFor(Project.class);
+    }
 }

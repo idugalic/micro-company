@@ -9,8 +9,8 @@ import com.idugalic.queryside.blog.domain.BlogPost;
 @Configuration
 class RestConfiguration extends RepositoryRestMvcConfiguration {
 
-	@Override
-	protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(BlogPost.class);
-	}
+    @Override
+    protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+        config.exposeIdsFor(BlogPost.class);
+    }
 }

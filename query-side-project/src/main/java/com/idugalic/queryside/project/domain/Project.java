@@ -8,105 +8,105 @@ import com.idugalic.common.project.event.ProjectCreatedEvent;
 
 @Entity
 public class Project {
-	@Id
-	private String id;
-	@Version
-	private Long version;
-	private Long aggregateVersion;
-	private String name;
-	private String repoUrl;
-	private String siteUrl;
-	private String category;
-	private String description;
-	
-	public Project() {
-	}
-	
-	public Project(ProjectCreatedEvent event, Long aggregateVersion) {
-		super();
-		this.id = event.getId();
-		this.aggregateVersion = aggregateVersion;
-		this.name = event.getName();
-		this.repoUrl = event.getRepoUrl();
-		this.siteUrl = event.getSiteUrl();
-		this.category = event.getCategory();
-		this.description = event.getDescription();
-	}
-	
-	public Project(String id, Long aggregateVersion, String name, String repoUrl, String siteUrl,
-			String category, String description) {
-		super();
-		this.id = id;
-		this.aggregateVersion = aggregateVersion;
-		this.name = name;
-		this.repoUrl = repoUrl;
-		this.siteUrl = siteUrl;
-		this.category = category;
-		this.description = description;
-	}
+    @Id
+    private String id;
+    @Version
+    private Long version;
+    private Long aggregateVersion;
+    private String name;
+    private String repoUrl;
+    private String siteUrl;
+    private String category;
+    private String description;
 
-	public String getId() {
-		return id;
-	}
+    public Project() {
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public Project(ProjectCreatedEvent event, Long aggregateVersion) {
+        super();
+        this.id = event.getId();
+        this.aggregateVersion = aggregateVersion;
+        this.name = event.getName();
+        this.repoUrl = event.getRepoUrl();
+        this.siteUrl = event.getSiteUrl();
+        this.category = event.getCategory();
+        this.description = event.getDescription();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Project(String id, Long aggregateVersion, String name, String repoUrl, String siteUrl,
+                   String category, String description) {
+        super();
+        this.id = id;
+        this.aggregateVersion = aggregateVersion;
+        this.name = name;
+        this.repoUrl = repoUrl;
+        this.siteUrl = siteUrl;
+        this.category = category;
+        this.description = description;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getRepoUrl() {
-		return repoUrl;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setRepoUrl(String repoUrl) {
-		this.repoUrl = repoUrl;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getSiteUrl() {
-		return siteUrl;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setSiteUrl(String siteUrl) {
-		this.siteUrl = siteUrl;
-	}
+    public String getRepoUrl() {
+        return repoUrl;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public void setRepoUrl(String repoUrl) {
+        this.repoUrl = repoUrl;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public String getSiteUrl() {
+        return siteUrl;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setSiteUrl(String siteUrl) {
+        this.siteUrl = siteUrl;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public Long getVersion() {
-		return version;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public void setVersion(Long version) {
-		this.version = version;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public Long getAggregateVersion() {
-		return aggregateVersion;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setAggregateVersion(Long aggregateVersion) {
-		this.aggregateVersion = aggregateVersion;
-	}
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public Long getAggregateVersion() {
+        return aggregateVersion;
+    }
+
+    public void setAggregateVersion(Long aggregateVersion) {
+        this.aggregateVersion = aggregateVersion;
+    }
 
 }

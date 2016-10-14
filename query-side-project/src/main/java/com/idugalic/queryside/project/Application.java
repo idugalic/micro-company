@@ -16,7 +16,7 @@ public class Application {
     public static void main(String... args) {
         SpringApplication.run(Application.class, args);
     }
-    
+
     @Bean
     public AuditorAware<String> auditorAware() {
         return new AuditorAware<String>() {
@@ -24,7 +24,7 @@ public class Application {
                 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
                 if (authentication == null || !authentication.isAuthenticated()) {
-                  return null;
+                    return null;
                 }
 
                 return authentication.getName();

@@ -19,17 +19,17 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableHystrix
 public class Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	@Configuration
-	public static class RestSecurityConfig extends ResourceServerConfigurerAdapter {
-		
-		@Override
-		public void configure(HttpSecurity http) throws Exception {
-			http.requestMatchers().and().authorizeRequests().antMatchers("/**").permitAll();
-		}
-	}
+    @Configuration
+    public static class RestSecurityConfig extends ResourceServerConfigurerAdapter {
+
+        @Override
+        public void configure(HttpSecurity http) throws Exception {
+            http.requestMatchers().and().authorizeRequests().antMatchers("/**").permitAll();
+        }
+    }
 
 }

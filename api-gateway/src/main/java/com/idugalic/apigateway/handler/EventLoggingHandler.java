@@ -12,6 +12,7 @@ import com.idugalic.common.blog.event.BlogPostPublishedEvent;
 import com.idugalic.common.event.AuditableAbstractEvent;
 import com.idugalic.common.project.event.ProjectCreatedEvent;
 import com.idugalic.common.project.event.ProjectUpdatedEvent;
+
 /**
  * This handler will proxy all events via Websocket to a client applications
  * 
@@ -21,33 +22,36 @@ import com.idugalic.common.project.event.ProjectUpdatedEvent;
 @Component
 public class EventLoggingHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EventLoggingHandler.class);
-	private static final String IID = String.valueOf(Double.valueOf(Math.random() * 100).intValue());
-	
-	@Autowired
-	private SimpMessageSendingOperations messagingTemplate;
-	
-	private void publish(String username, AuditableAbstractEvent event, String queue) {
-		LOG.debug("IID:{} ET:{} EID:[{}] is published via WebSocket", IID, event.getClass().getSimpleName(), event.getId());
-		//TODO send messages to users in the future
-		//this.messagingTemplate.convertAndSendToUser(username, queue, event);
-		this.messagingTemplate.convertAndSend(queue, event);
-	}
+    private static final Logger LOG = LoggerFactory.getLogger(EventLoggingHandler.class);
+    private static final String IID = String.valueOf(Double.valueOf(Math.random() * 100).intValue());
 
-	@EventHandler
-	public void handleBlogCreate(BlogPostCreatedEvent event) {
-		publish(event.getAuditEntry().getWho(), event, "/queue/blog");
-	}
-	@EventHandler
-	public void handleBlogPublis(BlogPostPublishedEvent event) {
-		publish(event.getAuditEntry().getWho(), event, "/queue/blog");
-	}
-	@EventHandler
-	public void handleProjectCreate(ProjectCreatedEvent event) {
-		publish(event.getAuditEntry().getWho(), event, "/queue/project");
-	}
-	@EventHandler
-	public void handleProjectUpdate(ProjectUpdatedEvent event) {
-		publish(event.getAuditEntry().getWho(), event, "/queue/project");
-	}
+    @Autowired
+    private SimpMessageSendingOperations messagingTemplate;
+
+    private void publish(String username, AuditableAbstractEvent event, String queue) {
+        LOG.debug("IID:{} ET:{} EID:[{}] is published via WebSocket", IID, event.getClass().getSimpleName(), event.getId());
+        // TODO send messages to users in the future
+        // this.messagingTemplate.convertAndSendToUser(username, queue, event);
+        this.messagingTemplate.convertAndSend(queue, event);
+    }
+
+    @EventHandler
+    public void handleBlogCreate(BlogPostCreatedEvent event) {
+        publish(event.getAuditEntry().getWho(), event, "/queue/blog");
+    }
+
+    @EventHandler
+    public void handleBlogPublis(BlogPostPublishedEvent event) {
+        publish(event.getAuditEntry().getWho(), event, "/queue/blog");
+    }
+
+    @EventHandler
+    public void handleProjectCreate(ProjectCreatedEvent event) {
+        publish(event.getAuditEntry().getWho(), event, "/queue/project");
+    }
+
+    @EventHandler
+    public void handleProjectUpdate(ProjectUpdatedEvent event) {
+        publish(event.getAuditEntry().getWho(), event, "/queue/project");
+    }
 }

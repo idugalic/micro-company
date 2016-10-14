@@ -4,25 +4,25 @@ import com.idugalic.common.model.AuditEntry;
 
 public abstract class AuditableAbstractEvent extends AbstractEvent {
 
-	private static final long serialVersionUID = -5389550139760061559L;
-	
-	private AuditEntry auditEntry;
-	
-	public AuditableAbstractEvent(){
-		
-	}
+    private static final long serialVersionUID = -5389550139760061559L;
 
-	public AuditableAbstractEvent(String id, AuditEntry auditEntry) {
-		super(id);
-		this.setAuditEntry(auditEntry);
-	}
+    private AuditEntry auditEntry;
 
-	public AuditEntry getAuditEntry() {
-		return auditEntry;
-	}
+    public AuditableAbstractEvent() {
 
-	public void setAuditEntry(AuditEntry auditEntry) {
-		this.auditEntry = auditEntry;
-	}
+    }
+
+    public AuditableAbstractEvent(String id, AuditEntry auditEntry) {
+        super(id);
+        this.setAuditEntry(auditEntry);
+    }
+
+    public AuditEntry getAuditEntry() {
+        return auditEntry;
+    }
+
+    public void setAuditEntry(AuditEntry auditEntry) {
+        this.auditEntry = auditEntry;
+    }
 
 }

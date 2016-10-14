@@ -1,0 +1,10 @@
+#Organize Import Order
+#Wed Mar 12 15:16:07 CET 2014
+6=com
+5=io
+4=org.springframework
+3=org
+2=javax
+1=java
+0=com.idugalic
+7=\#

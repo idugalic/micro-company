@@ -65,7 +65,7 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    RabbitTransactionManager transactionManager(){
+    RabbitTransactionManager transactionManager() {
         RabbitTransactionManager txMgr = new RabbitTransactionManager(connectionFactory());
         return txMgr;
     }

@@ -10,44 +10,44 @@ import com.idugalic.common.model.AuditEntry;
 
 public class UpdateProjectCommand extends AuditableAbstractCommand {
 
-	@TargetAggregateIdentifier
-	private String id;
-	@NotNull(message = "Name is mandatory")
-	@NotBlank(message = "Name is mandatory")
-	private String name;
-	@NotNull(message = "Repo Url is mandatory")
-	@NotBlank(message = "Repo Url is mandatory")
-	private String repoUrl;
-	private String siteUrl;
-	private String description;
-	
-	public UpdateProjectCommand(String id, AuditEntry auditEntry, String name, String repoUrl, String siteUrl, String description) {
-		super(auditEntry);
-		this.id = id;
-		this.name = name;
-		this.repoUrl = repoUrl;
-		this.siteUrl = siteUrl;
-		this.description = description;
-	}
+    @TargetAggregateIdentifier
+    private String id;
+    @NotNull(message = "Name is mandatory")
+    @NotBlank(message = "Name is mandatory")
+    private String name;
+    @NotNull(message = "Repo Url is mandatory")
+    @NotBlank(message = "Repo Url is mandatory")
+    private String repoUrl;
+    private String siteUrl;
+    private String description;
 
-	public String getId() {
-		return id;
-	}
+    public UpdateProjectCommand(String id, AuditEntry auditEntry, String name, String repoUrl, String siteUrl, String description) {
+        super(auditEntry);
+        this.id = id;
+        this.name = name;
+        this.repoUrl = repoUrl;
+        this.siteUrl = siteUrl;
+        this.description = description;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getRepoUrl() {
-		return repoUrl;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getSiteUrl() {
-		return siteUrl;
-	}
+    public String getRepoUrl() {
+        return repoUrl;
+    }
 
-	public String getDescription() {
-		return description;
-	}
-	
+    public String getSiteUrl() {
+        return siteUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
 }

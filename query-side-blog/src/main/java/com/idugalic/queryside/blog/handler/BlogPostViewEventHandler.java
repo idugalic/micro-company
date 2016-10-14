@@ -26,7 +26,7 @@ public class BlogPostViewEventHandler implements ReplayAware {
         LOG.info("BlogPostCreatedEvent: [{}] ", event.getId());
         blogPostRepository.save(new BlogPost(event, version));
     }
-    
+
     @EventHandler
     public void handle(BlogPostPublishedEvent event, @SequenceNumber Long version) {
         LOG.info("BlogPostCreatedEvent: [{}] ", event.getId());
@@ -36,7 +36,7 @@ public class BlogPostViewEventHandler implements ReplayAware {
         post.setVersion(version);
         blogPostRepository.save(post);
     }
-   
+
     public void beforeReplay() {
         LOG.info("Event Replay is about to START. Clearing the View...");
     }

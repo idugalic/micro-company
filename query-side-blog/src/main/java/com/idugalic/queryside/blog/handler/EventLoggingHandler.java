@@ -10,12 +10,12 @@ import com.idugalic.common.blog.event.BlogPostCreatedEvent;
 @Component
 public class EventLoggingHandler {
 
-	private static final Logger LOG = LoggerFactory.getLogger(EventLoggingHandler.class);
-	private static final String IID = String.valueOf(Double.valueOf(Math.random() * 100).intValue());
+    private static final Logger LOG = LoggerFactory.getLogger(EventLoggingHandler.class);
+    private static final String IID = String.valueOf(Double.valueOf(Math.random() * 100).intValue());
 
-	@EventHandler
-	public void handle(BlogPostCreatedEvent event) {
-		LOG.debug("IID:{} ET:{} EID:[{}]", IID, event.getClass().getSimpleName(), event.getId());
-	}
+    @EventHandler
+    public void handle(BlogPostCreatedEvent event) {
+        LOG.debug("IID:{} ET:{} EID:[{}]", IID, event.getClass().getSimpleName(), event.getId());
+    }
 
 }

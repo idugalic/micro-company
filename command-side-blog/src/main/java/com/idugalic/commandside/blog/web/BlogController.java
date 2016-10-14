@@ -26,42 +26,42 @@ import com.idugalic.common.model.AuditEntry;
 @RequestMapping(value = "/blogposts")
 public class BlogController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(BlogController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(BlogController.class);
 
-	private String getCurrentUser() {
-		if (SecurityContextHolder.getContext().getAuthentication() != null) {
-			return SecurityContextHolder.getContext().getAuthentication().getName();
-		}
-		return null;
-	}
+    private String getCurrentUser() {
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            return SecurityContextHolder.getContext().getAuthentication().getName();
+        }
+        return null;
+    }
 
-	private AuditEntry createAudit() {
-		return new AuditEntry(getCurrentUser());
-	}
+    private AuditEntry createAudit() {
+        return new AuditEntry(getCurrentUser());
+    }
 
-	@Autowired
-	private CommandGateway commandGateway;
+    @Autowired
+    private CommandGateway commandGateway;
 
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(value = HttpStatus.CREATED)
-	public void create(@RequestBody CreateBlogPostRequest request, HttpServletResponse response, Principal principal) {
-		LOG.debug(CreateBlogPostRequest.class.getSimpleName() + " request received");
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public void create(@RequestBody CreateBlogPostRequest request, HttpServletResponse response, Principal principal) {
+        LOG.debug(CreateBlogPostRequest.class.getSimpleName() + " request received");
 
-		CreateBlogPostCommand command = new CreateBlogPostCommand(createAudit(), request.getTitle(),
-				request.getRawContent(), request.getPublicSlug(), request.getDraft(), request.getBroadcast(),
-				request.getPublishAt(), request.getCategory(), getCurrentUser());
-		commandGateway.sendAndWait(command);
-		LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
-	}
+        CreateBlogPostCommand command = new CreateBlogPostCommand(createAudit(), request.getTitle(),
+                request.getRawContent(), request.getPublicSlug(), request.getDraft(), request.getBroadcast(),
+                request.getPublishAt(), request.getCategory(), getCurrentUser());
+        commandGateway.sendAndWait(command);
+        LOG.debug(CreateBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
+    }
 
-	@RequestMapping(value = "/{id}/publishcommand", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(value = HttpStatus.ACCEPTED)
-	public void publish(@PathVariable String id, @RequestBody PublishBlogPostRequest request, HttpServletResponse response, Principal principal) {
-		LOG.debug(PublishBlogPostRequest.class.getSimpleName() + " request received");
-		
-		PublishBlogPostCommand command = new PublishBlogPostCommand(id, createAudit(), request.getPublishAt());
-		commandGateway.sendAndWait(command);
-		LOG.debug(PublishBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
-	}
+    @RequestMapping(value = "/{id}/publishcommand", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    public void publish(@PathVariable String id, @RequestBody PublishBlogPostRequest request, HttpServletResponse response, Principal principal) {
+        LOG.debug(PublishBlogPostRequest.class.getSimpleName() + " request received");
+
+        PublishBlogPostCommand command = new PublishBlogPostCommand(id, createAudit(), request.getPublishAt());
+        commandGateway.sendAndWait(command);
+        LOG.debug(PublishBlogPostCommand.class.getSimpleName() + " sent to command gateway: Blog Post [{}] ", command.getId());
+    }
 
 }

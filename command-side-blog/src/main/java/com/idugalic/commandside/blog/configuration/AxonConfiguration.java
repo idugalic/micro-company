@@ -35,7 +35,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 @Configuration
 @AnnotationDriven
 public class AxonConfiguration {
@@ -66,7 +65,6 @@ public class AxonConfiguration {
     @Value("${spring.application.snapshotCollectionName}")
     private String snapshotCollectionName;
 
-
     @Bean
     JacksonSerializer axonJsonSerializer() {
         return new JacksonSerializer();
@@ -87,7 +85,6 @@ public class AxonConfiguration {
         cfg.setTxSize(10);
         return cfg;
     }
-
 
     @Bean
     SimpleCluster simpleCluster() {
@@ -184,8 +181,8 @@ public class AxonConfiguration {
     @Bean
     AggregateAnnotationCommandHandler<BlogPostAggregate> blogPostAggregateCommandHandler() {
         AggregateAnnotationCommandHandler<BlogPostAggregate> handler = new AggregateAnnotationCommandHandler<BlogPostAggregate>(
-        		BlogPostAggregate.class,
-        		blogPostEventSourcingRepository(),
+                BlogPostAggregate.class,
+                blogPostEventSourcingRepository(),
                 commandBus());
         return handler;
     }

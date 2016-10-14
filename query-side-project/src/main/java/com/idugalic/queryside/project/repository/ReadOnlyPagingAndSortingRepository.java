@@ -1,6 +1,5 @@
 package com.idugalic.queryside.project.repository;
 
-
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RestResource;

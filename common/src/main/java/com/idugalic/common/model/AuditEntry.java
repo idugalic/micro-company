@@ -8,52 +8,52 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.axonframework.eventhandling.annotation.Timestamp;
 
 public class AuditEntry {
-	private String who;
-	private Date when;
-	
-	public AuditEntry(){
-		
-	}
+    private String who;
+    private Date when;
 
-	public AuditEntry(String who, Date when) {
-		super();
-		this.who = who;
-		this.when = when;
-	}
-	
-	public AuditEntry(String who) {
-		this(who, new Date());
-	}
+    public AuditEntry() {
 
-	public String getWho() {
-		return who;
-	}
+    }
 
-	public void setWho(String who) {
-		this.who = who;
-	}
+    public AuditEntry(String who, Date when) {
+        super();
+        this.who = who;
+        this.when = when;
+    }
 
-	public Date getWhen() {
-		return when;
-	}
+    public AuditEntry(String who) {
+        this(who, new Date());
+    }
 
-	public void setWhen(Date when) {
-		this.when = when;
-	}
+    public String getWho() {
+        return who;
+    }
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    public void setWho(String who) {
+        this.who = who;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		return EqualsBuilder.reflectionEquals(this, o);
-	}
+    public Date getWhen() {
+        return when;
+    }
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    public void setWhen(Date when) {
+        this.when = when;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return EqualsBuilder.reflectionEquals(this, o);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
 }

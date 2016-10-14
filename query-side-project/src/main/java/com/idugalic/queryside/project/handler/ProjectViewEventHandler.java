@@ -25,7 +25,7 @@ public class ProjectViewEventHandler implements ReplayAware {
         LOG.info("ProjectCreatedEvent: [{}] ", event.getId());
         projectRepository.save(new Project(event, version));
     }
-   
+
     public void beforeReplay() {
         LOG.info("Event Replay is about to START. Clearing the View...");
     }

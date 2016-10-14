@@ -2,9 +2,7 @@ package com.idugalic.common.blog.model;
 
 public enum BlogPostCategory {
 
-	ENGINEERING("Engineering", "engineering"),
-    RELEASES("Releases", "releases"),
-    NEWS_AND_EVENTS("News and Events", "news");
+    ENGINEERING("Engineering", "engineering"), RELEASES("Releases", "releases"), NEWS_AND_EVENTS("News and Events", "news");
 
     private String displayName;
     private String urlSlug;

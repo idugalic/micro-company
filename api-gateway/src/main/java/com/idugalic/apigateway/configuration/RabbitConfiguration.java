@@ -16,66 +16,67 @@ import org.springframework.context.annotation.Configuration;
 @AnnotationDriven
 public class RabbitConfiguration {
 
-	@Value("${spring.rabbitmq.hostname}")
-	private String hostname;
+    @Value("${spring.rabbitmq.hostname}")
+    private String hostname;
 
-	@Value("${spring.rabbitmq.username}")
-	private String username;
+    @Value("${spring.rabbitmq.username}")
+    private String username;
 
-	@Value("${spring.rabbitmq.password}")
-	private String password;
+    @Value("${spring.rabbitmq.password}")
+    private String password;
 
-	@Value("${spring.application.queue}")
-	private String queueName;
-	
-	@Value("${spring.application.blog.exchange}")
-	private String blogExchangeName;
-	
-	@Value("${spring.application.project.exchange}")
-	private String projectExchangeName;
+    @Value("${spring.application.queue}")
+    private String queueName;
 
-	@Bean
-	Queue eventStream() {
-		return new Queue(queueName, true);
-	}
+    @Value("${spring.application.blog.exchange}")
+    private String blogExchangeName;
 
-	@Bean
-	FanoutExchange blogEventBusExchange() {
-		return new FanoutExchange(blogExchangeName, true, false);
-	}
+    @Value("${spring.application.project.exchange}")
+    private String projectExchangeName;
 
-	@Bean
-	Binding blogBinding() {
-		return new Binding(queueName, Binding.DestinationType.QUEUE, blogExchangeName, "*.*", null);
-	}
+    @Bean
+    Queue eventStream() {
+        return new Queue(queueName, true);
+    }
 
-	@Bean
-	FanoutExchange projectEventBusExchange() {
-		return new FanoutExchange(projectExchangeName, true, false);
-	}
+    @Bean
+    FanoutExchange blogEventBusExchange() {
+        return new FanoutExchange(blogExchangeName, true, false);
+    }
 
-	@Bean
-	Binding projectBinding() {
-		return new Binding(queueName, Binding.DestinationType.QUEUE, projectExchangeName, "*.*", null);
-	}
-	@Bean
-	ConnectionFactory connectionFactory() {
-		CachingConnectionFactory connectionFactory = new CachingConnectionFactory(hostname);
-		connectionFactory.setUsername(username);
-		connectionFactory.setPassword(password);
-		return connectionFactory;
-	}
+    @Bean
+    Binding blogBinding() {
+        return new Binding(queueName, Binding.DestinationType.QUEUE, blogExchangeName, "*.*", null);
+    }
 
-	@Bean
-	@Required
-	RabbitAdmin rabbitAdmin() {
-		RabbitAdmin admin = new RabbitAdmin(connectionFactory());
-		admin.setAutoStartup(true);
-		admin.declareExchange(blogEventBusExchange());
-		admin.declareQueue(eventStream());
-		admin.declareBinding(blogBinding());
-		admin.declareExchange(projectEventBusExchange());
-		admin.declareBinding(projectBinding());
-		return admin;
-	}
+    @Bean
+    FanoutExchange projectEventBusExchange() {
+        return new FanoutExchange(projectExchangeName, true, false);
+    }
+
+    @Bean
+    Binding projectBinding() {
+        return new Binding(queueName, Binding.DestinationType.QUEUE, projectExchangeName, "*.*", null);
+    }
+
+    @Bean
+    ConnectionFactory connectionFactory() {
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(hostname);
+        connectionFactory.setUsername(username);
+        connectionFactory.setPassword(password);
+        return connectionFactory;
+    }
+
+    @Bean
+    @Required
+    RabbitAdmin rabbitAdmin() {
+        RabbitAdmin admin = new RabbitAdmin(connectionFactory());
+        admin.setAutoStartup(true);
+        admin.declareExchange(blogEventBusExchange());
+        admin.declareQueue(eventStream());
+        admin.declareBinding(blogBinding());
+        admin.declareExchange(projectEventBusExchange());
+        admin.declareBinding(projectBinding());
+        return admin;
+    }
 }

@@ -17,39 +17,39 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
 @EnableWebSocketMessageBroker
 public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
-	@Override
-	public void configureMessageBroker(MessageBrokerRegistry config) {
-		config.enableSimpleBroker("/topic", "/queue");
-		config.setApplicationDestinationPrefixes("/app");
-	}
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.enableSimpleBroker("/topic", "/queue");
+        config.setApplicationDestinationPrefixes("/app");
+    }
 
-	@Override
-	public boolean configureMessageConverters(List<MessageConverter> converters) {
-		return true;
-	}
+    @Override
+    public boolean configureMessageConverters(List<MessageConverter> converters) {
+        return true;
+    }
 
-	@Override
-	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/company").withSockJS();
-	}
-	
-	@Override
-	public void configureClientInboundChannel(ChannelRegistration registration) {
-	}
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/company").withSockJS();
+    }
 
-	@Override
-	public void configureClientOutboundChannel(ChannelRegistration registration) {
-	}
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+    }
 
-	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> arg0) {		
-	}
+    @Override
+    public void configureClientOutboundChannel(ChannelRegistration registration) {
+    }
 
-	@Override
-	public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> arg0) {		
-	}
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> arg0) {
+    }
 
-	@Override
-	public void configureWebSocketTransport(WebSocketTransportRegistration arg0) {		
-	}
+    @Override
+    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> arg0) {
+    }
+
+    @Override
+    public void configureWebSocketTransport(WebSocketTransportRegistration arg0) {
+    }
 }

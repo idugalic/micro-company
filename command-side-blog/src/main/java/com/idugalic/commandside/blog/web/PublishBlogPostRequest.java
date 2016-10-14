@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class PublishBlogPostRequest {
 
-	private Date publishAt;
+    private Date publishAt;
 
-	public PublishBlogPostRequest() {
-	}
+    public PublishBlogPostRequest() {
+    }
 
-	public Date getPublishAt() {
-		return publishAt;
-	}
+    public Date getPublishAt() {
+        return publishAt;
+    }
 
-	public void setPublishAt(Date publishAt) {
-		this.publishAt = publishAt;
-	}
+    public void setPublishAt(Date publishAt) {
+        this.publishAt = publishAt;
+    }
 
 }
