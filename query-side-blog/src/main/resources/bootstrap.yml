@@ -3,7 +3,6 @@ spring:
     name: query-side-blog
   cloud:
     config:
-      label: swarm
       enabled: true
       uri: ${vcap.services.config-server.credentials.uri:http://localhost:8888}
       

@@ -132,6 +132,9 @@
 				</executions>
 				<configuration>
 					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+					<imageTags>
+						<imageTag>${project.version}</imageTag>
+					</imageTags>
 					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
 					<resources>
 						<resource>

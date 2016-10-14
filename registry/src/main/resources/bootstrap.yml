@@ -3,7 +3,6 @@ spring:
     name: registry
   cloud:
     config:
-      label: swarm
       uri: ${vcap.services.config-server.credentials.uri:http://localhost:8888}
       
 ---
