@@ -16,6 +16,7 @@ import com.idugalic.common.blog.event.BlogPostCreatedEvent;
 import com.idugalic.common.blog.event.BlogPostPublishedEvent;
 import com.idugalic.common.blog.model.BlogPostCategory;
 
+@SuppressWarnings("rawtypes")
 public class BlogPostAggregate extends AbstractAnnotatedAggregateRoot {
 
     private static final long serialVersionUID = 2043271011122572822L;

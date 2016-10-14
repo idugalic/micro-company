@@ -180,6 +180,7 @@ public class AxonConfiguration {
      */
     @Bean
     AggregateAnnotationCommandHandler<ProjectAggregate> blogPostAggregateCommandHandler() {
+        @SuppressWarnings("deprecation")
         AggregateAnnotationCommandHandler<ProjectAggregate> handler = new AggregateAnnotationCommandHandler<ProjectAggregate>(
                 ProjectAggregate.class,
                 projectEventSourcingRepository(),

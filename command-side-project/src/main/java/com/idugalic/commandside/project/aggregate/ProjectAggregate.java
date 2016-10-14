@@ -1,5 +1,10 @@
 package com.idugalic.commandside.project.aggregate;
 
+import com.idugalic.commandside.project.command.CreateProjectCommand;
+import com.idugalic.commandside.project.command.UpdateProjectCommand;
+import com.idugalic.common.project.event.ProjectCreatedEvent;
+import com.idugalic.common.project.event.ProjectUpdatedEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +15,7 @@ import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.idugalic.commandside.project.command.CreateProjectCommand;
-import com.idugalic.commandside.project.command.UpdateProjectCommand;
-import com.idugalic.common.project.event.ProjectCreatedEvent;
-import com.idugalic.common.project.event.ProjectUpdatedEvent;
-
+@SuppressWarnings("rawtypes")
 public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
 
     private static final long serialVersionUID = 2043271011232572733L;
