@@ -23,7 +23,7 @@ import com.idugalic.commandside.project.command.UpdateProjectCommand;
 import com.idugalic.common.model.AuditEntry;
 
 @RestController
-@RequestMapping(value = "/projects")
+@RequestMapping(value = "/command/projects")
 public class ProjectController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ProjectController.class);

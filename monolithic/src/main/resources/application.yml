@@ -19,20 +19,7 @@ authserver:
   port: 9999
   contextPath: uaa
 
-spring:
-  application:
-    exchange: all.events.fanout.exchange
-    queue: my.default.queue
-    databaseName: dbevents
-    eventsCollectionName: cevents
-    snapshotCollectionName: snapshots
-  rabbitmq:
-    hostname: 127.0.0.1
-    username: test
-    password: password
-  data:
-    mongodb:
-      uri: mongodb://127.0.0.1:27017/myevents
+
       
 security:
   oauth2:

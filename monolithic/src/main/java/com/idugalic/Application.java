@@ -11,6 +11,7 @@ import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -23,11 +24,10 @@ import com.idugalic.commandside.blog.configuration.SecurityConfiguration;
 import com.idugalic.commandside.blog.handler.EventLoggingHandler;
 import com.idugalic.commandside.blog.web.RestResponseEntityExceptionHandler;
 import com.idugalic.queryside.blog.configuration.RestConfiguration;
+import com.idugalic.queryside.blog.repository.BlogPostRepository;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages={"com.idugalic.queryside.blog.repository","com.idugalic.queryside.project.repository"})
-@EnableMongoRepositories
-@EntityScan(basePackages={"com.idugalic.queryside.project.domain","com.idugalic.queryside.blog.domain"})
+@Import({RestConfiguration.class})
 @ComponentScan(basePackages={"com.idugalic"},excludeFilters = {
         @Filter(type = FilterType.ASSIGNABLE_TYPE,
                 value = {
