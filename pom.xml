@@ -25,6 +25,7 @@
 		<module>circuit-breaker</module>
 		<module>api-gateway</module>
 		<module>adminserver</module>
+		<module>monolithic</module>
 	</modules>
 
 	<properties>

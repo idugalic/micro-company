@@ -7,7 +7,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 import com.idugalic.queryside.blog.domain.BlogPost;
 
 @Configuration
-class RestConfiguration extends RepositoryRestMvcConfiguration {
+public class RestConfiguration extends RepositoryRestMvcConfiguration {
 
     @Override
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
