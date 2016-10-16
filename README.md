@@ -126,19 +126,28 @@ $ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 
 ### Step 3: Run the application
 
-Pull already created images from the docker hub (or your local registry, if you performed step 2) and run them on:
+Pull already created images from the docker hub (or your local registry, if you performed step 2) and run them as:
 
-- local host or
-- swarm (mode) cluster of virtual machines
+- microservices on localhost or
+- monolithic on localhost or
+- microservices on swarm (mode) cluster of virtual machines
 
-#### Run on local host machine
+
+#### Run microservices on localhost
 
 ```bash
 $ cd microservice-company/docker
 $ docker-compose up -d 
 ```
 
-#### Run on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)
+#### Run monolithic on localhost
+
+```bash
+$ cd microservice-company/docker
+$ docker-compose -f docker-compose-monolithic.yml up -d 
+```
+
+#### Run microservices on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
 ```bash
@@ -151,6 +160,8 @@ Please note that my current docker host IP is 127.0.0.1
 
 #### Create Blog post
 
+###### Microservices
+
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands
 
@@ -161,7 +172,15 @@ or on gateway:
 $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogpostcommands 
 
 ```
+###### Monolithic
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands
+
+```
+
 #### Publish Blog post
+
+###### Microservices
 
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
@@ -173,7 +192,16 @@ or on gateway:
 $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogpostcommands/{id}/publishcommand
 
 ```
+###### Monolithic
+
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
+
+```
+
 #### Query Blog posts
+
+###### Microservices
 ```bash
 $ curl http://127.0.0.1:8081/blogposts
 ```
@@ -182,8 +210,14 @@ or on gateway:
 ```bash
 $ curl http://127.0.0.1:9000/query/blog/blogposts
 ```
+###### Monolithic
+```bash
+$ curl http://127.0.0.1:8080/blogposts
+```
 
 #### Create Project
+
+###### Microservices
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8082/projectcommands
 
@@ -195,7 +229,15 @@ or on gateway:
 $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:9000/command/project/projectcommands
 
 ```
+###### Monolithic
+
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8080/projectcommands
+
+```
 #### Query Projects
+
+###### Microservices
 ```bash
 $ curl http://127.0.0.1:8083/projects
 ```
@@ -204,9 +246,14 @@ $ curl http://127.0.0.1:8083/projects
  ```bash
 $ curl http://127.0.0.1:9000/query/project/projects
 ```
+###### Monolithic
+```bash
+$ curl http://127.0.0.1:8080/projects
+```
 
 #### WebSocket on the gateway
 
+###### Microservices
 All the events will be sent to browser via WebSocket and displayed on http://127.0.0.1:9000/socket/index.html
 
 
