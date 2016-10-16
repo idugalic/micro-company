@@ -18,11 +18,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
-@Import({RestConfiguration.class})
 @ComponentScan(basePackages={"com.idugalic"},excludeFilters = {
         @Filter(type = FilterType.ASSIGNABLE_TYPE,
                 value = {
