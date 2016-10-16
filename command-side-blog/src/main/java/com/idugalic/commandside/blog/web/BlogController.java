@@ -23,7 +23,7 @@ import com.idugalic.commandside.blog.command.PublishBlogPostCommand;
 import com.idugalic.common.model.AuditEntry;
 
 @RestController
-@RequestMapping(value = "/command/blogposts")
+@RequestMapping(value = "/blogpostcommands")
 public class BlogController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(BlogController.class);
