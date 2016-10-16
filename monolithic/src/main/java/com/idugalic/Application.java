@@ -1,30 +1,25 @@
 package com.idugalic;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.orm.jpa.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import com.idugalic.commandside.blog.configuration.AxonConfiguration;
 import com.idugalic.commandside.blog.configuration.RabbitConfiguration;
 import com.idugalic.commandside.blog.configuration.SecurityConfiguration;
 import com.idugalic.commandside.blog.handler.EventLoggingHandler;
 import com.idugalic.commandside.blog.web.RestResponseEntityExceptionHandler;
 import com.idugalic.queryside.blog.configuration.RestConfiguration;
-import com.idugalic.queryside.blog.repository.BlogPostRepository;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 
 @SpringBootApplication
 @Import({RestConfiguration.class})
