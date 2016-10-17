@@ -1,7 +1,6 @@
 package com.idugalic.commandside.blog.configuration;
 
 import com.idugalic.commandside.blog.aggregate.BlogPostAggregate;
-import com.mongodb.Mongo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,11 @@ import org.axonframework.commandhandling.gateway.CommandGatewayFactoryBean;
 import org.axonframework.commandhandling.interceptors.BeanValidationInterceptor;
 import org.axonframework.commandhandling.interceptors.LoggingInterceptor;
 import org.axonframework.contextsupport.spring.AnnotationDriven;
-import org.axonframework.eventhandling.*;
+import org.axonframework.eventhandling.ClusteringEventBus;
+import org.axonframework.eventhandling.DefaultClusterSelector;
+import org.axonframework.eventhandling.EventBus;
+import org.axonframework.eventhandling.EventBusTerminal;
+import org.axonframework.eventhandling.SimpleCluster;
 import org.axonframework.eventhandling.amqp.spring.ListenerContainerLifecycleManager;
 import org.axonframework.eventhandling.amqp.spring.SpringAMQPConsumerConfiguration;
 import org.axonframework.eventhandling.amqp.spring.SpringAMQPTerminal;
@@ -28,12 +31,15 @@ import org.axonframework.eventstore.mongo.DefaultMongoTemplate;
 import org.axonframework.eventstore.mongo.MongoEventStore;
 import org.axonframework.eventstore.mongo.MongoTemplate;
 import org.axonframework.serializer.json.JacksonSerializer;
+
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.mongodb.Mongo;
 
 @Configuration
 @AnnotationDriven

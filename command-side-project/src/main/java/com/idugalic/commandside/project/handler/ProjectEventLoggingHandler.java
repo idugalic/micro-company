@@ -1,4 +1,4 @@
-package com.idugalic.queryside.project.handler;
+package com.idugalic.commandside.project.handler;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.axonframework.eventhandling.annotation.SequenceNumber;
@@ -9,10 +9,14 @@ import org.springframework.stereotype.Component;
 
 import com.idugalic.common.project.event.ProjectCreatedEvent;
 
+/**
+ * EventHandler's (a.k.a. EventListeners) are used to react to events and perform
+ * associated actions, such as updating a 'materialised-view' for example.
+ */
 @Component
-public class EventLoggingHandler {
+public class ProjectEventLoggingHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EventLoggingHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProjectEventLoggingHandler.class);
     private static final String IID = String.valueOf(Double.valueOf(Math.random() * 100).intValue());
 
     @EventHandler

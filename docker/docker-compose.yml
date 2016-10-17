@@ -33,25 +33,25 @@ services:
     entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
     command: java -Dspring.profiles.active=docker -jar /app.jar
   query-side-blog:
-    image: idugalic/query-side-blog 
+    image: idugalic/query-side-blog-service
     ports:
      - "8081:8081"
     entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
     command: java -Dspring.profiles.active=docker -jar /app.jar
   command-side-blog:
-    image: idugalic/command-side-blog 
+    image: idugalic/command-side-blog-service
     ports:
      - "8080:8080"
     entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
     command: java -Dspring.profiles.active=docker -jar /app.jar
   query-side-project:
-    image: idugalic/query-side-project 
+    image: idugalic/query-side-project-service
     ports:
      - "8083:8083"
     entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
     command: java -Dspring.profiles.active=docker -jar /app.jar
   command-side-project:
-    image: idugalic/command-side-project 
+    image: idugalic/command-side-project-service
     ports:
      - "8082:8082"
     entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --

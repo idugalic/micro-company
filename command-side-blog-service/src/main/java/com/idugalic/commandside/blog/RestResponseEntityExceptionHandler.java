@@ -1,4 +1,4 @@
-package com.idugalic.commandside.blog.web;
+package com.idugalic.commandside.blog;
 
 import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.commandhandling.interceptors.JSR303ViolationException;

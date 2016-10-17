@@ -1,12 +1,5 @@
 package com.idugalic;
 
-import com.idugalic.commandside.blog.configuration.AxonConfiguration;
-import com.idugalic.commandside.blog.configuration.RabbitConfiguration;
-import com.idugalic.commandside.blog.configuration.SecurityConfiguration;
-import com.idugalic.commandside.blog.handler.EventLoggingHandler;
-import com.idugalic.commandside.blog.web.RestResponseEntityExceptionHandler;
-import com.idugalic.queryside.blog.configuration.RestConfiguration;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -15,37 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"com.idugalic"},excludeFilters = {
-        @Filter(type = FilterType.ASSIGNABLE_TYPE,
-                value = {
-                		RestResponseEntityExceptionHandler.class,
-                		AxonConfiguration.class,
-                		com.idugalic.commandside.project.configuration.AxonConfiguration.class,
-                		com.idugalic.queryside.blog.configuration.AxonConfiguration.class,
-                		com.idugalic.queryside.project.configuration.AxonConfiguration.class,
-                		RabbitConfiguration.class,
-                		com.idugalic.commandside.project.configuration.RabbitConfiguration.class,
-                		com.idugalic.queryside.blog.configuration.RabbitConfiguration.class,
-                		com.idugalic.queryside.project.configuration.RabbitConfiguration.class,
-                		SecurityConfiguration.class,
-                		com.idugalic.commandside.project.configuration.SecurityConfiguration.class,
-                		com.idugalic.queryside.blog.configuration.SecurityConfiguration.class,
-                		com.idugalic.queryside.project.configuration.SecurityConfiguration.class,
-                		RestConfiguration.class,
-                		com.idugalic.queryside.project.configuration.RestConfiguration.class,
-                		EventLoggingHandler.class,
-                		com.idugalic.commandside.project.handler.EventLoggingHandler.class,
-                		com.idugalic.queryside.blog.handler.EventLoggingHandler.class,
-                		com.idugalic.queryside.project.handler.EventLoggingHandler.class
-                		
-                })
-    })
 public class Application {
 
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
