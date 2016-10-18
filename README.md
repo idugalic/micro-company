@@ -40,11 +40,11 @@ The command-side and the query-side both have REST API's which can be used to ac
 
 ### Components
 
-##### Blog
-A Blog service is used for manging and quering the posts of your company. It is split into a *command-side* component and a *query-side* component.
+#### Blog
+A Blog component is used for manging and quering the posts of your company. It is split into a *command-side* component and a *query-side* component.
 
-##### Project
-A Project service is used for manging and quering the projects of your company. It is split into a *command-side* component and a *query-side* component.
+#### Project
+A Project component is used for manging and quering the projects of your company. It is split into a *command-side* component and a *query-side* component.
 
 
 ## Running instructions
