@@ -1,4 +1,4 @@
-# Micro Company application
+# Micro Company application (Monolithic version)
 
 
 
