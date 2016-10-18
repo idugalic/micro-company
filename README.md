@@ -73,14 +73,14 @@ $ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 ```
 
 ### Step 3: Run the application
+#### with maven
+
 ```bash
 $ cd microservice-company/monolithic
 $ mvn spring-boot:run
 ```
-#### Spring boot application
 
-
-#### or docker container
+#### or within docker container
 
 ```bash
 $ cd microservice-company/docker
