@@ -16,19 +16,10 @@
 		<module>common-blog</module>
 		<module>command-side-blog</module>
 		<module>query-side-blog</module>
-		<module>command-side-blog-service</module>
-		<module>query-side-blog-service</module>
 		<module>common-project</module>
 		<module>command-side-project</module>
 		<module>query-side-project</module>
-		<module>command-side-project-service</module>
-		<module>query-side-project-service</module>
 		<module>authserver</module>
-		<module>registry</module>
-		<module>configserver</module>
-		<module>circuit-breaker</module>
-		<module>api-gateway</module>
-		<module>adminserver</module>
 		<module>monolithic</module>
 	</modules>
 

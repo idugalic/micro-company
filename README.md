@@ -1,47 +1,25 @@
 # Micro Company application
 
-**This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.**
-
-## What is cloud native
-
-To understand “cloud native,” we must first understand “cloud.”
-In the context of this application, **cloud refers to Platform as a Service**. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS). 
-
-### CaaS
-Containers as a service (CaaS) is a offering from cloud providers that includes compute resources, a container engine, and container orchestration tools. Developers can use the framework, via API or a web interface, to facilitate and manage container and application deployment. It can be considered a new layer for cloud platforms that lies somewhere between Infrastructure-as-a-Service and Platform-as-a-Service offerings for application development.
-
-A **cloud-native application** is an application that has been designed and implemented to run on a Platform-as-a-Service installation and to embrace horizontal elastic scaling.
-
-## Architecture
-
-The **microservice architectural style** is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API or via events (event-driven).
-
-**Microservices** enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
-
-<img class="img-responsive" src="micro-company.png">
 
 
 ### Patterns and techniques:
 
-1. Microservices
-2. Command and Query Responsibility Separation (CQRS)
-3. DDD - Event Sourcing
-4. DDD - Agregates
+1. Command and Query Responsibility Separation (CQRS)
+2. DDD - Event Sourcing
+3. DDD - Agregates
 
 ### Technologies
 
 - [Spring Boot](http://projects.spring.io/spring-boot/) (v1.2.6)
-- [Spring Cloud](http://projects.spring.io/spring-cloud/)
 - [Spring Data](http://projects.spring.io/spring-data/)
 - [Spring Data REST](http://projects.spring.io/spring-data-rest/)
 - [Axon Framework](http://www.axonframework.org/) (v2.4)
-- [RabbitMQ](https://www.rabbitmq.com/) (v3.5.4) Axon supports any Spring AMQP supported platform.
 - [MongoDB](https://www.mongodb.com/) (v.2.14) Axon also supports JDBC & JPA based event-stores.
 
 
 ### Key benefits
 
-1. Easy implementation of eventually consistent business transactions that span multiple microservices
+1. Easy implementation of eventually consistent business transactions that could span multiple components (potentialy services on other VMs)
 2. Automatic publishing of events whenever data changes
 3. Faster and more scalable querying by using materialized views
 4. Reliable auditing for all updates
@@ -49,54 +27,24 @@ The **microservice architectural style** is an approach to developing a single a
 
 ### How it works
 
-The domain is literally split into a *command-side* microservice application and a *query-side* microservice application (this is CQRS in its most literal form).
+The domain is literally split into a *command-side* component and a *query-side* component (this is CQRS in its most literal form).
 
-Communication between the two microservices is `event-driven` and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).
+Communication between the two components is `event-driven` and the demo uses simple event store (FileSyste/DB) as a means of passing the events between components.
 
-The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
+The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon (using MongoDB) and propagated out to components. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
 
-The **query-side** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.
+The **query-side** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, ...).
 
 The command-side and the query-side both have REST API's which can be used to access their capabilities.
 
-Read the [Axon documentation](http://www.axonframework.org/download/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).
 
-### Services
+### Components
 
-#### Backing services
+##### Blog
+A Blog service is used for manging and quering the posts of your company. It is split into a *command-side* component and a *query-side* component.
 
-The premise is that there are third-party service dependencies that should be treated as attached resources to your cloud native applications. The key trait of backing services are that they are provided as bindings to an application in its deployment environment by a cloud platform.
-Each of the backing services must be located using a statically defined route
-
-##### (Service) Registry
-Netflix Eureka is a service registry. It provides a REST API for service instance registration management and for querying available instances. Netflix Ribbon is an IPC client that works with Eureka to load balance(client side) requests across the available service instances.
-
-##### Authorization server (Oauth2)
-For issuing tokens and authorize requests.
-
-##### Configuration server
-The configuration service is a vital component of any microservices architecture. Based on the twelve-factor app methodology, configurations for your microservice applications should be stored in the environment and not in the project.
-Configuration is hosted here: https://github.com/idugalic/micro-company-config.git
-
-##### Admin server (http://codecentric.github.io/spring-boot-admin/1.3.2/)
-Spring Boot Admin is a simple application to manage and monitor your Spring Boot Applications. The applications register with our Spring Boot Admin Client (via http) or are discovered using Spring Cloud (e.g. Eureka). The UI is just an Angular.js application on top of the Spring Boot Actuator endpoints. In case you want to use the more advanced features (e.g. jmx-, loglevel-management), Jolokia must be included in the client application.
-
-##### API Gateway
-Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.
-
-
-#### Backend Microservices
-
-While the backing services in the middle layer are still considered to be microservices, they solve a set of concerns that are purely operational and security-related. The business logic of this application sits almost entirely in our bottom layer.
-
-##### BlogMicroservice
-A Blog service is used for manging and quering the posts of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
-
-##### ProjectMicroservice
-A Project service is used for manging and quering the projects of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
-
-##### CustomerMicroservice
-A Customer service is used for manging and quering customers of yours. It is split into a *command-side* microservice application and a *query-side* microservice application.
+##### Project
+A Project service is used for manging and quering the projects of your company. It is split into a *command-side* component and a *query-side* component.
 
 
 ## Running instructions
@@ -125,74 +73,33 @@ $ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
 ```
 
 ### Step 3: Run the application
-
-Pull already created images from the docker hub (or your local registry, if you performed step 2) and run them as:
-
-- microservices on localhost or
-- monolithic on localhost or
-- microservices on swarm (mode) cluster of virtual machines
-
-
-#### Run microservices on localhost
-
 ```bash
-$ cd microservice-company/docker
-$ docker-compose up -d 
+$ cd microservice-company/monolithic
+$ mvn spring-boot:run
 ```
+#### Spring boot application
 
-#### Run monolithic on localhost
+
+#### or docker container
 
 ```bash
 $ cd microservice-company/docker
 $ docker-compose -f docker-compose-monolithic.yml up -d 
 ```
 
-#### Run microservices on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)
-Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
-
-```bash
-$ cd microservice-company/docker
-$ ./swarm-mode-local.sh
-```
 
 ### Issuing Commands & Queries with CURL
 Please note that my current docker host IP is 127.0.0.1
 
 #### Create Blog post
 
-###### Microservices
 
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands
-
-```
-or on gateway:
-
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogpostcommands 
-
-```
-###### Monolithic
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands
 
 ```
 
 #### Publish Blog post
-
-###### Microservices
-
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
-
-```
-or on gateway:
-
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogpostcommands/{id}/publishcommand
-
-```
-###### Monolithic
 
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
@@ -201,35 +108,11 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23
 
 #### Query Blog posts
 
-###### Microservices
-```bash
-$ curl http://127.0.0.1:8081/blogposts
-```
-or on gateway:
-
-```bash
-$ curl http://127.0.0.1:9000/query/blog/blogposts
-```
-###### Monolithic
 ```bash
 $ curl http://127.0.0.1:8080/blogposts
 ```
 
 #### Create Project
-
-###### Microservices
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8082/projectcommands
-
-```
-
-or on gateway:
-
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:9000/command/project/projectcommands
-
-```
-###### Monolithic
 
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8080/projectcommands
@@ -237,24 +120,9 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":
 ```
 #### Query Projects
 
-###### Microservices
-```bash
-$ curl http://127.0.0.1:8083/projects
-```
- or on gateway:
- 
- ```bash
-$ curl http://127.0.0.1:9000/query/project/projects
-```
-###### Monolithic
 ```bash
 $ curl http://127.0.0.1:8080/projects
 ```
-
-#### WebSocket on the gateway
-
-###### Microservices
-All the events will be sent to browser via WebSocket and displayed on http://127.0.0.1:9000/socket/index.html
 
 
 ## About AXON
