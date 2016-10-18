@@ -1,0 +1,419 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Micro-company by idugalic</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Micro-company</h1>
+        <p>Rest-full, Hipermedia-based distributed application. Spring boot &amp; cloud. CQRS. Eventsourcing. Axonframework. Microservices. Docker.</p>
+
+        <p class="view"><a href="https://github.com/idugalic/micro-company">View the Project on GitHub <small>idugalic/micro-company</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/idugalic/micro-company/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/idugalic/micro-company/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/idugalic/micro-company">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="micro-company-application" class="anchor" href="#micro-company-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Micro Company application</h1>
+
+<p><strong>This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.</strong></p>
+
+<h2>
+<a id="what-is-cloud-native" class="anchor" href="#what-is-cloud-native" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is cloud native</h2>
+
+<p>To understand “cloud native,” we must first understand “cloud.”
+In the context of this application, <strong>cloud refers to Platform as a Service</strong>. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS). </p>
+
+<p>A <strong>cloud-native application</strong> is an application that has been designed and implemented to run on a Platform-as-a-Service installation and to embrace horizontal elastic scaling.</p>
+
+<h2>
+<a id="architecture" class="anchor" href="#architecture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Architecture</h2>
+
+<p>The <strong>microservice architectural style</strong> is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API or via events (event-driven).</p>
+
+<p><strong>Microservices</strong> enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.</p>
+
+<p><img src="micro-company.png"></p>
+
+<h3>
+<a id="patterns-and-techniques" class="anchor" href="#patterns-and-techniques" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Patterns and techniques:</h3>
+
+<ol>
+<li>Microservices</li>
+<li>Command and Query Responsibility Separation (CQRS)</li>
+<li>DDD - Event Sourcing</li>
+<li>DDD - Agregates</li>
+</ol>
+
+<h3>
+<a id="technologies" class="anchor" href="#technologies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Technologies</h3>
+
+<ul>
+<li>
+<a href="http://projects.spring.io/spring-boot/">Spring Boot</a> (v1.2.6)</li>
+<li><a href="http://projects.spring.io/spring-cloud/">Spring Cloud</a></li>
+<li><a href="http://projects.spring.io/spring-data/">Spring Data</a></li>
+<li><a href="http://projects.spring.io/spring-data-rest/">Spring Data REST</a></li>
+<li>
+<a href="http://www.axonframework.org/">Axon Framework</a> (v2.4)</li>
+<li>
+<a href="https://www.rabbitmq.com/">RabbitMQ</a> (v3.5.4) Axon supports any Spring AMQP supported platform.</li>
+<li>
+<a href="https://www.mongodb.com/">MongoDB</a> (v.2.14) Axon also supports JDBC &amp; JPA based event-stores.</li>
+</ul>
+
+<h3>
+<a id="key-benefits" class="anchor" href="#key-benefits" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Key benefits</h3>
+
+<ol>
+<li>Easy implementation of eventually consistent business transactions that span multiple microservices</li>
+<li>Automatic publishing of events whenever data changes</li>
+<li>Faster and more scalable querying by using materialized views</li>
+<li>Reliable auditing for all updates</li>
+</ol>
+
+<h3>
+<a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How it works</h3>
+
+<p>The domain is literally split into a <em>command-side</em> microservice application and a <em>query-side</em> microservice application (this is CQRS in its most literal form).</p>
+
+<p>Communication between the two microservices is <code>event-driven</code> and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).</p>
+
+<p>The <strong>command-side</strong> processes commands. Commands are actions which change state in some way. The execution of these commands results in <code>Events</code> being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.</p>
+
+<p>The <strong>query-side</strong> is an event-listener and processor. It listens for the <code>Events</code> and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a <em>materialised view</em> which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.</p>
+
+<p>The command-side and the query-side both have REST API's which can be used to access their capabilities.</p>
+
+<p>Read the <a href="http://www.axonframework.org/download/">Axon documentation</a> for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).</p>
+
+<h3>
+<a id="services" class="anchor" href="#services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Services</h3>
+
+<h4>
+<a id="backing-services" class="anchor" href="#backing-services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backing services</h4>
+
+<p>The premise is that there are third-party service dependencies that should be treated as attached resources to your cloud native applications. The key trait of backing services are that they are provided as bindings to an application in its deployment environment by a cloud platform.
+Each of the backing services must be located using a statically defined route</p>
+
+<h5>
+<a id="service-registry" class="anchor" href="#service-registry" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>(Service) Registry</h5>
+
+<p>Netflix Eureka is a service registry. It provides a REST API for service instance registration management and for querying available instances. Netflix Ribbon is an IPC client that works with Eureka to load balance(client side) requests across the available service instances.</p>
+
+<h5>
+<a id="authorization-server-oauth2" class="anchor" href="#authorization-server-oauth2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authorization server (Oauth2)</h5>
+
+<p>For issuing tokens and authorize requests.</p>
+
+<h5>
+<a id="configuration-server" class="anchor" href="#configuration-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration server</h5>
+
+<p>The configuration service is a vital component of any microservices architecture. Based on the twelve-factor app methodology, configurations for your microservice applications should be stored in the environment and not in the project.
+Configuration is hosted here: <a href="https://github.com/idugalic/micro-company-config.git">https://github.com/idugalic/micro-company-config.git</a></p>
+
+<h5>
+<a id="admin-server-httpcodecentricgithubiospring-boot-admin132" class="anchor" href="#admin-server-httpcodecentricgithubiospring-boot-admin132" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Admin server (<a href="http://codecentric.github.io/spring-boot-admin/1.3.2/">http://codecentric.github.io/spring-boot-admin/1.3.2/</a>)</h5>
+
+<p>Spring Boot Admin is a simple application to manage and monitor your Spring Boot Applications. The applications register with our Spring Boot Admin Client (via http) or are discovered using Spring Cloud (e.g. Eureka). The UI is just an Angular.js application on top of the Spring Boot Actuator endpoints. In case you want to use the more advanced features (e.g. jmx-, loglevel-management), Jolokia must be included in the client application.</p>
+
+<h5>
+<a id="api-gateway" class="anchor" href="#api-gateway" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API Gateway</h5>
+
+<p>Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.</p>
+
+<h4>
+<a id="backend-microservices" class="anchor" href="#backend-microservices" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backend Microservices</h4>
+
+<p>While the backing services in the middle layer are still considered to be microservices, they solve a set of concerns that are purely operational and security-related. The business logic of this application sits almost entirely in our bottom layer.</p>
+
+<h5>
+<a id="blogmicroservice" class="anchor" href="#blogmicroservice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BlogMicroservice</h5>
+
+<p>A Blog service is used for manging and quering the posts of your company. It is split into a <em>command-side</em> microservice application and a <em>query-side</em> microservice application.</p>
+
+<h5>
+<a id="projectmicroservice" class="anchor" href="#projectmicroservice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ProjectMicroservice</h5>
+
+<p>A Project service is used for manging and quering the projects of your company. It is split into a <em>command-side</em> microservice application and a <em>query-side</em> microservice application.</p>
+
+<h5>
+<a id="customermicroservice" class="anchor" href="#customermicroservice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CustomerMicroservice</h5>
+
+<p>A Customer service is used for manging and quering customers of yours. It is split into a <em>command-side</em> microservice application and a <em>query-side</em> microservice application.</p>
+
+<h2>
+<a id="running-instructions" class="anchor" href="#running-instructions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running instructions</h2>
+
+<h3>
+<a id="prerequisite" class="anchor" href="#prerequisite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisite</h3>
+
+<ul>
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Java JDK 8</a></li>
+<li>
+<a href="https://git-scm.com/">Git</a> </li>
+<li><a href="https://www.docker.com/">Docker</a></li>
+<li>VirtualBox</li>
+</ul>
+
+<h3>
+<a id="step-1-clone-the-project" class="anchor" href="#step-1-clone-the-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1: Clone the project</h3>
+
+<div class="highlight highlight-source-shell"><pre>$ git clone https://github.com/idugalic/micro-company.git</pre></div>
+
+<h3>
+<a id="step-2-optional-build-the-project" class="anchor" href="#step-2-optional-build-the-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2 (Optional): Build the project</h3>
+
+<p>Please note that images are available on the docker hub (<a href="https://hub.docker.com/u/idugalic">https://hub.docker.com/u/idugalic</a>), so if you do not want to build the services, simply skip to Step 3</p>
+
+<p>Build project and create docker images:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company
+$ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install</pre></div>
+
+<h3>
+<a id="step-3-run-the-application" class="anchor" href="#step-3-run-the-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Run the application</h3>
+
+<p>Pull already created images from the docker hub (or your local registry, if you performed step 2) and run them as:</p>
+
+<ul>
+<li>microservices on localhost or</li>
+<li>monolithic on localhost or</li>
+<li>microservices on swarm (mode) cluster of virtual machines</li>
+</ul>
+
+<h4>
+<a id="run-microservices-on-localhost" class="anchor" href="#run-microservices-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on localhost</h4>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
+$ docker-compose up -d </pre></div>
+
+<h4>
+<a id="run-monolithic-on-localhost" class="anchor" href="#run-monolithic-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run monolithic on localhost</h4>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
+$ docker-compose -f docker-compose-monolithic.yml up -d </pre></div>
+
+<h4>
+<a id="run-microservices-on-swarm-mode-cluster---112-docker-beta-is-required-" class="anchor" href="#run-microservices-on-swarm-mode-cluster---112-docker-beta-is-required-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)</h4>
+
+<p>Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. <a href="https://docs.docker.com/engine/swarm">https://docs.docker.com/engine/swarm</a></p>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
+$ ./swarm-mode-local.sh</pre></div>
+
+<h3>
+<a id="issuing-commands--queries-with-curl" class="anchor" href="#issuing-commands--queries-with-curl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Issuing Commands &amp; Queries with CURL</h3>
+
+<p>Please note that my current docker host IP is 127.0.0.1</p>
+
+<h4>
+<a id="create-blog-post" class="anchor" href="#create-blog-post" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Blog post</h4>
+
+<h6>
+<a id="microservices" class="anchor" href="#microservices" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:8080/blogpostcommands
+</pre></div>
+
+<p>or on gateway:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:9000/command/blog/blogpostcommands 
+</pre></div>
+
+<h6>
+<a id="monolithic" class="anchor" href="#monolithic" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:8080/blogpostcommands
+</pre></div>
+
+<h4>
+<a id="publish-blog-post" class="anchor" href="#publish-blog-post" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Publish Blog post</h4>
+
+<h6>
+<a id="microservices-1" class="anchor" href="#microservices-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
+</pre></div>
+
+<p>or on gateway:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:9000/command/blog/blogpostcommands/{id}/publishcommand
+</pre></div>
+
+<h6>
+<a id="monolithic-1" class="anchor" href="#monolithic-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
+</pre></div>
+
+<h4>
+<a id="query-blog-posts" class="anchor" href="#query-blog-posts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Blog posts</h4>
+
+<h6>
+<a id="microservices-2" class="anchor" href="#microservices-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8081/blogposts</pre></div>
+
+<p>or on gateway:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:9000/query/blog/blogposts</pre></div>
+
+<h6>
+<a id="monolithic-2" class="anchor" href="#monolithic-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8080/blogposts</pre></div>
+
+<h4>
+<a id="create-project" class="anchor" href="#create-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Project</h4>
+
+<h6>
+<a id="microservices-3" class="anchor" href="#microservices-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}<span class="pl-pds">'</span></span> http://127.0.0.1:8082/projectcommands
+</pre></div>
+
+<p>or on gateway:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}<span class="pl-pds">'</span></span> http://127.0.0.1:9000/command/project/projectcommands
+</pre></div>
+
+<h6>
+<a id="monolithic-3" class="anchor" href="#monolithic-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}<span class="pl-pds">'</span></span> http://127.0.0.1:8080/projectcommands
+</pre></div>
+
+<h4>
+<a id="query-projects" class="anchor" href="#query-projects" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query Projects</h4>
+
+<h6>
+<a id="microservices-4" class="anchor" href="#microservices-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8083/projects</pre></div>
+
+<p>or on gateway:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:9000/query/project/projects</pre></div>
+
+<h6>
+<a id="monolithic-4" class="anchor" href="#monolithic-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8080/projects</pre></div>
+
+<h4>
+<a id="websocket-on-the-gateway" class="anchor" href="#websocket-on-the-gateway" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>WebSocket on the gateway</h4>
+
+<h6>
+<a id="microservices-5" class="anchor" href="#microservices-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
+
+<p>All the events will be sent to browser via WebSocket and displayed on <a href="http://127.0.0.1:9000/socket/index.html">http://127.0.0.1:9000/socket/index.html</a></p>
+
+<h2>
+<a id="about-axon" class="anchor" href="#about-axon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About AXON</h2>
+
+<h3>
+<a id="commands" class="anchor" href="#commands" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Commands</h3>
+
+<p>Commands are messages that are sent to a system with an intent of doing something. They are sent to a Command Gateway, and then a Command Bus dispatches them to concrete Command Handlers. There can be some validation, or security check done in some Interceptors. The Command should be executed in some Unit of Work, which can be implemented over database transaction. Additionally Command processing may be distributed across many nodes with JGroups.</p>
+
+<p>Axon provides interfaces, implementation and annotations for each one of those concepts. You just need to write your Command classes, and simple Handler classes with one annotation and that's it.</p>
+
+<p>There are some default Interceptors already written - like Interceptor for JSR 303 Bean Validation. If you need, you can easily write your Interceptor by implementing one simple interface.</p>
+
+<h3>
+<a id="events" class="anchor" href="#events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Events</h3>
+
+<p>As stated before, Commands are messages with intent of doing something. On the other hand, after this something is done, another messages can be produced as a result - Events. They represent a fact.</p>
+
+<p>In Axon, you just need to write your own Event classes. All the infrastructure that is responsible for handling them is there for you. In previous version (1.3) you had to extend base Event class - in current version (2.0) you don't have to do it anymore. Because of that, you can use your Events to integrate with other, non-Axon-based systems easily.</p>
+
+<h3>
+<a id="domain" class="anchor" href="#domain" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Domain</h3>
+
+<p>You should model your domain very carefully. This is the place, where the essential complexity lays. There are no frameworks that can help you with that. You should spend most of your time in that place.</p>
+
+<p>Thanks to Axon, you can actually do it that way. All the infrastructure code is there for you. The one thing that Axon gives you to help you struggling with the domain modeling is base Aggregate Root class, which you can extend and get access to some useful methods.</p>
+
+<p>In the end, if you are using Event Sourcing, you can use Abstract Annotated Aggregate Root and use annotations on your private methods, that are applying events and changing the state of the Aggregate. Axon will additionally dispatch Events to annotated Entities in the Aggregate.</p>
+
+<p>You should not change the state of the Aggregate in methods that are not reacting on Events. This is normal in Event Sourcing. Axon guards you not to violate this principle, so an inexperienced person won't break anything.</p>
+
+<h3>
+<a id="repositories" class="anchor" href="#repositories" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Repositories</h3>
+
+<p>Aggregates are stored in Repositories. You should be able to load Aggregate by id, and save it back. It doesn't matter if you are using SQL database, flat files, or other noSQL solution. The persistance technique should be separated from the concept.</p>
+
+<p>Axon gives you this separation. You can choose to use classic JPA-based Repository, or Event Sourced Repository. It additionally adds possibility to use caching for performance tuning.</p>
+
+<h3>
+<a id="event-stores" class="anchor" href="#event-stores" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Event Stores</h3>
+
+<p>If you choose to use Event Sourcing, you need to store effectively your Events in some Event Store.</p>
+
+<p>Axon gives you an interface for Repository, and a couple of implementations. The simplest implementation is based on flat files, but it is not that powerfull as others. You can also use JPA-based Event Store, which will create only two tables - for Event entries and for Aggregate Snapshot entries. For those two solutions, you will need to serialize your Events. Axon by default uses XStream, but you can choose any other. The third Event Store is implemented over MongoDB. If you need, you can easily implement any other Event Store on your own.</p>
+
+<p>When your Aggregates live for a very long time, they can have a quite long history. For performance reasons you can use Aggregate Snapshotting to shorten the time of Aggregate loading.</p>
+
+<p>Your Events definition may change over the time, so those Event Stores by default give you a possibility to easily write Event Upcasters. It also gives you a support for some advanced conflict resolution when it happens. </p>
+
+<h3>
+<a id="event-bus" class="anchor" href="#event-bus" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Event Bus</h3>
+
+<p>In CQRS, after Events are generated, they need to be processed to update the query database. They are dispatched to Event Handlers. Those Event Handlers can be located on the same machine, or distributed in a cluster.</p>
+
+<p>In Axon you just need to annatote methods of components that are supposed to listen for Events. You can also choose if you want to process Events synchronously, or asynchronously.</p>
+
+<p>If some error occurs, you can define how to react. Axon can rollback transaction if you are using any, or it can reschedule the Event and process it again after some time for you. If you need any other error handling procedure, you can write it on your own by implementing simple interface. </p>
+
+<p>If you have distributed environment, Axon gives you support for Spring AMQP.</p>
+
+<p>Sometimes you need to replay historical Events, and Axon also gives you the support for doing that.</p>
+
+<h3>
+<a id="sagas" class="anchor" href="#sagas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sagas</h3>
+
+<p>Sometimes your transactions need to live longer. You cannot always finish all the work you need in a single ACID transaction. That is where Sagas come into play. On the other hand, you can use Sagas as a Workflow, or State Machine.</p>
+
+<p>In Axon, Saga is a special Event Handler that handles the long business transaction. You can use Abstract Annotated Saga as a base class for your Sagas and then just use annotations on your methods that handle Events.</p>
+
+<p>If you need to take care about time, or deadlines, Axon provides Sagas with Schedulers that can handle time management. You can use Simple Scheduler that uses pure Java implementation, or Quartz Scheduler that is much more powerfull.</p>
+
+<h3>
+<a id="testing" class="anchor" href="#testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h3>
+
+<p>You should test the code that you write, right? You can do it in a normal way, with mocks, or something like this, but if you are using Event Sourcing, you have another possibility. You have a history of Events, then you execute some Command, and a bunch of Events is generated as a result. You can test exactly that way with Axon.</p>
+
+<p>Axon gives you a Given When Then Fixture. As Given you specify historical set of Events, as When you specify a Command that is tested, and as a Then you specify full set of Events that are supposed to be generated. Everything is wired for you, and you just need to define test scenario with those Events and Command.</p>
+
+<p>Of course, you should also test your Sagas. There is a special Annotated Saga Test Fixture for that. As Given you specify a set of historical Event, as When you specify a single Event, and as Then you specify a desired behavior, or state change. If you need, you can also mock the time for testing time-related Sagas.</p>
+
+<h3>
+<a id="spring-support" class="anchor" href="#spring-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spring support</h3>
+
+<p>Those days, each mature framework in Java world should have some sort of Spring support. Each of Axon's components can be configured as a Spring bean. Axon provides also a namespace shortcut for almost everything it has, so the configuration is as short as it has to be.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/idugalic">idugalic</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
