@@ -96,6 +96,8 @@
 		</dependencies>
 	</dependencyManagement>
 
+
+
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>
@@ -106,7 +108,6 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
 
 	<build>
 		<plugins>
@@ -123,6 +124,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
 	</build>
 
 

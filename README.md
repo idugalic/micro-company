@@ -117,16 +117,14 @@ $ git clone https://github.com/idugalic/micro-company.git
 ### Step 2 (Optional): Build the project
 Please note that images are available on the docker hub (https://hub.docker.com/u/idugalic), so if you do not want to build the services, simply skip to Step 3
 
-Build project and create docker images:
+Build the project:
  
 ```bash
 $ cd microservice-company
-$ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
+$ mvn clean install
 ```
 
-### Step 3: Run the application
-
-Pull already created images from the docker hub (or your local registry, if you performed step 2) and run them as:
+### Step 3: Run the application as
 
 - microservices on localhost or
 - monolithic on localhost or
