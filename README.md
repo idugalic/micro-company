@@ -1,6 +1,7 @@
-# Micro Company application (Monolithic version)
+# Application 'Micro Company' (Monolithic version)
 
-
+This version of the application is deployed as a single monolithic application. 
+It is designed and architected in a way that supports easy migration to microservices architectural style.
 
 ### Patterns and techniques:
 
@@ -18,12 +19,12 @@
 
 
 ### Key benefits
-
-1. Easy implementation of eventually consistent business transactions that could span multiple components (potentialy services on other VMs)
-2. Automatic publishing of events whenever data changes
-3. Faster and more scalable querying by using materialized views
-4. Reliable auditing for all updates
-
+1. Simple to develop - the goal of current development tools and IDEs is to support the development of monolithic applications
+2. Simple to deploy - you simply need to deploy the WAR/JAR file on the appropriate runtime
+3. Simple to scale - you can scale the application by running multiple copies of the application behind a load balancer
+4. Easy implementation of eventually consistent business transactions that could span multiple components (potentialy services on other VMs)
+5. Automatic publishing of events whenever data changes
+6. Reliable auditing for all updates
 
 ### How it works
 
