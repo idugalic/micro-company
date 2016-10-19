@@ -181,15 +181,13 @@ Configuration is hosted here: <a href="https://github.com/idugalic/micro-company
 
 <p>Please note that images are available on the docker hub (<a href="https://hub.docker.com/u/idugalic">https://hub.docker.com/u/idugalic</a>), so if you do not want to build the services, simply skip to Step 3</p>
 
-<p>Build project and create docker images:</p>
+<p>Build the project:</p>
 
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company
-$ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install</pre></div>
+$ mvn clean install</pre></div>
 
 <h3>
-<a id="step-3-run-the-application" class="anchor" href="#step-3-run-the-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Run the application</h3>
-
-<p>Pull already created images from the docker hub (or your local registry, if you performed step 2) and run them as:</p>
+<a id="step-3-run-the-application-as" class="anchor" href="#step-3-run-the-application-as" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Run the application as</h3>
 
 <ul>
 <li>microservices on localhost or</li>
