@@ -32,22 +32,22 @@
         <h1>
 <a id="micro-company-application" class="anchor" href="#micro-company-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Micro Company application</h1>
 
-<p><strong>This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.</strong></p>
+<p>This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.</p>
 
 <h2>
 <a id="what-is-cloud-native" class="anchor" href="#what-is-cloud-native" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is cloud native</h2>
 
 <p>To understand “cloud native,” we must first understand “cloud.”
-In the context of this application, <strong>cloud refers to Platform as a Service</strong>. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS). </p>
+In the context of this application, cloud refers to Platform as a Service. PaaS providers expose a platform that hides infrastructure details from the application developer, where that platform resides on top of Infrastructure as a Service (IaaS). </p>
 
-<p>A <strong>cloud-native application</strong> is an application that has been designed and implemented to run on a Platform-as-a-Service installation and to embrace horizontal elastic scaling.</p>
+<p>A cloud-native application is an application that has been designed and implemented to run on a Platform-as-a-Service installation and to embrace horizontal elastic scaling.</p>
 
 <h2>
 <a id="architecture" class="anchor" href="#architecture" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Architecture</h2>
 
-<p>The <strong>microservice architectural style</strong> is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API or via events (event-driven).</p>
+<p>The microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API or via events (event-driven).</p>
 
-<p><strong>Microservices</strong> enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.</p>
+<p>Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.</p>
 
 <p><img src="https://raw.githubusercontent.com/idugalic/micro-company/master/micro-company.png"></p>
 
@@ -95,9 +95,9 @@ In the context of this application, <strong>cloud refers to Platform as a Servic
 
 <p>Communication between the two microservices is <code>event-driven</code> and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).</p>
 
-<p>The <strong>command-side</strong> processes commands. Commands are actions which change state in some way. The execution of these commands results in <code>Events</code> being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.</p>
+<p>The command-side processes commands. Commands are actions which change state in some way. The execution of these commands results in <code>Events</code> being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.</p>
 
-<p>The <strong>query-side</strong> is an event-listener and processor. It listens for the <code>Events</code> and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a <em>materialised view</em> which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.</p>
+<p>The query-side is an event-listener and processor. It listens for the <code>Events</code> and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a <em>materialised view</em> which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.</p>
 
 <p>The command-side and the query-side both have REST API's which can be used to access their capabilities.</p>
 
