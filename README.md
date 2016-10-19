@@ -1,4 +1,4 @@
-# Micro Company application
+# Micro Company application https://travis-ci.org/idugalic/micro-company.svg?branch=master
 
 **This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.**
 
