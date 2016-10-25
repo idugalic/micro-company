@@ -26,7 +26,7 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 
 ### Technologies
 
-- [Spring Boot](http://projects.spring.io/spring-boot/) (v1.2.6)
+- [Spring Boot](http://projects.spring.io/spring-boot/) (v1.3.8.RELEASE)
 - [Spring Cloud](http://projects.spring.io/spring-cloud/)
 - [Spring Data](http://projects.spring.io/spring-data/)
 - [Spring Data REST](http://projects.spring.io/spring-data-rest/)
@@ -75,7 +75,7 @@ The configuration service is a vital component of any microservices architecture
 Configuration is hosted here: https://github.com/idugalic/micro-company-config.git
 
 ##### Admin server (http://codecentric.github.io/spring-boot-admin/1.3.2/)
-Spring Boot Admin is a simple application to manage and monitor your Spring Boot Applications. The applications register with our Spring Boot Admin Client (via http) or are discovered using Spring Cloud (e.g. Eureka). The UI is just an Angular.js application on top of the Spring Boot Actuator endpoints. In case you want to use the more advanced features (e.g. jmx-, loglevel-management), Jolokia must be included in the client application.
+Spring Boot Admin is a simple application to manage and monitor your Spring Boot services. The services  are discovered using Spring Cloud (e.g. Eureka). The UI is just an Angular.js application on top of the Spring Boot Actuator endpoints. In case you want to use the more advanced features (e.g. jmx-, loglevel-management), Jolokia must be included in the client services.
 
 ##### API Gateway
 Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.
@@ -92,7 +92,7 @@ A Blog service is used for manging and quering the posts of your company. It is 
 A Project service is used for manging and quering the projects of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
 
 ##### CustomerMicroservice
-A Customer service is used for manging and quering customers of yours. It is split into a *command-side* microservice application and a *query-side* microservice application.
+A Customer service is used for manging and quering customers. It is split into a *command-side* microservice application and a *query-side* microservice application.
 
 
 ## Running instructions
