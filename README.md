@@ -88,9 +88,6 @@ A Blog service is used for manging and quering the posts of your company. It is 
 ##### ProjectMicroservice
 A Project service is used for manging and quering the projects of your company. It is split into a *command-side* microservice application and a *query-side* microservice application.
 
-##### CustomerMicroservice
-A Customer service is used for manging and quering customers. It is split into a *command-side* microservice application and a *query-side* microservice application.
-
 ##### Admin server (http://codecentric.github.io/spring-boot-admin/1.3.2/)
 Spring Boot Admin is a simple application to manage and monitor your Spring Boot services. The services are discovered using Spring Cloud (e.g. Eureka). The UI is just an Angular.js application on top of the Spring Boot Actuator endpoints. In case you want to use the more advanced features (e.g. jmx-, loglevel-management), Jolokia must be included in the client services.
 
