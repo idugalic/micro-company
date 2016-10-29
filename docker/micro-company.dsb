@@ -12,7 +12,7 @@
         "-jar", 
         "/app.jar"
       ], 
-      "Image": "idugalic/adminserver@sha256:029a71706ae90fe9f069295bb00fed5e21a8e4457d94a25207ecaa2ec1984253", 
+      "Image": "idugalic/adminserver@sha256:adfd79f32be7a8ba81bd3fbe777565ed734cd7bdb1be8fa9635078c44b2833bd", 
       "Networks": [
         "default"
       ], 
@@ -35,7 +35,7 @@
         "-jar", 
         "/app.jar"
       ], 
-      "Image": "idugalic/api-gateway@sha256:04ab8ac0a97b3aac1fca8e3be37da9963a890a361e961e81b7e2447483e618e0", 
+      "Image": "idugalic/api-gateway@sha256:6d76bb3be624dc4ee430647606e1a5dc2d7c0e79a1e678685f4fe337ec6b6f8f", 
       "Networks": [
         "default"
       ], 
@@ -58,7 +58,7 @@
         "-jar", 
         "/app.jar"
       ], 
-      "Image": "idugalic/authserver@sha256:18857ed4ae3fe45ac9b9983c55629247152d3c7b9518a6d31150a477d428ef00", 
+      "Image": "idugalic/authserver@sha256:c1999cc511066266cec687df55733926897c46d806645b541b487866bff681bd", 
       "Networks": [
         "default"
       ], 
@@ -81,7 +81,7 @@
         "-jar", 
         "/app.jar"
       ], 
-      "Image": "idugalic/circuit-breaker@sha256:8e158ca68cf81a7fea0251de38f6ecb3a7cff8934cf3081046606674aadea959", 
+      "Image": "idugalic/circuit-breaker@sha256:998ad39be8961ab7cc4d2ba83e10ba6d6448b3627f1f48774352d4a9bcb28b7d", 
       "Networks": [
         "default"
       ], 
@@ -104,7 +104,7 @@
         "-jar", 
         "/app.jar"
       ], 
-      "Image": "idugalic/command-side-blog@sha256:b708c10dcf2e87b7001cb88ada7c588b74846e2d57c2c72f2a860e5a06a59810", 
+      "Image": "idugalic/command-side-blog-service@sha256:3b79d83188c6a044ea3abb7a23eebadfe23ae60923d2f76ba195943610070a1e", 
       "Networks": [
         "default"
       ], 
@@ -127,7 +127,7 @@
         "-jar", 
         "/app.jar"
       ], 
-      "Image": "idugalic/command-side-project@sha256:3d300de3d35bd5fcd2d04af2b5db12e006c1dc58b3191d9073f3df8bae4ab189", 
+      "Image": "idugalic/command-side-project-service@sha256:9cadc20bf66cfca338d2f8d94161ad181d61149a9bb99404585e28464ab955a6", 
       "Networks": [
         "default"
       ], 
@@ -139,7 +139,7 @@
       ]
     }, 
     "configserver": {
-      "Image": "idugalic/configserver@sha256:a0590646deaf9eade6748f4d98c178d01a7ce5c531d701269d9c7bd5c400a0ee", 
+      "Image": "idugalic/configserver@sha256:555d32bc2c6c47f94e35b6872fe078f0b6d0f050ecb7a5375c98822bde65dfe8", 
       "Networks": [
         "default"
       ], 
@@ -172,7 +172,7 @@
         "RABBITMQ_DEFAULT_PASS=password", 
         "RABBITMQ_NODENAME=my-rabbit"
       ], 
-      "Image": "rabbitmq@sha256:8fefcd17d64b8f3714d3d6c72682af3b74962ec517f3dc9cc442bead63d7d879", 
+      "Image": "rabbitmq@sha256:9059f274ef11fde971cef9a5004c4ef59ffef5682bf90fb43ccb9459a8f22c2e", 
       "Networks": [
         "default"
       ], 
@@ -199,7 +199,7 @@
         "-jar", 
         "/app.jar"
       ], 
-      "Image": "idugalic/query-side-blog@sha256:6e824d1899de836416a9682c023756da062033941fba4a991ab7f0a78d37ffa9", 
+      "Image": "idugalic/query-side-blog-service@sha256:39166d90a4cd6c5097dcf8ce36301cd069fc51f716926cb08c1e9dba9e084f8a", 
       "Networks": [
         "default"
       ], 
@@ -222,7 +222,7 @@
         "-jar", 
         "/app.jar"
       ], 
-      "Image": "idugalic/query-side-project@sha256:d4444210ac7120030a327cd8688bcd852e7d73c670b0b6e0d7810f81ee3636f4", 
+      "Image": "idugalic/query-side-project-service@sha256:b2edb535a648aa0ac4ade0de77cbd56071f7e796230b6a98295dbdc227d372f3", 
       "Networks": [
         "default"
       ], 
@@ -246,7 +246,7 @@
         "/app.jar"
       ], 
       "Env": [], 
-      "Image": "idugalic/registry@sha256:800d95d7254c6fb29029111b7880224ae7c9315eedb13490a429e3aad920e1bb", 
+      "Image": "idugalic/registry@sha256:d74649eb172ebffa31d796e5c2e55200a43562e70877dba187640eee6b652ea0", 
       "Networks": [
         "default"
       ], 

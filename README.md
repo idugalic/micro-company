@@ -146,7 +146,7 @@ Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker
 
 ```bash
 $ cd microservice-company/docker
-$ ./swarm-mode-local.sh
+$ . ./swarm-mode-local.sh
 ```
 
 ### Issuing Commands & Queries with CURL

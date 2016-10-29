@@ -33,35 +33,48 @@ docker $(docker-machine config swnode2) swarm join --token $(docker swarm join-t
 docker $(docker-machine config swnode3) swarm join --token $(docker swarm join-token --quiet worker) $(docker-machine ip swmaster):2377
 
 # Create Bundle from compose file
-#docker-compose bundle -o micro-company.dsb
+# docker-compose pull adminserver api-gateway authserver circuit-breaker command-side-blog command-side-project configserver query-side-blog query-side-project registry
+# docker-compose bundle -o micro-company.dsb
 
 #List all nodes
+echo "-------------------------"
+echo "######### Nodes: ########"
+echo "-------------------------"
 docker node ls
 
 # Create a stack using docker deploy command
 docker deploy --file micro-company.dsb micro-company
 
 # List all services
+echo "-------------------------"
+echo "####### Services: #######"
+echo "-------------------------"
 docker service ls
 
-# Inspect task. Please check the PublishedPort and use it to test the API latter on.
-docker service inspect micro-company_api-gateway
+# Explore the API
+echo "-------------------------"
+echo "#########################"
+echo "#### Explore the API: ###" 
+echo "#########################"
+echo "Please have patience, containers need some time to start. You can run this command to list all your services (with current status): docker service ls"
+echo "-------------------------"
+echo "-------------------------------------------------------------"
+echo "### Visit in browser and listen to events via web socket: ###"
+echo "-------------------------------------------------------------"
+echo " $(docker-machine ip swmaster):$(docker service inspect --format='{{ (index (index .Endpoint.Ports) 0).PublishedPort}}'  micro-company_api-gateway)/socket/index.html"
+echo "-------------------------"
+echo "### Create Blog Post: ###"
+echo "-------------------------"
+echo "curl -H \"Content-Type: application/json\" -X POST -d '{\"title\":\"xyz\",\"rawContent\":\"xyz\",\"publicSlug\": \"publicslug\",\"draft\": true,\"broadcast\": true,\"category\": \"ENGINEERING\", \"publishAt\": \"2016-12-23T14:30:00+00:00\"}' $(docker-machine ip swmaster):$(docker service inspect --format='{{ (index (index .Endpoint.Ports) 0).PublishedPort}}'  micro-company_api-gateway)/command/blog/blogpostcommands"
+echo "-----------------------------"
+echo "#### Read all blog posts: ####"
+echo "-----------------------------"
+echo "curl $(docker-machine ip swmaster):$(docker service inspect --format='{{ (index (index .Endpoint.Ports) 0).PublishedPort}}'  micro-company_api-gateway)/query/blog/blogposts"
 
-# List all services
-docker service ls
-
-# Scale service  'scale micro-company_api-gateway'
-# docker service scale micro-company_api-gateway=2
-# docker service ps micro-company_api-gateway
-
-# CURL. Please note to use PublishedPort instead of 30006
-# curl $(docker-machine ip swmaster):30006/info
-# curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' $(docker-machine ip swmaster):30006/command/blog/blogposts
-# curl $(docker-machine ip swmaster):30006/query/blog/blogposts
-# Visit $(docker-machine ip swmaster):30006/socket/index.html (http://192.168.99.100:30006/socket/index.html) and listen to all events via Web socket.
-
-# Remove machines
-# docker-machine rm swmaster
-# docker-machine rm swnode1
-# docker-machine rm swnode2
-# docker-machine rm swnode3
+echo "-------------------------------"
+echo "######## Have fun ! ###########"
+echo "-------------------------------"
+echo "### Scale service  'scale micro-company_api-gateway' ###"
+echo "eval $(docker-machine env swmaster)"
+echo "docker service scale micro-company_api-gateway=2"
+echo "docker service ps micro-company_api-gateway"
