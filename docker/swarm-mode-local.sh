@@ -55,7 +55,7 @@ docker service ls
 # docker service ps micro-company_api-gateway
 
 # CURL. Please note to use PublishedPort instead of 30006
-# curl $(docker-machine ip swmaster):30006/info
+# curl $(docker-machine ip swmaster):$(docker service inspect --format='{{ (index (index .Endpoint.Ports) 0).PublishedPort}}'  micro-company_api-gateway)/info
 # curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' $(docker-machine ip swmaster):30006/command/blog/blogposts
 # curl $(docker-machine ip swmaster):30006/query/blog/blogposts
 # Visit $(docker-machine ip swmaster):30006/socket/index.html (http://192.168.99.100:30006/socket/index.html) and listen to all events via Web socket.
