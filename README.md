@@ -143,10 +143,18 @@ $ docker-compose -f docker-compose-monolithic.yml up -d
 #### Run microservices on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
+By executing command/script below, you will:
+
+- create 4 virtual machines (VirtualBox is required). One 'swarm master', and three 'swarm nodes'
+- initialize cluster on the swarm master
+- join nodes to the cluster
+- create a stack by deploying distributed bundle
+
 ```bash
 $ cd microservice-company/docker
 $ . ./swarm-mode-local.sh
 ```
+Please follow the instructions in the console log and have fun :)
 
 ### Issuing Commands & Queries with CURL
 Please note that my current docker host IP is 127.0.0.1
