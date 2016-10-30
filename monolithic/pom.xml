@@ -45,10 +45,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.axonframework</groupId>
-			<artifactId>axon-mongo</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.axonframework</groupId>
 			<artifactId>axon-test</artifactId>
 		</dependency>
 		<dependency>
@@ -76,14 +72,9 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-jwt</artifactId>
 		</dependency>
-	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jolokia</groupId>
-			<artifactId>jolokia-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -92,10 +83,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.hsqldb</groupId>
