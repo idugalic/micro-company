@@ -1,7 +1,7 @@
 # Application 'Micro Company' (Monolithic version)
 
 This version of the application is deployed as a single monolithic application. 
-It is designed and architected in a way that supports easy migration to microservices architectural style.
+It is designed in a way that supports easy migration to microservices architectural style.
 
 ### Patterns and techniques:
 
@@ -22,7 +22,7 @@ It is designed and architected in a way that supports easy migration to microser
 1. Simple to develop - the goal of current development tools and IDEs is to support the development of monolithic applications
 2. Simple to deploy - you simply need to deploy the WAR/JAR file on the appropriate runtime
 3. Simple to scale - you can scale the application by running multiple copies of the application behind a load balancer
-4. Easy implementation of eventually consistent business transactions that could span multiple components (potentialy services on other VMs)
+4. Easy implementation of eventually consistent business transactions that could span multiple components
 5. Automatic publishing of events whenever data changes
 6. Reliable auditing for all updates
 
@@ -30,7 +30,7 @@ It is designed and architected in a way that supports easy migration to microser
 
 The domain is literally split into a *command-side* component and a *query-side* component (this is CQRS in its most literal form).
 
-Communication between the two components is `event-driven` and the demo uses simple event store (FileSyste/DB) as a means of passing the events between components.
+Communication between the two components is `event-driven` and the demo uses simple event store (Database in this case - JPA) as a means of passing the events between components.
 
 The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon (using MongoDB) and propagated out to components. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
 

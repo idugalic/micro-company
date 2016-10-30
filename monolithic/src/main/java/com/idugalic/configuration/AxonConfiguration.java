@@ -3,8 +3,8 @@ package com.idugalic.configuration;
 import com.idugalic.commandside.blog.aggregate.BlogPostAggregate;
 import com.idugalic.commandside.project.aggregate.ProjectAggregate;
 
-import java.io.File;
-import java.util.Arrays;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.SimpleCommandBus;
@@ -12,24 +12,45 @@ import org.axonframework.commandhandling.annotation.AggregateAnnotationCommandHa
 import org.axonframework.commandhandling.annotation.AnnotationCommandHandlerBeanPostProcessor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.commandhandling.gateway.CommandGatewayFactoryBean;
-import org.axonframework.commandhandling.interceptors.BeanValidationInterceptor;
+import org.axonframework.common.jpa.ContainerManagedEntityManagerProvider;
 import org.axonframework.contextsupport.spring.AnnotationDriven;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventhandling.SimpleEventBus;
 import org.axonframework.eventhandling.annotation.AnnotationEventListenerBeanPostProcessor;
 import org.axonframework.eventsourcing.EventSourcingRepository;
-import org.axonframework.eventstore.fs.FileSystemEventStore;
-import org.axonframework.eventstore.fs.SimpleEventFileResolver;
+import org.axonframework.eventstore.jpa.JpaEventStore;
+import org.axonframework.serializer.json.JacksonSerializer;
+import org.axonframework.unitofwork.SpringTransactionManager;
 
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
 @AnnotationDriven
+@EnableTransactionManagement
+@EntityScan(basePackages = {"org.axonframework.eventstore.jpa","com.idugalic"})
 public class AxonConfiguration {
+    
+    @PersistenceContext(unitName = "default")
+    EntityManager entityManager;
 
 
+    @Bean
+    JacksonSerializer axonJsonSerializer() {
+        return new JacksonSerializer();
+    }
+
+    @Bean
+    ContainerManagedEntityManagerProvider containerManagedEntityManagerProvider(){
+        ContainerManagedEntityManagerProvider containerManagedEntityManagerProvider = new ContainerManagedEntityManagerProvider();
+        containerManagedEntityManagerProvider.setEntityManager(entityManager);
+        return containerManagedEntityManagerProvider;
+    }
+    
     @Bean
     public AnnotationEventListenerBeanPostProcessor annotationEventListenerBeanPostProcessor() {
         AnnotationEventListenerBeanPostProcessor processor = new AnnotationEventListenerBeanPostProcessor();
@@ -38,17 +59,16 @@ public class AxonConfiguration {
     }
     
     @Bean
-    public AnnotationCommandHandlerBeanPostProcessor annotationCommandHandlerBeanPostProcessor() {
+    public AnnotationCommandHandlerBeanPostProcessor annotationCommandHandlerBeanPostProcessor(CommandBus commandBus) {
         AnnotationCommandHandlerBeanPostProcessor processor = new AnnotationCommandHandlerBeanPostProcessor();
-        processor.setCommandBus(commandBus());
+        processor.setCommandBus(commandBus);
         return processor;
     }
 
     @Bean
-    public CommandBus commandBus() {
+    CommandBus commandBus(PlatformTransactionManager transactionManager) {
         SimpleCommandBus commandBus = new SimpleCommandBus();
-        commandBus.setHandlerInterceptors(Arrays.asList(new BeanValidationInterceptor()));
-//      commandBus.setTransactionManager(new SpringTransactionManager(transactionManager));
+        commandBus.setTransactionManager(new SpringTransactionManager(transactionManager));
         return commandBus;
     }
 
@@ -58,9 +78,15 @@ public class AxonConfiguration {
     }
     
     @Bean
-    public CommandGatewayFactoryBean<CommandGateway> commandGatewayFactoryBean() {
+    JpaEventStore jpaEventStore(JacksonSerializer jacksonSerializer, ContainerManagedEntityManagerProvider containerManagedEntityManagerProvider){
+        JpaEventStore jpaEventStore = new JpaEventStore(containerManagedEntityManagerProvider, jacksonSerializer);
+        return jpaEventStore;
+    }
+    
+    @Bean
+    public CommandGatewayFactoryBean<CommandGateway> commandGatewayFactoryBean(CommandBus commandBus) {
         CommandGatewayFactoryBean<CommandGateway> factory = new CommandGatewayFactoryBean<CommandGateway>();
-        factory.setCommandBus(commandBus());
+        factory.setCommandBus(commandBus);
         return factory;
     }
 
@@ -70,40 +96,40 @@ public class AxonConfiguration {
      * @return
      */
     @Bean
-    AggregateAnnotationCommandHandler<BlogPostAggregate> blogPostAggregateCommandHandler() {
+    AggregateAnnotationCommandHandler<BlogPostAggregate> blogPostAggregateCommandHandler(EventSourcingRepository<BlogPostAggregate> eventSourcingRepository, CommandBus commandBus) {
         @SuppressWarnings("deprecation")
         AggregateAnnotationCommandHandler<BlogPostAggregate> handler = new AggregateAnnotationCommandHandler<BlogPostAggregate>(
-        		BlogPostAggregate.class,
-        		blogPostEventSourcingRepository(),
-                commandBus());
+                BlogPostAggregate.class,
+                eventSourcingRepository,
+                commandBus);
         return handler;
     }
     
     @Bean
-    EventSourcingRepository<BlogPostAggregate> blogPostEventSourcingRepository() {
-        FileSystemEventStore eventStore = new FileSystemEventStore(new SimpleEventFileResolver(new File("data/evenstore/blog")));
+    EventSourcingRepository<BlogPostAggregate> blogPostEventSourcingRepository(JpaEventStore eventStore, EventBus eventBus) {
+       
         EventSourcingRepository<BlogPostAggregate> repository = new EventSourcingRepository<BlogPostAggregate>(BlogPostAggregate.class, eventStore);
-        repository.setEventBus(eventBus());
+        repository.setEventBus(eventBus);
         return repository;
+        
     }
     
     
     
     @Bean
-    AggregateAnnotationCommandHandler<ProjectAggregate> projectAggregateCommandHandler() {
+    AggregateAnnotationCommandHandler<ProjectAggregate> projectAggregateCommandHandler(EventSourcingRepository<ProjectAggregate> eventSourcingRepository, CommandBus commandBus) {
         @SuppressWarnings("deprecation")
         AggregateAnnotationCommandHandler<ProjectAggregate> handler = new AggregateAnnotationCommandHandler<ProjectAggregate>(
-        		ProjectAggregate.class,
-        		projectEventSourcingRepository(),
-                commandBus());
+                ProjectAggregate.class,
+                eventSourcingRepository,
+                commandBus);
         return handler;
     }
 
     @Bean
-    EventSourcingRepository<ProjectAggregate> projectEventSourcingRepository() {
-        FileSystemEventStore eventStore = new FileSystemEventStore(new SimpleEventFileResolver(new File("data/evenstore/project")));
+    EventSourcingRepository<ProjectAggregate> projectEventSourcingRepository(JpaEventStore eventStore, EventBus eventBus) {
         EventSourcingRepository<ProjectAggregate> repository = new EventSourcingRepository<ProjectAggregate>(ProjectAggregate.class, eventStore);
-        repository.setEventBus(eventBus());
+        repository.setEventBus(eventBus);
         return repository;
     }
 }
