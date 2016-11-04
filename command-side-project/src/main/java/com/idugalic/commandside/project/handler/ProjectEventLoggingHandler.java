@@ -1,13 +1,13 @@
 package com.idugalic.commandside.project.handler;
 
-import org.axonframework.eventhandling.annotation.EventHandler;
-import org.axonframework.eventhandling.annotation.SequenceNumber;
-import org.axonframework.eventhandling.annotation.Timestamp;
+import com.idugalic.common.project.event.ProjectCreatedEvent;
+
+import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventsourcing.SequenceNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
-import com.idugalic.common.project.event.ProjectCreatedEvent;
+import org.springframework.stereotype.Component;
 
 /**
  * EventHandler's (a.k.a. EventListeners) are used to react to events and perform
@@ -20,9 +20,8 @@ public class ProjectEventLoggingHandler {
     private static final String IID = String.valueOf(Double.valueOf(Math.random() * 100).intValue());
 
     @EventHandler
-    public void handle(ProjectCreatedEvent event, @SequenceNumber Long version, @Timestamp org.joda.time.DateTime time) {
+    public void handle(ProjectCreatedEvent event, @SequenceNumber Long version) {
         LOG.debug("IID:{} ET:{} EID:[{}]", IID, event.getClass().getSimpleName(), event.getId());
-        LOG.debug("at {} with version {}", time.toString(), version);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.idugalic;
 
+import com.idugalic.commandside.blog.aggregate.exception.PublishBlogPostException;
+
 import org.axonframework.commandhandling.CommandExecutionException;
-import org.axonframework.commandhandling.interceptors.JSR303ViolationException;
-import org.axonframework.repository.ConcurrencyException;
+import org.axonframework.commandhandling.model.ConcurrencyException;
+import org.axonframework.messaging.interceptors.JSR303ViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -19,8 +21,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import com.idugalic.commandside.blog.aggregate.exception.PublishBlogPostException;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {

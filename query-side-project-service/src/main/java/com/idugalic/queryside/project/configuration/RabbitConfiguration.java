@@ -1,13 +1,15 @@
 package com.idugalic.queryside.project.configuration;
 
-import org.axonframework.contextsupport.spring.AnnotationDriven;
+import org.axonframework.amqp.eventhandling.spring.SpringAMQPPublisher;
+import org.axonframework.eventhandling.EventBus;
+import org.axonframework.spring.config.AnnotationDriven;
+
 import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.ExchangeBuilder;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,52 +18,30 @@ import org.springframework.context.annotation.Configuration;
 @AnnotationDriven
 public class RabbitConfiguration {
 
-    @Value("${spring.rabbitmq.hostname}")
-    private String hostname;
-
-    @Value("${spring.rabbitmq.username}")
-    private String username;
-
-    @Value("${spring.rabbitmq.password}")
-    private String password;
-
     @Value("${spring.application.exchange}")
     private String exchangeName;
 
     @Value("${spring.application.queue}")
     private String queueName;
 
-    @Bean
-    Queue eventStream() {
-        return new Queue(queueName, true);
+    @Bean(initMethod = "start")
+    public SpringAMQPPublisher amqpBridge(EventBus eventBus) {
+        return new SpringAMQPPublisher(eventBus);
     }
 
     @Bean
-    FanoutExchange eventBusExchange() {
-        return new FanoutExchange(exchangeName, true, false);
+    public Exchange exchange() {
+        return ExchangeBuilder.fanoutExchange(exchangeName).build();
     }
 
     @Bean
-    Binding binding() {
-        return new Binding(queueName, Binding.DestinationType.QUEUE, exchangeName, "*.*", null);
+    public Queue queue() {
+        return QueueBuilder.durable(queueName).build();
     }
 
     @Bean
-    ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(hostname);
-        connectionFactory.setUsername(username);
-        connectionFactory.setPassword(password);
-        return connectionFactory;
+    public Binding binding(Queue queue, Exchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with("").noargs();
     }
-
-    @Bean
-    @Required
-    RabbitAdmin rabbitAdmin() {
-        RabbitAdmin admin = new RabbitAdmin(connectionFactory());
-        admin.setAutoStartup(true);
-        admin.declareExchange(eventBusExchange());
-        admin.declareQueue(eventStream());
-        admin.declareBinding(binding());
-        return admin;
-    }
+    
 }

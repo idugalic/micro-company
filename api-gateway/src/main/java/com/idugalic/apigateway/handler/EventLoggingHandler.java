@@ -1,17 +1,18 @@
 package com.idugalic.apigateway.handler;
 
-import org.axonframework.eventhandling.annotation.EventHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.stereotype.Component;
-
 import com.idugalic.common.blog.event.BlogPostCreatedEvent;
 import com.idugalic.common.blog.event.BlogPostPublishedEvent;
 import com.idugalic.common.event.AuditableAbstractEvent;
 import com.idugalic.common.project.event.ProjectCreatedEvent;
 import com.idugalic.common.project.event.ProjectUpdatedEvent;
+
+import org.axonframework.eventhandling.EventHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.stereotype.Component;
 
 /**
  * This handler will proxy all events via Websocket to a client applications

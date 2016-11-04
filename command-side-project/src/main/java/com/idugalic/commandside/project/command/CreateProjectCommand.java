@@ -1,14 +1,15 @@
+
 package com.idugalic.commandside.project.command;
+
+import com.idugalic.common.command.AuditableAbstractCommand;
+import com.idugalic.common.model.AuditEntry;
 
 import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
 
-import org.axonframework.commandhandling.annotation.TargetAggregateIdentifier;
+import org.axonframework.commandhandling.TargetAggregateIdentifier;
 import org.hibernate.validator.constraints.NotBlank;
-
-import com.idugalic.common.command.AuditableAbstractCommand;
-import com.idugalic.common.model.AuditEntry;
 
 public class CreateProjectCommand extends AuditableAbstractCommand {
 

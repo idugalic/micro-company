@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
-import org.axonframework.commandhandling.interceptors.JSR303ViolationException;
+import org.axonframework.messaging.interceptors.JSR303ViolationException;
 
 public class ValidationWsDto implements Serializable {
     /**
