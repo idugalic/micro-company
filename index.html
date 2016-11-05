@@ -189,11 +189,18 @@ $ mvn clean install</pre></div>
 <a id="step-3-run-the-application-as" class="anchor" href="#step-3-run-the-application-as" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Run the application as</h3>
 
 <ul>
-<li>microservices on localhost or</li>
 <li>monolithic on localhost or</li>
-<li>microservices on swarm (mode) cluster of virtual machines</li>
+<li>microservices on localhost or</li>
+<li>microservices on swarm (mode) - local cluster</li>
+<li>microservices on swarm (mode) - AWS</li>
 </ul>
 
+<h4>
+<a id="run-monolithic-on-localhost" class="anchor" href="#run-monolithic-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run monolithic on localhost</h4>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
+$ docker-compose -f docker-compose-monolithic.yml up -d </pre></div>
+        
 <h4>
 <a id="run-microservices-on-localhost" class="anchor" href="#run-microservices-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on localhost</h4>
 
@@ -201,18 +208,28 @@ $ mvn clean install</pre></div>
 $ docker-compose up -d </pre></div>
 
 <h4>
-<a id="run-monolithic-on-localhost" class="anchor" href="#run-monolithic-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run monolithic on localhost</h4>
-
-<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
-$ docker-compose -f docker-compose-monolithic.yml up -d </pre></div>
-
-<h4>
-<a id="run-microservices-on-swarm-mode-cluster---112-docker-beta-is-required-" class="anchor" href="#run-microservices-on-swarm-mode-cluster---112-docker-beta-is-required-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)</h4>
+<a id="run-microservices-on-swarm-mode-local-cluster" class="anchor" href="#run-microservices-on-swarm-mode-local-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Swarm (mode) - local cluster (docker 1.12+ BETA is required !!!)</h4>
 
 <p>Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. <a href="https://docs.docker.com/engine/swarm">https://docs.docker.com/engine/swarm</a></p>
 
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
 $ . ./swarm-mode-local.sh</pre></div>
+        
+<h4>
+<a id="run-microservices-on-swarm-mode-aws-cluster" class="anchor" href="#run-microservices-on-swarm-mode-aws-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Swarm (mode) - AWS cluster (docker 1.12+ BETA is required !!!)</h4>
+
+<p>Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. <a href="https://docs.docker.com/engine/swarm">https://docs.docker.com/engine/swarm</a></p>
+<p>We will deploy services on AWS infrastucture. So you have to prepare it:</p>
+<ul>
+ <li>Step1:  Register for AWS - beta (<a href="https://beta.docker.com/docs/">https://beta.docker.com/docs/</a>).</li>
+ <li>Step2:  Login to your account as a root, and create user (not root) that will be used latter. (<a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console">http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console</a>)</li>
+ <li>Step3:  Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair">http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair</a>).</li>
+ <li>Step4:  Once You have registered for Docker AWS Beta, create stack on AWS by using CloudFormation template - Follow the instructions in the email from Docker.</li>
+ <li>Step5:  Run the script bellow and follow instructions.</li>
+</ul>
+        
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
+$ . ./swarm-mode-aws.sh</pre></div>
 
 <h3>
 <a id="issuing-commands--queries-with-curl" class="anchor" href="#issuing-commands--queries-with-curl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Issuing Commands &amp; Queries with CURL</h3>
