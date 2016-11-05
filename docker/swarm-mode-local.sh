@@ -33,8 +33,8 @@ docker $(docker-machine config swnode2) swarm join --token $(docker swarm join-t
 docker $(docker-machine config swnode3) swarm join --token $(docker swarm join-token --quiet worker) $(docker-machine ip swmaster):2377
 
 # Create Bundle from compose file
-# docker-compose pull adminserver api-gateway authserver circuit-breaker command-side-blog command-side-project configserver query-side-blog query-side-project registry
-# docker-compose bundle -o micro-company.dsb
+# docker-compose pull adminserver api-gateway authserver circuit-breaker command-side-blog command-side-project configserver query-side-blog query-side-project registry my-rabbit my-mongo
+# docker-compose bundle -o micro-company.dab
 
 #List all nodes
 echo "-------------------------"
@@ -43,7 +43,7 @@ echo "-------------------------"
 docker node ls
 
 # Create a stack using docker deploy command
-docker deploy --file micro-company.dsb micro-company
+docker deploy --file micro-company.dab micro-company
 
 # List all services
 echo "-------------------------"

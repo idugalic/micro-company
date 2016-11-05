@@ -172,7 +172,7 @@
         "RABBITMQ_DEFAULT_PASS=password", 
         "RABBITMQ_NODENAME=my-rabbit"
       ], 
-      "Image": "rabbitmq@sha256:9059f274ef11fde971cef9a5004c4ef59ffef5682bf90fb43ccb9459a8f22c2e", 
+      "Image": "rabbitmq@sha256:520fd5bb58104e82d2f8d4215cc84c64e72e62697abcba30f9d16f5c1a16f5ac", 
       "Networks": [
         "default"
       ], 
