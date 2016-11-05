@@ -123,7 +123,8 @@ $ mvn clean install
 
 - monolithic on localhost or
 - microservices on localhost or
-- microservices on swarm (mode) cluster of virtual machines
+- microservices on swarm (mode) local cluster
+- microservices on swarm (mode) AWS cluster
 
 #### Run monolithic on localhost
 
@@ -150,24 +151,43 @@ $ cd microservice-company/docker
 $ docker-compose up -d 
 ```
 
-#### Run microservices on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)
+#### Run microservices on Swarm (mode) local cluster (docker 1.12+ BETA is required !!!)
+
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
-By executing command/script below, you will:
+```bash
+$ cd microservice-company/docker
+$ . ./swarm-mode-local.sh
+```
+By executing command/script you will:
 
 - create 4 virtual machines (VirtualBox is required). One 'swarm master', and three 'swarm nodes'
 - initialize cluster on the swarm master
 - join nodes to the cluster
 - create a stack by deploying distributed bundle
 
+Please, follow the instructions in the console log, and have fun :)
+
+#### Run microservices on Swarm (mode) AWS cluster (docker 1.12+ BETA is required !!!)
+
+Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
+
+We will deploy services on AWS infrastucture. So you have to prepare it:
+
+- Step1:  Register for AWS - beta (https://beta.docker.com/docs/).
+- Step2:  Login to your account as a root, and create user (not root) that will be used latter. (http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)
+- Step3:  Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair).
+- Step4:  Once You have registered for Docker AWS Beta, create stack on AWS by using CloudFormation template - Follow the instructions in the email from Docker.
+- Step 5 Run the script bellow and follow instructions.
+
+
 ```bash
 $ cd microservice-company/docker
-$ . ./swarm-mode-local.sh
+$ . ./swarm-mode-aws.sh
 ```
-Please follow the instructions in the console log and have fun :)
 
 ### Issuing Commands & Queries with CURL
-Please note that my current docker host IP is 127.0.0.1
+My current docker host IP is 127.0.0.1
 
 #### Create Blog post
 
