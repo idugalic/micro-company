@@ -198,16 +198,19 @@ $ mvn clean install</pre></div>
 <h4>
 <a id="run-monolithic-on-localhost" class="anchor" href="#run-monolithic-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run monolithic on localhost</h4>
 
-<h5><a id="user-content-maven" class="anchor" href="#maven" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Maven</h5>
+<h5><a id="user-content-maven" class="anchor" href="#maven" aria-hidden="true"></a>Maven</h5>
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company
 $ mvn clean install
 $ <span class="pl-c1">cd</span> microservice-company/monolithic
 $ mvn spring-boot:run</pre></div>
 
-<h5><a id="user-content-docker" class="anchor" href="#docker" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Docker</h5>
+<h5><a id="user-content-docker" class="anchor" href="#docker" aria-hidden="true"></a>Docker</h5>
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
 $ docker-compose -f docker-compose-monolithic.yml up -d </pre></div>
         
+<h5><a id="user-content-eclipse" class="anchor" href="#eclipse" aria-hidden="true"></a>Eclipse</h5>
+<p>Run as Spring Boot Project. I advice for Boot Dashboard to be used as well.</p>
+
 <h4>
 <a id="run-microservices-on-localhost" class="anchor" href="#run-microservices-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on localhost</h4>
 
@@ -224,15 +227,13 @@ $ . ./swarm-mode-local.sh</pre></div>
         
 <h4>
 <a id="run-microservices-on-swarm-mode-aws-cluster" class="anchor" href="#run-microservices-on-swarm-mode-aws-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Swarm (mode) - AWS cluster (docker 1.12+ BETA is required !!!)</h4>
-
-<p>Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. <a href="https://docs.docker.com/engine/swarm">https://docs.docker.com/engine/swarm</a></p>
 <p>We will deploy services on AWS infrastucture. So you have to prepare it:</p>
 <ul>
- <li>Step1:  Register for AWS - beta (<a href="https://beta.docker.com/docs/">https://beta.docker.com/docs/</a>).</li>
- <li>Step2:  Login to your account as a root, and create user (not root) that will be used latter. (<a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console">http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console</a>)</li>
- <li>Step3:  Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair">http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair</a>).</li>
- <li>Step4:  Once You have registered for Docker AWS Beta, create stack on AWS by using CloudFormation template - Follow the instructions in the email from Docker.</li>
- <li>Step5:  Run the script bellow and follow instructions.</li>
+ <li>Register for AWS - beta (<a href="https://beta.docker.com/docs/">https://beta.docker.com/docs/</a>).</li>
+ <li>Login to your account as a root, and create user (not root) that will be used latter. (<a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console">http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console</a>)</li>
+ <li>Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair">http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair</a>).</li>
+ <li>Once You have registered for Docker AWS Beta, create stack on AWS by using CloudFormation template - Follow the instructions in the email from Docker.</li>
+ <li>Run the script bellow and follow instructions.</li>
 </ul>
         
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
