@@ -121,23 +121,33 @@ $ mvn clean install
 
 ### Step 3: Run the application as
 
-- microservices on localhost or
 - monolithic on localhost or
+- microservices on localhost or
 - microservices on swarm (mode) cluster of virtual machines
 
+#### Run monolithic on localhost
+
+##### Docker
+```bash
+$ cd microservice-company/docker
+$ docker-compose -f docker-compose-monolithic.yml up -d 
+```
+##### Maven
+```bash
+$ cd microservice-company
+$ mvn clean install
+$ cd microservice-company/monolithic
+$ mvn spring-boot:run
+```
+##### Eclipse
+Run as Spring Boot Project. 
+I can advice for Boot Dashboard to be used as well.
 
 #### Run microservices on localhost
 
 ```bash
 $ cd microservice-company/docker
 $ docker-compose up -d 
-```
-
-#### Run monolithic on localhost
-
-```bash
-$ cd microservice-company/docker
-$ docker-compose -f docker-compose-monolithic.yml up -d 
 ```
 
 #### Run microservices on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)
