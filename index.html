@@ -199,13 +199,13 @@ $ mvn clean install</pre></div>
 <a id="run-monolithic-on-localhost" class="anchor" href="#run-monolithic-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run monolithic on localhost</h4>
 
 <h5><a id="user-content-maven" class="anchor" href="#maven" aria-hidden="true"></a>Maven</h5>
-<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company
 $ mvn clean install
-$ <span class="pl-c1">cd</span> microservice-company/monolithic
+$ <span class="pl-c1">cd</span> micro-company/monolithic
 $ mvn spring-boot:run</pre></div>
 
 <h5><a id="user-content-docker" class="anchor" href="#docker" aria-hidden="true"></a>Docker</h5>
-<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/docker
 $ docker-compose -f docker-compose-monolithic.yml up -d </pre></div>
         
 <h5><a id="user-content-eclipse" class="anchor" href="#eclipse" aria-hidden="true"></a>Eclipse</h5>
@@ -214,7 +214,7 @@ $ docker-compose -f docker-compose-monolithic.yml up -d </pre></div>
 <h4>
 <a id="run-microservices-on-localhost" class="anchor" href="#run-microservices-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on localhost</h4>
 
-<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/docker
 $ docker-compose up -d </pre></div>
 
 <h4>
@@ -222,7 +222,7 @@ $ docker-compose up -d </pre></div>
 
 <p>Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. <a href="https://docs.docker.com/engine/swarm">https://docs.docker.com/engine/swarm</a></p>
 
-<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/docker
 $ . ./swarm-mode-local.sh</pre></div>
         
 <h4>
@@ -236,7 +236,7 @@ $ . ./swarm-mode-local.sh</pre></div>
  <li>Run the script bellow and follow instructions.</li>
 </ul>
         
-<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> microservice-company/docker
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/docker
 $ . ./swarm-mode-aws.sh</pre></div>
 
 <h3>
