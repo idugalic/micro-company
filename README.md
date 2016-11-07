@@ -115,7 +115,7 @@ Please note that images are available on the docker hub (https://hub.docker.com/
 Build the project:
  
 ```bash
-$ cd microservice-company
+$ cd micro-company
 $ mvn clean install
 ```
 
@@ -130,14 +130,14 @@ $ mvn clean install
 
 ##### Docker
 ```bash
-$ cd microservice-company/docker
+$ cd micro-company/docker
 $ docker-compose -f docker-compose-monolithic.yml up -d 
 ```
 ##### Maven
 ```bash
-$ cd microservice-company
+$ cd micro-company
 $ mvn clean install
-$ cd microservice-company/monolithic
+$ cd micro-company/monolithic
 $ mvn spring-boot:run
 ```
 ##### Eclipse
@@ -147,7 +147,7 @@ I can advice for Boot Dashboard to be used as well.
 #### Run microservices on localhost
 
 ```bash
-$ cd microservice-company/docker
+$ cd micro-company/docker
 $ docker-compose up -d 
 ```
 
@@ -156,7 +156,7 @@ $ docker-compose up -d
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
 ```bash
-$ cd microservice-company/docker
+$ cd micro-company/docker
 $ . ./swarm-mode-local.sh
 ```
 By executing command/script you will:
@@ -182,7 +182,7 @@ We will deploy services on AWS infrastucture. So you have to prepare it:
 
 
 ```bash
-$ cd microservice-company/docker
+$ cd micro-company/docker
 $ . ./swarm-mode-aws.sh
 ```
 
