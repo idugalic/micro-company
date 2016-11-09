@@ -1,6 +1,5 @@
 package com.idugalic.apigateway.configuration;
 
-import org.axonframework.contextsupport.spring.AnnotationDriven;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
@@ -11,9 +10,9 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
-@AnnotationDriven
 public class RabbitConfiguration {
 
     @Value("${spring.rabbitmq.hostname}")
@@ -59,6 +58,7 @@ public class RabbitConfiguration {
         return new Binding(queueName, Binding.DestinationType.QUEUE, projectExchangeName, "*.*", null);
     }
 
+    @Profile("!cloud")
     @Bean
     ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(hostname);
@@ -69,8 +69,8 @@ public class RabbitConfiguration {
 
     @Bean
     @Required
-    RabbitAdmin rabbitAdmin() {
-        RabbitAdmin admin = new RabbitAdmin(connectionFactory());
+    RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
+        RabbitAdmin admin = new RabbitAdmin(connectionFactory);
         admin.setAutoStartup(true);
         admin.declareExchange(blogEventBusExchange());
         admin.declareQueue(eventStream());

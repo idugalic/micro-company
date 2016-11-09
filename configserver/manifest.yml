@@ -1,0 +1,6 @@
+---
+applications:
+- name: configserver
+  memory: 768M
+  host: configserver
+  domain: local.pcfdev.io

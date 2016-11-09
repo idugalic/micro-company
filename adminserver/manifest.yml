@@ -1,0 +1,10 @@
+---
+applications:
+- name: adminserver
+  memory: 768M
+  host: adminserver
+  domain: local.pcfdev.io
+  services:
+  - configserver
+  - registry
+  

@@ -122,9 +122,9 @@ $ mvn clean install
 ### Step 3: Run the application as
 
 - monolithic on localhost or
-- microservices on localhost or
-- microservices on swarm (mode) local cluster
-- microservices on swarm (mode) AWS cluster
+- microservices on localhost via docker or
+- microservices on docker swarm (mode) - local cluster
+- microservices on docker swarm (mode) - AWS cluster
 
 #### Run monolithic on localhost
 
@@ -144,14 +144,14 @@ $ mvn spring-boot:run
 Run as Spring Boot Project. 
 I can advice for Boot Dashboard to be used as well.
 
-#### Run microservices on localhost
+#### Run microservices on localhost via docker
 
 ```bash
 $ cd micro-company/docker
 $ docker-compose up -d 
 ```
 
-#### Run microservices on Swarm (mode) local cluster (docker 1.12+ BETA is required !!!)
+#### Run microservices on Docker Swarm (mode) - local cluster (docker 1.12+ BETA is required !!!)
 
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
@@ -168,7 +168,7 @@ By executing command/script you will:
 
 Please, follow the instructions in the console log, and have fun :)
 
-#### Run microservices on Swarm (mode) AWS cluster (docker 1.12+ BETA is required !!!)
+#### Run microservices on Docker Swarm (mode) - AWS cluster (docker 1.12+ BETA is required !!!)
 
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
@@ -185,6 +185,39 @@ We will deploy services on AWS infrastucture. So you have to prepare it:
 $ cd micro-company/docker
 $ . ./swarm-mode-aws.sh
 ```
+
+#### Run microservices on Pivotal Cloud Foundry - PCF Dev
+Run services on local workstation with PCF Dev
+
+- Download and install PCF: https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction
+- Start PCF Dev
+- Login to PCF Dev (email:admin; password:admin)
+- Choose you organization (pcfdev-org)
+- Open your browser and point to https://local.pcfdev.io. Explore !
+- Create user services (configserver, registry, authserver, mongo db)
+- Create CF services (mysql, rabbit)
+
+
+```bash
+$ cf dev start -m 8192
+$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation
+$ cf cups configserver -p '{"uri":"http://configserver.local.pcfdev.io"}'
+$ cf cups registry -p '{"uri":"http://registry.local.pcfdev.io"}'
+$ cf cups authserver -p '{"uri":"http://authserver.local.pcfdev.io"}'
+$ cf cups mongo -p '{"uri":"mongodb://192.168.0.15:27017"}'
+$ cf create-service p-mysql 512mb mysql
+$ cf create-service p-rabbitmq standard rabbit
+
+```
+Every service contains manifest.yml file with concrete configuration for PCF deployment. 
+You can simple push each service with:
+
+```bash
+cd <service-path>
+cf push
+```
+Or you can use Eclipse 'Boot Dashboard'.
+Have fun!
 
 ### Issuing Commands & Queries with CURL
 My current docker host IP is 127.0.0.1

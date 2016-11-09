@@ -33,16 +33,18 @@ import org.axonframework.eventstore.mongo.MongoTemplate;
 import org.axonframework.serializer.json.JacksonSerializer;
 
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mongodb.Mongo;
 
 @Configuration
 @AnnotationDriven
+@EnableTransactionManagement
 public class AxonConfiguration {
 
     private static final String AMQP_CONFIG_KEY = "AMQP.Config";
@@ -54,7 +56,7 @@ public class AxonConfiguration {
     public ConnectionFactory connectionFactory;
 
     @Autowired
-    public RabbitTransactionManager transactionManager;
+    public PlatformTransactionManager transactionManager;
 
     @Value("${spring.application.queue}")
     private String queueName;

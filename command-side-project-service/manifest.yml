@@ -1,0 +1,13 @@
+---
+applications:
+- name: command-side-project
+  memory: 768M
+  host: command-side-project
+  domain: local.pcfdev.io
+  services:
+  - configserver
+  - registry
+  - authserver
+  - mongo
+  - mysql
+  - rabbit

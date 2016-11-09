@@ -6,11 +6,11 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 public class RabbitConfiguration {
@@ -45,6 +45,7 @@ public class RabbitConfiguration {
         return new Binding(queueName, Binding.DestinationType.QUEUE, exchangeName, "*.*", null);
     }
 
+    @Profile("!cloud")
     @Bean
     ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(hostname);
@@ -55,8 +56,8 @@ public class RabbitConfiguration {
 
     @Bean
     @Required
-    RabbitAdmin rabbitAdmin() {
-        RabbitAdmin admin = new RabbitAdmin(connectionFactory());
+    RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
+        RabbitAdmin admin = new RabbitAdmin(connectionFactory);
         admin.setAutoStartup(true);
         admin.declareExchange(eventBusExchange());
         admin.declareQueue(defaultStream());
@@ -64,9 +65,9 @@ public class RabbitConfiguration {
         return admin;
     }
 
-    @Bean
-    RabbitTransactionManager transactionManager() {
-        RabbitTransactionManager txMgr = new RabbitTransactionManager(connectionFactory());
-        return txMgr;
-    }
+//    @Bean
+//    RabbitTransactionManager transactionManager() {
+//        RabbitTransactionManager txMgr = new RabbitTransactionManager(connectionFactory());
+//        return txMgr;
+//    }
 }

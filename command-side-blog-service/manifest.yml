@@ -1,0 +1,13 @@
+---
+applications:
+- name: command-side-blog
+  memory: 768M
+  host: command-side-blog
+  domain: local.pcfdev.io
+  services:
+  - configserver
+  - registry
+  - authserver
+  - mongo
+  - mysql
+  - rabbit
