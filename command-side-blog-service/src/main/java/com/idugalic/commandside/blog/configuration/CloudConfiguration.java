@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
 public class CloudConfiguration extends AbstractCloudConfig{
-    @Profile("cloud")
     @Bean
     public DataSource dataSource() {
         return connectionFactory().dataSource();
