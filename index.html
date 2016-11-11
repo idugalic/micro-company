@@ -15,7 +15,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h2><a href="http://idugalic.github.io/projects">projects</a>/micro-company</h2>
+        <h1>Micro-company</h1>
         <p>Rest-full, Hipermedia-based distributed application. Spring boot &amp; cloud. CQRS. Eventsourcing. Axonframework. Microservices. Docker.</p>
 
         <p class="view"><a href="https://github.com/idugalic/micro-company">View the Project on GitHub <small>idugalic/micro-company</small></a></p>
@@ -437,6 +437,7 @@ $ <span class="pl-c1">.</span> ./swarm-mode-aws.sh</pre></div>
 <p>Run services on local workstation with PCF Dev</p>
 
 <ul>
+<li>Run Mongo database locally. Mine is running on 192.168.0.15:27017</li>
 <li>Download and install PCF: <a href="https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction">https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction</a>
 </li>
 <li>Start PCF Dev: <code>$ cf dev start -m 8192</code>
@@ -451,9 +452,9 @@ $ <span class="pl-c1">.</span> ./swarm-mode-aws.sh</pre></div>
 </li>
 <li>Create user service - mongo: <code>$ cf cups mongo -p '{"uri":"mongodb://192.168.0.15:27017"}'</code>
 </li>
-<li>Create cloud foundry services - mysql: <code>$ cf create-service p-mysql 512mb mysql</code>
+<li>Create cloud foundry service instance - mysql: <code>$ cf create-service p-mysql 512mb mysql</code>
 </li>
-<li>Create cloud foundry services - rabbit: <code>$ cf create-service p-rabbitmq standard rabbit</code>
+<li>Create cloud foundry service instance - rabbit: <code>$ cf create-service p-rabbitmq standard rabbit</code>
 </li>
 <li>Open your browser and point to <a href="https://local.pcfdev.io">https://local.pcfdev.io</a>. Explore !</li>
 </ul>
@@ -461,23 +462,34 @@ $ <span class="pl-c1">.</span> ./swarm-mode-aws.sh</pre></div>
 <h5>
 <a id="cli" class="anchor" href="#cli" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CLI</h5>
 
-<p>Services contain <code>manifest.yml</code> file with concrete configuration for PCF deployment. 
-You can push each service with:</p>
+<p>Push microservices in command line:</p>
 
-<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> <span class="pl-k">&lt;</span>service-path<span class="pl-k">&gt;</span>
-cf push</pre></div>
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/
+$ cf push -f configserver/manifest.yml -p target/configserver-0.0.1-SNAPSHOT.jar
+$ cf push -f registry/manifest.yml -p registry/target/registry-0.0.1-SNAPSHOT.jar
+$ cf push -f authserver/manifest.yml -p authserver/target/authserver-0.0.1-SNAPSHOT.jar
+$ cf push -f command-side-blog-service/manifest.yml -p command-side-blog-service/target/command-side-blog-service-0.0.1-SNAPSHOT.jar
+$ cf push -f command-side-project-service/manifest.yml -p command-side-project-service/target/command-side-project-service-0.0.1-SNAPSHOT.jar
+$ cf push -f query-side-blog-service/manifest.yml -p query-side-blog-service/target/query-side-blog-service-0.0.1-SNAPSHOT.jar
+$ cf push -f query-side-project-service/manifest.yml -p query-side-project-service/target/query-side-project-service-0.0.1-SNAPSHOT.jar
+$ cf push -f api-gateway/manifest.yml -p api-gateway/target/api-gateway-0.0.1-SNAPSHOT.jar
+$ cf push -f adminserver/manifest.yml -p adminserver/target/adminserver-1.3.3.RELEASE.jar
+</pre></div>
 
 <h5>
 <a id="eclipse-1" class="anchor" href="#eclipse-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Eclipse</h5>
 
-<p>You can use Eclipse 'Boot Dashboard'.</p>
+<p>Push microservices with 'Boot Dashboard':</p>
 
-<p>Please run 'configserver' first, followed by 'registry' and other services.</p>
+<ul>
+<li>Add local (dev) cloud foundry target (<a href="https://api.local.pcfdev.io">https://api.local.pcfdev.io</a>).</li>
+<li>Once you are connected, start dragging the projects to this instance.</li>
+</ul>
+
+<p>NOTE: Please run 'configserver' first, followed by 'registry' and other services.</p>
 
 <h3>
 <a id="issuing-commands--queries-with-curl" class="anchor" href="#issuing-commands--queries-with-curl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Issuing Commands &amp; Queries with CURL</h3>
-
-<p>My current docker host IP is 127.0.0.1</p>
 
 <h4>
 <a id="create-blog-post" class="anchor" href="#create-blog-post" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Blog post</h4>
@@ -485,13 +497,12 @@ cf push</pre></div>
 <h6>
 <a id="microservices" class="anchor" href="#microservices" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
 
-<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:8080/blogpostcommands
-</pre></div>
-
-<p>or on gateway:</p>
-
 <div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:9000/command/blog/blogpostcommands 
 </pre></div>
+
+<p>or on the PCF:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> api-gateway.<span class="pl-k">local</span>.pcfdev.io/command/blog/blogpostcommands </pre></div>
 
 <h6>
 <a id="monolithic" class="anchor" href="#monolithic" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
@@ -504,11 +515,6 @@ cf push</pre></div>
 
 <h6>
 <a id="microservices-1" class="anchor" href="#microservices-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
-
-<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
-</pre></div>
-
-<p>or on gateway:</p>
 
 <div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"publishAt": "2016-12-23T14:30:00+00:00"}<span class="pl-pds">'</span></span> http://127.0.0.1:9000/command/blog/blogpostcommands/{id}/publishcommand
 </pre></div>
@@ -525,16 +531,15 @@ cf push</pre></div>
 <h6>
 <a id="microservices-2" class="anchor" href="#microservices-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
 
-<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8081/blogposts</pre></div>
-
-<p>or on gateway:</p>
-
 <div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:9000/query/blog/blogposts</pre></div>
 
-<h6>
-<a id="monolithic-2" class="anchor" href="#monolithic-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+<p>or on the PCF:</p>
 
-<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8080/blogposts</pre></div>
+<div class="highlight highlight-source-shell"><pre>$ curl api-gateway.<span class="pl-k">local</span>.pcfdev.io/query/blog/blogposts
+
+<span class="pl-c">###### Monolithic</span>
+<span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>bash</span>
+<span class="pl-s">$ curl http://127.0.0.1:8080/blogposts</span></pre></div>
 
 <h4>
 <a id="create-project" class="anchor" href="#create-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Project</h4>
@@ -542,16 +547,11 @@ cf push</pre></div>
 <h6>
 <a id="microservices-3" class="anchor" href="#microservices-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
 
-<div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}<span class="pl-pds">'</span></span> http://127.0.0.1:8082/projectcommands
-</pre></div>
-
-<p>or on gateway:</p>
-
 <div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}<span class="pl-pds">'</span></span> http://127.0.0.1:9000/command/project/projectcommands
 </pre></div>
 
 <h6>
-<a id="monolithic-3" class="anchor" href="#monolithic-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+<a id="monolithic-2" class="anchor" href="#monolithic-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
 
 <div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}<span class="pl-pds">'</span></span> http://127.0.0.1:8080/projectcommands
 </pre></div>
@@ -562,14 +562,10 @@ cf push</pre></div>
 <h6>
 <a id="microservices-4" class="anchor" href="#microservices-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
 
-<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8083/projects</pre></div>
-
-<p>or on gateway:</p>
-
 <div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:9000/query/project/projects</pre></div>
 
 <h6>
-<a id="monolithic-4" class="anchor" href="#monolithic-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+<a id="monolithic-3" class="anchor" href="#monolithic-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
 
 <div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8080/projects</pre></div>
 
@@ -579,7 +575,8 @@ cf push</pre></div>
 <h6>
 <a id="microservices-5" class="anchor" href="#microservices-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Microservices</h6>
 
-<p>All the events will be sent to browser via WebSocket and displayed on <a href="http://127.0.0.1:9000/socket/index.html">http://127.0.0.1:9000/socket/index.html</a></p>
+<p>All the events will be sent to browser via WebSocket and displayed on <a href="http://127.0.0.1:9000/socket/index.html">http://127.0.0.1:9000/socket/index.html</a>
+or on the PCF: <a href="http://api-gateway.local.pcfdev.io/socket/index.html">http://api-gateway.local.pcfdev.io/socket/index.html</a></p>
 
 <h2>
 <a id="about-axon" class="anchor" href="#about-axon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About AXON</h2>
