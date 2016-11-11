@@ -15,8 +15,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <h2><a href="http://idugalic.github.io/projects">projects</a>/micro-company</h2>
-        <p>Rest-full, Hipermedia-based, distributed application. Spring boot &amp; cloud. CQRS. Eventsourcing. Axonframework. Event driven Microservices. Docker.</p>
+        <h1>Micro-company</h1>
+        <p>Rest-full, Hipermedia-based distributed application. Spring boot &amp; cloud. CQRS. Eventsourcing. Axonframework. Microservices. Docker.</p>
 
         <p class="view"><a href="https://github.com/idugalic/micro-company">View the Project on GitHub <small>idugalic/micro-company</small></a></p>
 
@@ -26,14 +26,174 @@
           <li><a href="https://github.com/idugalic/micro-company/tarball/master">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/idugalic/micro-company">View On <strong>GitHub</strong></a></li>
         </ul>
-        <img src="https://camo.githubusercontent.com/7accb71f4e3f39953dae6d1258400f6d52646689/68747470733a2f2f7472617669732d63692e6f72672f69647567616c69632f6d6963726f2d636f6d70616e792e7376673f6272616e63683d6d6173746572" alt="status" data-canonical-src="https://travis-ci.org/idugalic/micro-company.svg?branch=master" style="max-width:100%;">
       </header>
       <section>
         <h1>
-<a id="micro-company-application" class="anchor" href="#micro-company-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Application 'Micro Company'</h1>
+<a id="application-micro-company-" class="anchor" href="#application-micro-company-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Application 'Micro Company' <img src="https://travis-ci.org/idugalic/micro-company.svg?branch=master" alt="status">
+</h1>
 
 <p>This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.</p>
-<p>A 'Micro company' is a pseudo company. It does not really exist :)</p>
+
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ul>
+<li>
+<a href="#application-micro-company-">Application 'Micro Company'</a>
+
+<ul>
+<li><a href="#what-is-cloud-native">What is cloud native</a></li>
+<li>
+<a href="#architecture">Architecture</a>
+
+<ul>
+<li><a href="#patterns-and-techniques">Patterns and techniques:</a></li>
+<li><a href="#technologies">Technologies</a></li>
+<li><a href="#key-benefits">Key benefits</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li>
+<a href="#services">Services</a>
+
+<ul>
+<li>
+<a href="#backing-services">Backing services</a>
+
+<ul>
+<li><a href="#service-registry">(Service) Registry</a></li>
+<li><a href="#authorization-server-oauth2">Authorization server (Oauth2)</a></li>
+<li><a href="#configuration-server">Configuration server</a></li>
+<li><a href="#api-gateway">API Gateway</a></li>
+</ul>
+</li>
+<li>
+<a href="#backend-microservices">Backend Microservices</a>
+
+<ul>
+<li><a href="#blogmicroservice">BlogMicroservice</a></li>
+<li><a href="#projectmicroservice">ProjectMicroservice</a></li>
+<li>
+<a href="#admin-server-httpcodecentricgithubiospring-boot-admin132">Admin server (</a><a href="http://codecentric.github.io/spring-boot-admin/1.3.2/">http://codecentric.github.io/spring-boot-admin/1.3.2/</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#running-instructions">Running instructions</a>
+
+<ul>
+<li><a href="#prerequisite">Prerequisite</a></li>
+<li><a href="#step-1-clone-the-project">Step 1: Clone the project</a></li>
+<li>
+<a href="#step-2-optional-build-the-project">Step 2 (Optional): Build the project</a>
+
+<ul>
+<li><a href="#build-the-project">Build the project</a></li>
+<li><a href="#build-docker-images-via-maven">Build docker images via maven</a></li>
+</ul>
+</li>
+<li>
+<a href="#step-3-run-the-application-as">Step 3: Run the application as</a>
+
+<ul>
+<li>
+<a href="#run-monolithic-on-localhost">Run monolithic on localhost</a>
+
+<ul>
+<li><a href="#docker">Docker</a></li>
+<li><a href="#maven">Maven</a></li>
+<li><a href="#eclipse">Eclipse</a></li>
+</ul>
+</li>
+<li><a href="#run-microservices-on-localhost-via-docker">Run microservices on localhost via docker</a></li>
+<li><a href="#run-microservices-on-docker-swarm-mode---local-cluster-docker-112-beta-is-required-">Run microservices on Docker Swarm (mode) - local cluster (docker 1.12  BETA is required !!!)</a></li>
+<li><a href="#run-microservices-on-docker-swarm-mode---aws-cluster-docker-112-beta-is-required-">Run microservices on Docker Swarm (mode) - AWS cluster (docker 1.12  BETA is required !!!)</a></li>
+<li>
+<a href="#run-microservices-on-pivotal-cloud-foundry---pcf-dev">Run microservices on Pivotal Cloud Foundry - PCF Dev</a>
+
+<ul>
+<li><a href="#cli">CLI</a></li>
+<li><a href="#eclipse-1">Eclipse</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#issuing-commands--queries-with-curl">Issuing Commands &amp; Queries with CURL</a>
+
+<ul>
+<li>
+<a href="#create-blog-post">Create Blog post</a>
+
+<ul>
+<li><a href="#microservices">Microservices</a></li>
+<li><a href="#monolithic">Monolithic</a></li>
+</ul>
+</li>
+<li>
+<a href="#publish-blog-post">Publish Blog post</a>
+
+<ul>
+<li><a href="#microservices-1">Microservices</a></li>
+<li><a href="#monolithic-1">Monolithic</a></li>
+</ul>
+</li>
+<li>
+<a href="#query-blog-posts">Query Blog posts</a>
+
+<ul>
+<li><a href="#microservices-2">Microservices</a></li>
+<li><a href="#monolithic-2">Monolithic</a></li>
+</ul>
+</li>
+<li>
+<a href="#create-project">Create Project</a>
+
+<ul>
+<li><a href="#microservices-3">Microservices</a></li>
+<li><a href="#monolithic-3">Monolithic</a></li>
+</ul>
+</li>
+<li>
+<a href="#query-projects">Query Projects</a>
+
+<ul>
+<li><a href="#microservices-4">Microservices</a></li>
+<li><a href="#monolithic-4">Monolithic</a></li>
+</ul>
+</li>
+<li>
+<a href="#websocket-on-the-gateway">WebSocket on the gateway</a>
+
+<ul>
+<li><a href="#microservices-5">Microservices</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#about-axon">About AXON</a>
+
+<ul>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#events">Events</a></li>
+<li><a href="#domain">Domain</a></li>
+<li><a href="#repositories">Repositories</a></li>
+<li><a href="#event-stores">Event Stores</a></li>
+<li><a href="#event-bus">Event Bus</a></li>
+<li><a href="#sagas">Sagas</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#spring-support">Spring support</a></li>
+</ul>
+</li>
+<li><a href="#references-and-further-reading">References and further reading</a></li>
+</ul>
+</li>
+</ul>
+
 <h2>
 <a id="what-is-cloud-native" class="anchor" href="#what-is-cloud-native" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is cloud native</h2>
 
@@ -49,7 +209,7 @@ In the context of this application, cloud refers to Platform as a Service. PaaS 
 
 <p>Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.</p>
 
-<p><img src="https://i.imgsafe.org/cb15eb4553.png"></p>
+<p><img src="https://i.imgsafe.org/cb15eb4553.png" alt="Microservice Architecture - Ivan Dugalic"></p>
 
 <h3>
 <a id="patterns-and-techniques" class="anchor" href="#patterns-and-techniques" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Patterns and techniques:</h3>
@@ -95,9 +255,9 @@ In the context of this application, cloud refers to Platform as a Service. PaaS 
 
 <p>Communication between the two microservices is <code>event-driven</code> and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).</p>
 
-<p>The command-side processes commands. Commands are actions which change state in some way. The execution of these commands results in <code>Events</code> being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.</p>
+<p>The <strong>command-side</strong> processes commands. Commands are actions which change state in some way. The execution of these commands results in <code>Events</code> being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.</p>
 
-<p>The query-side is an event-listener and processor. It listens for the <code>Events</code> and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a <em>materialised view</em> which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.</p>
+<p>The <strong>query-side</strong> is an event-listener and processor. It listens for the <code>Events</code> and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a <em>materialised view</em> which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.</p>
 
 <p>The command-side and the query-side both have REST API's which can be used to access their capabilities.</p>
 
@@ -133,7 +293,6 @@ Configuration is hosted here: <a href="https://github.com/idugalic/micro-company
 
 <p>Implementation of an API gateway that is the single entry point for all clients. The API gateway handles requests in one of two ways. Some requests are simply proxied/routed to the appropriate service. It handles other requests by fanning out to multiple services.</p>
 
-
 <h4>
 <a id="backend-microservices" class="anchor" href="#backend-microservices" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Backend Microservices</h4>
 
@@ -152,10 +311,10 @@ Configuration is hosted here: <a href="https://github.com/idugalic/micro-company
 <h5>
 <a id="admin-server-httpcodecentricgithubiospring-boot-admin132" class="anchor" href="#admin-server-httpcodecentricgithubiospring-boot-admin132" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Admin server (<a href="http://codecentric.github.io/spring-boot-admin/1.3.2/">http://codecentric.github.io/spring-boot-admin/1.3.2/</a>)</h5>
 
-<p>Spring Boot Admin is a simple application to manage and monitor your Spring Boot services. The services are discovered using Spring Cloud (e.g. Eureka). The UI is just an Angular.js application on top of the Spring Boot Actuator endpoints. In case you want to use the more advanced features (e.g. jmx-, loglevel-management), Jolokia must be included in the client service.</p>
-<p>Please note that this server/service could fit to 'Backing services' as well. In this case all services would use Admin Client to connect to this service (and not Eureka). </p>      
+<p>Spring Boot Admin is a simple application to manage and monitor your Spring Boot services. The services are discovered using Spring Cloud (e.g. Eureka). The UI is just an Angular.js application on top of the Spring Boot Actuator endpoints. In case you want to use the more advanced features (e.g. jmx-, loglevel-management), Jolokia must be included in the client services.</p>
 
-        
+<p>Please note that this server/service could fit to 'Backing services' as well. In this case all services would use Admin Client to connect to this service (and not Eureka).</p>
+
 <h2>
 <a id="running-instructions" class="anchor" href="#running-instructions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running instructions</h2>
 
@@ -180,69 +339,145 @@ Configuration is hosted here: <a href="https://github.com/idugalic/micro-company
 
 <p>Please note that images are available on the docker hub (<a href="https://hub.docker.com/u/idugalic">https://hub.docker.com/u/idugalic</a>), so if you do not want to build the services, simply skip to Step 3</p>
 
-<p>Build the project:</p>
+<h4>
+<a id="build-the-project" class="anchor" href="#build-the-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build the project</h4>
 
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company
 $ mvn clean install</pre></div>
+
+<h4>
+<a id="build-docker-images-via-maven" class="anchor" href="#build-docker-images-via-maven" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build docker images via maven</h4>
+
+<div class="highlight highlight-source-shell"><pre>$ DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build</pre></div>
+
+<p>or to build and push images via maven (requires username and password of docker repo):</p>
+
+<div class="highlight highlight-source-shell"><pre>$ DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build -DpushImage</pre></div>
 
 <h3>
 <a id="step-3-run-the-application-as" class="anchor" href="#step-3-run-the-application-as" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Run the application as</h3>
 
 <ul>
 <li>monolithic on localhost or</li>
-<li>microservices on localhost or</li>
-<li>microservices on swarm (mode) - local cluster</li>
-<li>microservices on swarm (mode) - AWS</li>
+<li>microservices on localhost via docker or</li>
+<li>microservices on docker swarm (mode) - local cluster</li>
+<li>microservices on docker swarm (mode) - AWS cluster</li>
+<li>microservices on Pivotal Cloud Foundry - PCF Dev</li>
 </ul>
 
 <h4>
 <a id="run-monolithic-on-localhost" class="anchor" href="#run-monolithic-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run monolithic on localhost</h4>
 
-<h5><a id="user-content-maven" class="anchor" href="#maven" aria-hidden="true"></a>Maven</h5>
+<h5>
+<a id="docker" class="anchor" href="#docker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Docker</h5>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/docker
+$ docker-compose -f docker-compose-monolithic.yml up -d </pre></div>
+
+<h5>
+<a id="maven" class="anchor" href="#maven" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Maven</h5>
+
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company
 $ mvn clean install
 $ <span class="pl-c1">cd</span> micro-company/monolithic
 $ mvn spring-boot:run</pre></div>
 
-<h5><a id="user-content-docker" class="anchor" href="#docker" aria-hidden="true"></a>Docker</h5>
-<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/docker
-$ docker-compose -f docker-compose-monolithic.yml up -d </pre></div>
-        
-<h5><a id="user-content-eclipse" class="anchor" href="#eclipse" aria-hidden="true"></a>Eclipse</h5>
-<p>Run as Spring Boot Project. I advice for Boot Dashboard to be used as well.</p>
+<h5>
+<a id="eclipse" class="anchor" href="#eclipse" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Eclipse</h5>
+
+<p>Run as Spring Boot Project. 
+I can advice for Boot Dashboard to be used as well.</p>
 
 <h4>
-<a id="run-microservices-on-localhost" class="anchor" href="#run-microservices-on-localhost" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on localhost</h4>
+<a id="run-microservices-on-localhost-via-docker" class="anchor" href="#run-microservices-on-localhost-via-docker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on localhost via docker</h4>
 
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/docker
 $ docker-compose up -d </pre></div>
 
 <h4>
-<a id="run-microservices-on-swarm-mode-local-cluster" class="anchor" href="#run-microservices-on-swarm-mode-local-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Swarm (mode) - local cluster (docker 1.12+ BETA is required !!!)</h4>
+<a id="run-microservices-on-docker-swarm-mode---local-cluster-docker-112-beta-is-required-" class="anchor" href="#run-microservices-on-docker-swarm-mode---local-cluster-docker-112-beta-is-required-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Docker Swarm (mode) - local cluster (docker 1.12+ BETA is required !!!)</h4>
 
 <p>Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. <a href="https://docs.docker.com/engine/swarm">https://docs.docker.com/engine/swarm</a></p>
 
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/docker
-$ . ./swarm-mode-local.sh</pre></div>
-        
-<h4>
-<a id="run-microservices-on-swarm-mode-aws-cluster" class="anchor" href="#run-microservices-on-swarm-mode-aws-cluster" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Swarm (mode) - AWS cluster (docker 1.12+ BETA is required !!!)</h4>
-<p>We will deploy services on AWS infrastucture. So you have to prepare it:</p>
+$ <span class="pl-c1">.</span> ./swarm-mode-local.sh</pre></div>
+
+<p>By executing command/script you will:</p>
+
 <ul>
- <li>Register for AWS - beta (<a href="https://beta.docker.com/docs/">https://beta.docker.com/docs/</a>).</li>
- <li>Login to your account as a root, and create user (not root) that will be used latter. (<a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console">http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console</a>)</li>
- <li>Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair">http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair</a>).</li>
- <li>Once You have registered for Docker AWS Beta, create stack on AWS by using CloudFormation template - Follow the instructions in the email from Docker.</li>
- <li>Run the script bellow and follow instructions.</li>
+<li>create 4 virtual machines (VirtualBox is required). One 'swarm master', and three 'swarm nodes'</li>
+<li>initialize cluster on the swarm master</li>
+<li>join nodes to the cluster</li>
+<li>create a stack by deploying distributed bundle</li>
 </ul>
-        
+
+<p>Please, follow the instructions in the console log, and have fun :)</p>
+
+<h4>
+<a id="run-microservices-on-docker-swarm-mode---aws-cluster-docker-112-beta-is-required-" class="anchor" href="#run-microservices-on-docker-swarm-mode---aws-cluster-docker-112-beta-is-required-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Docker Swarm (mode) - AWS cluster (docker 1.12+ BETA is required !!!)</h4>
+
+<p>Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. <a href="https://docs.docker.com/engine/swarm">https://docs.docker.com/engine/swarm</a></p>
+
+<p>We will deploy services on AWS infrastucture. So you have to prepare it:</p>
+
+<ul>
+<li>Step1:  Register for AWS - beta (<a href="https://beta.docker.com/docs/">https://beta.docker.com/docs/</a>).</li>
+<li>Step2:  Login to your account as a root, and create user (not root) that will be used latter. (<a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console">http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console</a>)</li>
+<li>Step3:  Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair">http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair</a>).</li>
+<li>Step4:  Once You have registered for Docker AWS Beta, create stack on AWS by using CloudFormation template - Follow the instructions in the email from Docker.</li>
+<li>Step 5 Run the script bellow and follow instructions.</li>
+</ul>
+
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/docker
-$ . ./swarm-mode-aws.sh</pre></div>
+$ <span class="pl-c1">.</span> ./swarm-mode-aws.sh</pre></div>
+
+<h4>
+<a id="run-microservices-on-pivotal-cloud-foundry---pcf-dev" class="anchor" href="#run-microservices-on-pivotal-cloud-foundry---pcf-dev" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run microservices on Pivotal Cloud Foundry - PCF Dev</h4>
+
+<p>Run services on local workstation with PCF Dev</p>
+
+<ul>
+<li>Download and install PCF: <a href="https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction">https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction</a>
+</li>
+<li>Start PCF Dev: <code>$ cf dev start -m 8192</code>
+</li>
+<li>Login to PCF Dev (email:admin; password:admin): <code>$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation</code>
+</li>
+<li>Create user service - configserver: <code>cf cups configserver -p '{"uri":"http://configserver.local.pcfdev.io"}'</code>
+</li>
+<li>Create user service - registry: <code>$ cf cups registry -p '{"uri":"http://registry.local.pcfdev.io"}'</code>
+</li>
+<li>Create user service - authserver: <code>$ cf cups authserver -p '{"uri":"http://authserver.local.pcfdev.io"}'</code>
+</li>
+<li>Create user service - mongo: <code>$ cf cups mongo -p '{"uri":"mongodb://192.168.0.15:27017"}'</code>
+</li>
+<li>Create cloud foundry services - mysql: <code>$ cf create-service p-mysql 512mb mysql</code>
+</li>
+<li>Create cloud foundry services - rabbit: <code>$ cf create-service p-rabbitmq standard rabbit</code>
+</li>
+<li>Open your browser and point to <a href="https://local.pcfdev.io">https://local.pcfdev.io</a>. Explore !</li>
+</ul>
+
+<h5>
+<a id="cli" class="anchor" href="#cli" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CLI</h5>
+
+<p>Services contain <code>manifest.yml</code> file with concrete configuration for PCF deployment. 
+You can push each service with:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> <span class="pl-k">&lt;</span>service-path<span class="pl-k">&gt;</span>
+cf push</pre></div>
+
+<h5>
+<a id="eclipse-1" class="anchor" href="#eclipse-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Eclipse</h5>
+
+<p>You can use Eclipse 'Boot Dashboard'.</p>
+
+<p>Please run 'configserver' first, followed by 'registry' and other services.</p>
 
 <h3>
 <a id="issuing-commands--queries-with-curl" class="anchor" href="#issuing-commands--queries-with-curl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Issuing Commands &amp; Queries with CURL</h3>
 
-<p>Please note that my current docker host IP is 127.0.0.1</p>
+<p>My current docker host IP is 127.0.0.1</p>
 
 <h4>
 <a id="create-blog-post" class="anchor" href="#create-blog-post" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Blog post</h4>
@@ -429,7 +664,10 @@ $ . ./swarm-mode-aws.sh</pre></div>
 <a id="spring-support" class="anchor" href="#spring-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Spring support</h3>
 
 <p>Those days, each mature framework in Java world should have some sort of Spring support. Each of Axon's components can be configured as a Spring bean. Axon provides also a namespace shortcut for almost everything it has, so the configuration is as short as it has to be.</p>
-<h2>References</h2>
+
+<h2>
+<a id="references-and-further-reading" class="anchor" href="#references-and-further-reading" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References and further reading</h2>
+
 <ul>
 <li><a href="http://martinfowler.com/articles/microservices.html">http://martinfowler.com/articles/microservices.html</a></li>
 <li><a href="http://microservices.io/">http://microservices.io/</a></li>
@@ -439,6 +677,8 @@ $ . ./swarm-mode-aws.sh</pre></div>
 <li><a href="http://pivotal.io/beyond-the-twelve-factor-app">http://pivotal.io/beyond-the-twelve-factor-app</a></li>
 <li><a href="http://www.infoq.com/news/2016/01/cqrs-axon-example">http://www.infoq.com/news/2016/01/cqrs-axon-example</a></li>
 <li><a href="http://www.axonframework.org">http://www.axonframework.org</a></li>
+<li><a href="http://blog.arungupta.me/docker-swarm-cluster-using-consul/">http://blog.arungupta.me/docker-swarm-cluster-using-consul/</a></li>
+<li><a href="https://blog.docker.com/2016/02/containers-as-a-service-caas/">https://blog.docker.com/2016/02/containers-as-a-service-caas/</a></li>
 <li><a href="http://www.kennybastani.com/2016/04/event-sourcing-microservices-spring-cloud.html">http://www.kennybastani.com/2016/04/event-sourcing-microservices-spring-cloud.html</a></li>
 <li><a href="https://benwilcock.wordpress.com/2016/06/20/microservices-with-spring-boot-axon-cqrses-and-docker/">https://benwilcock.wordpress.com/2016/06/20/microservices-with-spring-boot-axon-cqrses-and-docker/</a></li>
 </ul>
