@@ -306,21 +306,18 @@ Push microservices with 'Boot Dashboard':
 NOTE: Please run 'configserver' first, followed by 'registry' and other services.
 
 ### Issuing Commands & Queries with CURL
-My current docker host IP is 127.0.0.1
 
 #### Create Blog post
 
 ###### Microservices
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands
-
-```
-or on gateway:
-
-```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogpostcommands 
 
+```
+or on the PCF:
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' api-gateway.local.pcfdev.io/command/blog/blogpostcommands 
 ```
 ###### Monolithic
 ```bash
@@ -331,12 +328,6 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawConten
 #### Publish Blog post
 
 ###### Microservices
-
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
-
-```
-or on gateway:
 
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogpostcommands/{id}/publishcommand
@@ -352,14 +343,14 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23
 #### Query Blog posts
 
 ###### Microservices
-```bash
-$ curl http://127.0.0.1:8081/blogposts
-```
-or on gateway:
 
 ```bash
 $ curl http://127.0.0.1:9000/query/blog/blogposts
 ```
+or on the PCF:
+```bash
+$ curl api-gateway.local.pcfdev.io/query/blog/blogposts
+
 ###### Monolithic
 ```bash
 $ curl http://127.0.0.1:8080/blogposts
@@ -368,12 +359,6 @@ $ curl http://127.0.0.1:8080/blogposts
 #### Create Project
 
 ###### Microservices
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8082/projectcommands
-
-```
-
-or on gateway:
 
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:9000/command/project/projectcommands
@@ -388,10 +373,6 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":
 #### Query Projects
 
 ###### Microservices
-```bash
-$ curl http://127.0.0.1:8083/projects
-```
- or on gateway:
  
  ```bash
 $ curl http://127.0.0.1:9000/query/project/projects
@@ -405,6 +386,7 @@ $ curl http://127.0.0.1:8080/projects
 
 ###### Microservices
 All the events will be sent to browser via WebSocket and displayed on http://127.0.0.1:9000/socket/index.html
+or on the PCF: http://api-gateway.local.pcfdev.io/socket/index.html
 
 
 ## About AXON
