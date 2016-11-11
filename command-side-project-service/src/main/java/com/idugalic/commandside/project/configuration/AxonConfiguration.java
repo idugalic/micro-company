@@ -33,6 +33,7 @@ import org.axonframework.eventstore.mongo.MongoTemplate;
 import org.axonframework.serializer.json.JacksonSerializer;
 
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -76,7 +77,7 @@ public class AxonConfiguration {
     }
 
     @Bean
-    SpringAMQPConsumerConfiguration springAMQPConsumerConfiguration(PlatformTransactionManager transactionManager) {
+    SpringAMQPConsumerConfiguration springAMQPConsumerConfiguration(RabbitTransactionManager transactionManager) {
         SpringAMQPConsumerConfiguration cfg = new SpringAMQPConsumerConfiguration();
         cfg.setTransactionManager(transactionManager);
         cfg.setQueueName(queueName);

@@ -6,6 +6,7 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -66,7 +67,8 @@ public class RabbitConfiguration {
         connectionFactory.setPassword(password);
         return connectionFactory;
     }
-
+   
+    
     @Bean
     @Required
     RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
@@ -79,4 +81,11 @@ public class RabbitConfiguration {
         admin.declareBinding(projectBinding());
         return admin;
     }
+    
+    @Bean
+    RabbitTransactionManager transactionManager(ConnectionFactory connectionFactory){
+        RabbitTransactionManager txMgr = new RabbitTransactionManager(connectionFactory);
+        return txMgr;
+    }
 }
+

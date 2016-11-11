@@ -6,6 +6,7 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -63,5 +64,11 @@ public class RabbitConfiguration {
         admin.declareQueue(defaultStream);
         admin.declareBinding(binding);
         return admin;
+    }
+    
+    @Bean
+    RabbitTransactionManager transactionManager(ConnectionFactory connectionFactory){
+        RabbitTransactionManager txMgr = new RabbitTransactionManager(connectionFactory);
+        return txMgr;
     }
 }
