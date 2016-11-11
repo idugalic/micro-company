@@ -123,6 +123,16 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker.plugin.version}</version>
+				<configuration>
+					<skipDockerBuild>true</skipDockerBuild>
+					<serverId>docker-hub</serverId>
+                    <registryUrl>https://registry.hub.docker.com/v1/</registryUrl>
+				</configuration>
+			</plugin>
 		</plugins>
 
 	</build>

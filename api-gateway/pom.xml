@@ -140,6 +140,7 @@
 				<version>${docker.plugin.version}</version>
 				
 				<configuration>
+				    <skipDockerBuild>false</skipDockerBuild>
 					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
 					<imageTags>
 						<imageTag>${project.version}</imageTag>

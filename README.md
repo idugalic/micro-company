@@ -112,13 +112,24 @@ $ git clone https://github.com/idugalic/micro-company.git
 ### Step 2 (Optional): Build the project
 Please note that images are available on the docker hub (https://hub.docker.com/u/idugalic), so if you do not want to build the services, simply skip to Step 3
 
-Build the project:
+#### Build the project
  
 ```bash
 $ cd micro-company
 $ mvn clean install
 ```
 
+#### Build docker images via maven
+
+```bash
+$ DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build
+```
+
+or to build and push images via maven (requires username and password of docker repo):
+
+```bash
+$ DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build -DpushImage
+```
 ### Step 3: Run the application as
 
 - monolithic on localhost or
