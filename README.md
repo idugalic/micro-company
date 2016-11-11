@@ -285,6 +285,7 @@ Push microservices in command line:
 
 ```bash
 $ cd micro-company/
+$ mvn clean install
 $ cf push -f configserver/manifest.yml -p target/configserver-0.0.1-SNAPSHOT.jar
 $ cf push -f registry/manifest.yml -p registry/target/registry-0.0.1-SNAPSHOT.jar
 $ cf push -f authserver/manifest.yml -p authserver/target/authserver-0.0.1-SNAPSHOT.jar
