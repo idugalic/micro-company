@@ -352,7 +352,7 @@ $ curl http://127.0.0.1:9000/query/blog/blogposts
 or on the PCF:
 ```bash
 $ curl api-gateway.local.pcfdev.io/query/blog/blogposts
-
+```
 ###### Monolithic
 ```bash
 $ curl http://127.0.0.1:8080/blogposts
