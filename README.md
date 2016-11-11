@@ -125,6 +125,7 @@ $ mvn clean install
 - microservices on localhost via docker or
 - microservices on docker swarm (mode) - local cluster
 - microservices on docker swarm (mode) - AWS cluster
+- microservices on Pivotal Cloud Foundry - PCF Dev
 
 #### Run monolithic on localhost
 
@@ -207,17 +208,19 @@ $ cf cups authserver -p '{"uri":"http://authserver.local.pcfdev.io"}'
 $ cf cups mongo -p '{"uri":"mongodb://192.168.0.15:27017"}'
 $ cf create-service p-mysql 512mb mysql
 $ cf create-service p-rabbitmq standard rabbit
-
 ```
+##### CLI
 Every service contains manifest.yml file with concrete configuration for PCF deployment. 
-You can simple push each service with:
+You can push each service with:
 
 ```bash
 cd <service-path>
 cf push
 ```
-Or you can use Eclipse 'Boot Dashboard'.
-Have fun!
+##### Eclipse
+You can use Eclipse 'Boot Dashboard'.
+
+Please run 'configserver' first, followd by 'registry' and other services.
 
 ### Issuing Commands & Queries with CURL
 My current docker host IP is 127.0.0.1
