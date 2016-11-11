@@ -9,5 +9,4 @@ applications:
   - registry
   - authserver
   - mongo
-  - mysql
   - rabbit

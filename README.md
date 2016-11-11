@@ -274,23 +274,36 @@ Run services on local workstation with PCF Dev
 - Create user service - registry: `$ cf cups registry -p '{"uri":"http://registry.local.pcfdev.io"}'`
 - Create user service - authserver: `$ cf cups authserver -p '{"uri":"http://authserver.local.pcfdev.io"}'`
 - Create user service - mongo: `$ cf cups mongo -p '{"uri":"mongodb://192.168.0.15:27017"}'`
-- Create cloud foundry services - mysql: `$ cf create-service p-mysql 512mb mysql`
-- Create cloud foundry services - rabbit: `$ cf create-service p-rabbitmq standard rabbit`
+- Create cloud foundry service instance - mysql: `$ cf create-service p-mysql 512mb mysql`
+- Create cloud foundry service instance - rabbit: `$ cf create-service p-rabbitmq standard rabbit`
 - Open your browser and point to https://local.pcfdev.io. Explore !
 
 
 ##### CLI
-Services contain `manifest.yml` file with concrete configuration for PCF deployment. 
-You can push each service with:
+Push microservices in command line:
 
 ```bash
-cd <service-path>
-cf push
-```
-##### Eclipse
-You can use Eclipse 'Boot Dashboard'.
+$ cd micro-company/
+$ cf push -f configserver/manifest.yml -p target/configserver-0.0.1-SNAPSHOT.jar
+$ cf push -f registry/manifest.yml -p registry/target/registry-0.0.1-SNAPSHOT.jar
+$ cf push -f authserver/manifest.yml -p authserver/target/authserver-0.0.1-SNAPSHOT.jar
+$ cf push -f command-side-blog-service/manifest.yml -p command-side-blog-service/target/command-side-blog-service-0.0.1-SNAPSHOT.jar
+$ cf push -f command-side-project-service/manifest.yml -p command-side-project-service/target/command-side-project-service-0.0.1-SNAPSHOT.jar
+$ cf push -f query-side-blog-service/manifest.yml -p query-side-blog-service/target/query-side-blog-service-0.0.1-SNAPSHOT.jar
+$ cf push -f query-side-project-service/manifest.yml -p query-side-project-service/target/query-side-project-service-0.0.1-SNAPSHOT.jar
+$ cf push -f api-gateway/manifest.yml -p api-gateway/target/api-gateway-0.0.1-SNAPSHOT.jar
+$ cf push -f adminserver/manifest.yml -p adminserver/target/adminserver-1.3.3.RELEASE.jar
 
-Please run 'configserver' first, followed by 'registry' and other services.
+```
+
+##### Eclipse
+Push microservices with 'Boot Dashboard':
+
+- Add local (dev) cloud foundry target (https://api.local.pcfdev.io).
+- Once you are connected, start dragging the projects to this instance.
+
+
+NOTE: Please run 'configserver' first, followed by 'registry' and other services.
 
 ### Issuing Commands & Queries with CURL
 My current docker host IP is 127.0.0.1
