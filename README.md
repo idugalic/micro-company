@@ -202,26 +202,19 @@ $ . ./swarm-mode-aws.sh
 Run services on local workstation with PCF Dev
 
 - Download and install PCF: https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction
-- Start PCF Dev
-- Login to PCF Dev (email:admin; password:admin)
-- Choose you organization (pcfdev-org)
+- Start PCF Dev: `bash $ cf dev start -m 8192 `
+- Login to PCF Dev (email:admin; password:admin): `$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation`
+- Create user service - configserver: `cf cups configserver -p '{"uri":"http://configserver.local.pcfdev.io"}'`
+- Create user service - registry: `$ cf cups registry -p '{"uri":"http://registry.local.pcfdev.io"}'`
+- Create user service - authserver: `$ cf cups authserver -p '{"uri":"http://authserver.local.pcfdev.io"}'`
+- Create user service - mongo: `$ cf cups mongo -p '{"uri":"mongodb://192.168.0.15:27017"}'`
+- Create cloud foundry services - mysql: `$ cf create-service p-mysql 512mb mysql`
+- Create cloud foundry services - rabbit: `$ cf create-service p-rabbitmq standard rabbit`
 - Open your browser and point to https://local.pcfdev.io. Explore !
-- Create user services (configserver, registry, authserver, mongo db)
-- Create CF services (mysql, rabbit)
 
 
-```bash
-$ cf dev start -m 8192
-$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation
-$ cf cups configserver -p '{"uri":"http://configserver.local.pcfdev.io"}'
-$ cf cups registry -p '{"uri":"http://registry.local.pcfdev.io"}'
-$ cf cups authserver -p '{"uri":"http://authserver.local.pcfdev.io"}'
-$ cf cups mongo -p '{"uri":"mongodb://192.168.0.15:27017"}'
-$ cf create-service p-mysql 512mb mysql
-$ cf create-service p-rabbitmq standard rabbit
-```
 ##### CLI
-Every service contains manifest.yml file with concrete configuration for PCF deployment. 
+Services contain `manifest.yml` file with concrete configuration for PCF deployment. 
 You can push each service with:
 
 ```bash
@@ -231,7 +224,7 @@ cf push
 ##### Eclipse
 You can use Eclipse 'Boot Dashboard'.
 
-Please run 'configserver' first, followd by 'registry' and other services.
+Please run 'configserver' first, followed by 'registry' and other services.
 
 ### Issuing Commands & Queries with CURL
 My current docker host IP is 127.0.0.1
