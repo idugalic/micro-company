@@ -267,6 +267,7 @@ $ . ./swarm-mode-aws.sh
 #### Run microservices on Pivotal Cloud Foundry - PCF Dev
 Run services on local workstation with PCF Dev
 
+- Run Mongo database locally. Mine is running on 192.168.0.15:27017
 - Download and install PCF: https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction
 - Start PCF Dev: `$ cf dev start -m 8192 `
 - Login to PCF Dev (email:admin; password:admin): `$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation`
