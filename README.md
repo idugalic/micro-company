@@ -1,9 +1,10 @@
 # Application 'Micro Company' ![status](https://travis-ci.org/idugalic/micro-company.svg?branch=master)
 
-Table of Contents
-=================
+This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.
 
-   * [Application 'Micro Company' <a href="https://camo.githubusercontent.com/7accb71f4e3f39953dae6d1258400f6d52646689/68747470733a2f2f7472617669732d63692e6f72672f69647567616c69632f6d6963726f2d636f6d70616e792e7376673f6272616e63683d6d6173746572" target="_blank"><img src="https://camo.githubusercontent.com/7accb71f4e3f39953dae6d1258400f6d52646689/68747470733a2f2f7472617669732d63692e6f72672f69647567616c69632f6d6963726f2d636f6d70616e792e7376673f6272616e63683d6d6173746572" alt="status" data-canonical-src="https://travis-ci.org/idugalic/micro-company.svg?branch=master" style="max-width:100\x;"></a>](#application-micro-company-)
+## Table of Contents
+
+   * [Application 'Micro Company'](#application-micro-company-)
       * [What is cloud native](#what-is-cloud-native)
       * [Architecture](#architecture)
          * [Patterns and techniques:](#patterns-and-techniques)
@@ -66,8 +67,6 @@ Table of Contents
          * [Testing](#testing)
          * [Spring support](#spring-support)
       * [References and further reading](#references-and-further-reading)
-
-This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.
 
 ## What is cloud native
 
