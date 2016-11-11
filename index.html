@@ -15,7 +15,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h2><a href="http://idugalic.github.io/projects">projects</a>/micro-company</h2>
+        <h1>Micro-company</h1>
         <p>Rest-full, Hipermedia-based distributed application. Spring boot &amp; cloud. CQRS. Eventsourcing. Axonframework. Microservices. Docker.</p>
 
         <p class="view"><a href="https://github.com/idugalic/micro-company">View the Project on GitHub <small>idugalic/micro-company</small></a></p>
@@ -536,11 +536,12 @@ $ cf push -f adminserver/manifest.yml -p adminserver/target/adminserver-1.3.3.RE
 
 <p>or on the PCF:</p>
 
-<div class="highlight highlight-source-shell"><pre>$ curl api-gateway.<span class="pl-k">local</span>.pcfdev.io/query/blog/blogposts
+<div class="highlight highlight-source-shell"><pre>$ curl api-gateway.<span class="pl-k">local</span>.pcfdev.io/query/blog/blogposts</pre></div>
 
-<span class="pl-c">###### Monolithic</span>
-<span class="pl-s"><span class="pl-pds">`</span><span class="pl-pds">`</span><span class="pl-pds">`</span>bash</span>
-<span class="pl-s">$ curl http://127.0.0.1:8080/blogposts</span></pre></div>
+<h6>
+<a id="monolithic-2" class="anchor" href="#monolithic-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+
+<div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8080/blogposts</pre></div>
 
 <h4>
 <a id="create-project" class="anchor" href="#create-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create Project</h4>
@@ -552,7 +553,7 @@ $ cf push -f adminserver/manifest.yml -p adminserver/target/adminserver-1.3.3.RE
 </pre></div>
 
 <h6>
-<a id="monolithic-2" class="anchor" href="#monolithic-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+<a id="monolithic-3" class="anchor" href="#monolithic-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
 
 <div class="highlight highlight-source-shell"><pre>$ curl -H <span class="pl-s"><span class="pl-pds">"</span>Content-Type: application/json<span class="pl-pds">"</span></span> -X POST -d <span class="pl-s"><span class="pl-pds">'</span>{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}<span class="pl-pds">'</span></span> http://127.0.0.1:8080/projectcommands
 </pre></div>
@@ -566,7 +567,7 @@ $ cf push -f adminserver/manifest.yml -p adminserver/target/adminserver-1.3.3.RE
 <div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:9000/query/project/projects</pre></div>
 
 <h6>
-<a id="monolithic-3" class="anchor" href="#monolithic-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
+<a id="monolithic-4" class="anchor" href="#monolithic-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Monolithic</h6>
 
 <div class="highlight highlight-source-shell"><pre>$ curl http://127.0.0.1:8080/projects</pre></div>
 
