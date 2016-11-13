@@ -4,6 +4,41 @@ This version of the application is deployed as a single monolithic application.
 
 Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourcing enables deployment flexibility - the application can be migrated and deployed as a microservices (checkout the master branch).
 
+## Table of Contents
+
+   * [Application 'Micro Company' (Monolithic version)](#application-micro-company-monolithic-version)
+         * [Patterns and techniques:](#patterns-and-techniques)
+         * [Technologies](#technologies)
+         * [Key benefits](#key-benefits)
+         * [How it works](#how-it-works)
+         * [Components](#components)
+            * [Blog](#blog)
+            * [Project](#project)
+      * [Running instructions](#running-instructions)
+         * [Prerequisite](#prerequisite)
+         * [Step 1: Clone the project](#step-1-clone-the-project)
+         * [Step 2 (Optional): Build the project](#step-2-optional-build-the-project)
+         * [Step 3: Run the application](#step-3-run-the-application)
+            * [with maven](#with-maven)
+            * [or within docker container](#or-within-docker-container)
+         * [Issuing Commands &amp; Queries with CURL](#issuing-commands--queries-with-curl)
+            * [Create Blog post](#create-blog-post)
+            * [Publish Blog post](#publish-blog-post)
+            * [Query Blog posts](#query-blog-posts)
+            * [Create Project](#create-project)
+            * [Query Projects](#query-projects)
+      * [About AXON](#about-axon)
+         * [Commands](#commands)
+         * [Events](#events)
+         * [Domain](#domain)
+         * [Repositories](#repositories)
+         * [Event Stores](#event-stores)
+         * [Event Bus](#event-bus)
+         * [Sagas](#sagas)
+         * [Testing](#testing)
+         * [Spring support](#spring-support)
+      * [References and further reading](#references-and-further-reading)
+
 ### Patterns and techniques:
 
 1. Command and Query Responsibility Separation (CQRS)
