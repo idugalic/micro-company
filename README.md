@@ -1,13 +1,13 @@
 # Application 'Micro Company' (Monolithic version)
 
 This version of the application is deployed as a single monolithic application. 
-It is designed in a way that supports easy migration to microservices architectural style.
+
+Domain Driven Design is applied through Event Sourcing and CQRS.How Event Sourcing enables deployment flexibility - the application can be migrated and deployed as a microservices.
 
 ### Patterns and techniques:
 
 1. Command and Query Responsibility Separation (CQRS)
-2. DDD - Event Sourcing
-3. DDD - Agregates
+2. Event Sourcing
 
 ### Technologies
 
@@ -66,25 +66,31 @@ $ git clone https://github.com/idugalic/micro-company.git
 ### Step 2 (Optional): Build the project
 Please note that images are available on the docker hub (https://hub.docker.com/u/idugalic), so if you do not want to build the services, simply skip to Step 3
 
-Build project and create docker images:
+Build project:
  
 ```bash
-$ cd microservice-company
-$ DOCKER_HOST=unix:///var/run/docker.sock mvn clean install
+$ cd micro-company
+$ mvn clean install
+```
+
+Create docker images and push them to the public repo:
+
+```
+$ DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build -DpushImage
 ```
 
 ### Step 3: Run the application
 #### with maven
 
 ```bash
-$ cd microservice-company/monolithic
+$ cd micro-company/monolithic
 $ mvn spring-boot:run
 ```
 
 #### or within docker container
 
 ```bash
-$ cd microservice-company/docker
+$ cd micro-company/docker
 $ docker-compose -f docker-compose-monolithic.yml up -d 
 ```
 

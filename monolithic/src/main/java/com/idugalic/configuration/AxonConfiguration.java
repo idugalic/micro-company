@@ -99,8 +99,8 @@ public class AxonConfiguration {
     AggregateAnnotationCommandHandler<BlogPostAggregate> blogPostAggregateCommandHandler(EventSourcingRepository<BlogPostAggregate> eventSourcingRepository, CommandBus commandBus) {
         @SuppressWarnings("deprecation")
         AggregateAnnotationCommandHandler<BlogPostAggregate> handler = new AggregateAnnotationCommandHandler<BlogPostAggregate>(
-                BlogPostAggregate.class,
-                eventSourcingRepository,
+        		BlogPostAggregate.class,
+        		eventSourcingRepository,
                 commandBus);
         return handler;
     }
@@ -120,8 +120,8 @@ public class AxonConfiguration {
     AggregateAnnotationCommandHandler<ProjectAggregate> projectAggregateCommandHandler(EventSourcingRepository<ProjectAggregate> eventSourcingRepository, CommandBus commandBus) {
         @SuppressWarnings("deprecation")
         AggregateAnnotationCommandHandler<ProjectAggregate> handler = new AggregateAnnotationCommandHandler<ProjectAggregate>(
-                ProjectAggregate.class,
-                eventSourcingRepository,
+        		ProjectAggregate.class,
+        		eventSourcingRepository,
                 commandBus);
         return handler;
     }
