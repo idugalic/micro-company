@@ -15,7 +15,6 @@ Domain Driven Design is applied through Event Sourcing and CQRS.How Event Sourci
 - [Spring Data](http://projects.spring.io/spring-data/)
 - [Spring Data REST](http://projects.spring.io/spring-data-rest/)
 - [Axon Framework](http://www.axonframework.org/) (v2.4)
-- [MongoDB](https://www.mongodb.com/) (v.2.14) Axon also supports JDBC & JPA based event-stores.
 
 
 ### Key benefits
