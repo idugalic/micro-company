@@ -6,14 +6,14 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
 
 ## Table of Contents
 
-   * [Application 'Micro Company' (Monolithic version)](#application-micro-company-monolithic-version)
-         * [Patterns and techniques:](#patterns-and-techniques)
-         * [Technologies](#technologies)
-         * [Key benefits](#key-benefits)
-         * [How it works](#how-it-works)
-         * [Components](#components)
-            * [Blog](#blog)
-            * [Project](#project)
+* [Application 'Micro Company' (Monolithic version)](#application-micro-company-monolithic-version)
+      * [Patterns and techniques:](#patterns-and-techniques)
+      * [Technologies](#technologies)
+      * [Key benefits](#key-benefits)
+      * [How it works](#how-it-works)
+      * [Components](#components)
+         * [Blog](#blog)
+         * [Project](#project)
       * [Running instructions](#running-instructions)
          * [Prerequisite](#prerequisite)
          * [Step 1: Clone the project](#step-1-clone-the-project)
@@ -39,12 +39,13 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
          * [Spring support](#spring-support)
       * [References and further reading](#references-and-further-reading)
 
-### Patterns and techniques:
+
+## Patterns and techniques:
 
 1. Command and Query Responsibility Separation (CQRS)
 2. Event Sourcing
 
-### Technologies
+## Technologies
 
 - [Spring Boot](http://projects.spring.io/spring-boot/) (v1.3.8.RELEASE)
 - [Spring Data](http://projects.spring.io/spring-data/)
@@ -52,7 +53,7 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
 - [Axon Framework](http://www.axonframework.org/) (v2.4)
 
 
-### Key benefits
+## Key benefits
 1. Simple to develop - the goal of current development tools and IDEs is to support the development of monolithic applications
 2. Simple to deploy - you simply need to deploy the WAR/JAR file on the appropriate runtime
 3. Simple to scale - you can scale the application by running multiple copies of the application behind a load balancer
@@ -60,7 +61,7 @@ Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourc
 5. Automatic publishing of events whenever data changes
 6. Reliable auditing for all updates
 
-### How it works
+## How it works
 
 The domain is literally split into a *command-side* component and a *query-side* component (this is CQRS in its most literal form).
 
@@ -73,12 +74,12 @@ The **query-side** is an event-listener and processor. It listens for the `Event
 The command-side and the query-side both have REST API's which can be used to access their capabilities.
 
 
-### Components
+## Components
 
-#### Blog
+### Blog
 A Blog component is used for manging and quering the posts of your company. It is split into a *command-side* component and a *query-side* component.
 
-#### Project
+### Project
 A Project component is used for manging and quering the projects of your company. It is split into a *command-side* component and a *query-side* component.
 
 
