@@ -1,0 +1,8 @@
+---
+applications:
+- name: registry
+  memory: 768M
+  host: registry
+  domain: local.pcfdev.io
+  services:
+  - configserver

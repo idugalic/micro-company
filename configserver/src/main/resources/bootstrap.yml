@@ -13,4 +13,4 @@ security:
     password: password
     
 server:
-  port: 8888 
+  port: ${PORT:8888} 

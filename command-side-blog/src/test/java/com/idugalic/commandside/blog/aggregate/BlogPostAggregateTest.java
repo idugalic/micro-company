@@ -1,18 +1,18 @@
 package com.idugalic.commandside.blog.aggregate;
 
-import java.util.Date;
-
-import org.axonframework.test.FixtureConfiguration;
-import org.axonframework.test.Fixtures;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.idugalic.commandside.blog.command.CreateBlogPostCommand;
 import com.idugalic.commandside.blog.command.PublishBlogPostCommand;
 import com.idugalic.common.blog.event.BlogPostCreatedEvent;
 import com.idugalic.common.blog.event.BlogPostPublishedEvent;
 import com.idugalic.common.blog.model.BlogPostCategory;
 import com.idugalic.common.model.AuditEntry;
+
+import java.util.Date;
+
+import org.axonframework.test.aggregate.AggregateTestFixture;
+import org.axonframework.test.aggregate.FixtureConfiguration;
+import org.junit.Before;
+import org.junit.Test;
 
 public class BlogPostAggregateTest {
 
@@ -22,7 +22,7 @@ public class BlogPostAggregateTest {
 
     @Before
     public void setUp() throws Exception {
-        fixture = Fixtures.newGivenWhenThenFixture(BlogPostAggregate.class);
+        fixture = new AggregateTestFixture<BlogPostAggregate> (BlogPostAggregate.class);
         auditEntry = new AuditEntry(WHO);
     }
 

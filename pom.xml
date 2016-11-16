@@ -35,7 +35,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<axon.version>3.0-SNAPSHOT</axon.version>
+		<axon.version>3.0-RC1</axon.version>
 		<spring-cloud.version>Brixton.SR6</spring-cloud.version>
 		<spring-boot.version>1.4.1.RELEASE</spring-boot.version>
 		<spring-data-releasetrain.version>Fowler-SR2</spring-data-releasetrain.version>
@@ -80,7 +80,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.axonframework</groupId>
-				<artifactId>axon-boot</artifactId>
+				<artifactId>axon-spring-boot-starter</artifactId>
 				<version>${axon.version}</version>
 			</dependency>
 			<dependency>
@@ -155,6 +155,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker.plugin.version}</version>
+				<configuration>
+					<skipDockerBuild>true</skipDockerBuild>
+					<serverId>docker-hub</serverId>
+					<registryUrl>https://registry.hub.docker.com/v1/</registryUrl>
+				</configuration>
 			</plugin>
 		</plugins>
 

@@ -2,6 +2,72 @@
 
 This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.
 
+## Table of Contents
+
+   * [Application 'Micro Company'](#application-micro-company-)
+      * [What is cloud native](#what-is-cloud-native)
+      * [Architecture](#architecture)
+         * [Patterns and techniques:](#patterns-and-techniques)
+         * [Technologies](#technologies)
+         * [Key benefits](#key-benefits)
+         * [How it works](#how-it-works)
+         * [Services](#services)
+            * [Backing services](#backing-services)
+               * [(Service) Registry](#service-registry)
+               * [Authorization server (Oauth2)](#authorization-server-oauth2)
+               * [Configuration server](#configuration-server)
+               * [API Gateway](#api-gateway)
+            * [Backend Microservices](#backend-microservices)
+               * [BlogMicroservice](#blogmicroservice)
+               * [ProjectMicroservice](#projectmicroservice)
+               * [Admin server (<a href="http://codecentric.github.io/spring-boot-admin/1.3.2/">http://codecentric.github.io/spring-boot-admin/1.3.2/</a>)](#admin-server-httpcodecentricgithubiospring-boot-admin132)
+      * [Running instructions](#running-instructions)
+         * [Prerequisite](#prerequisite)
+         * [Step 1: Clone the project](#step-1-clone-the-project)
+         * [Step 2 (Optional): Build the project](#step-2-optional-build-the-project)
+            * [Build the project](#build-the-project)
+            * [Build docker images via maven](#build-docker-images-via-maven)
+         * [Step 3: Run the application as](#step-3-run-the-application-as)
+            * [Run monolithic on localhost](#run-monolithic-on-localhost)
+               * [Docker](#docker)
+               * [Maven](#maven)
+               * [Eclipse](#eclipse)
+            * [Run microservices on localhost via docker](#run-microservices-on-localhost-via-docker)
+            * [Run microservices on Docker Swarm (mode) - local cluster (docker 1.12  BETA is required !!!)](#run-microservices-on-docker-swarm-mode---local-cluster-docker-112-beta-is-required-)
+            * [Run microservices on Docker Swarm (mode) - AWS cluster (docker 1.12  BETA is required !!!)](#run-microservices-on-docker-swarm-mode---aws-cluster-docker-112-beta-is-required-)
+            * [Run microservices on Pivotal Cloud Foundry - PCF Dev](#run-microservices-on-pivotal-cloud-foundry---pcf-dev)
+               * [CLI](#cli)
+               * [Eclipse](#eclipse-1)
+         * [Issuing Commands &amp; Queries with CURL](#issuing-commands--queries-with-curl)
+            * [Create Blog post](#create-blog-post)
+                  * [Microservices](#microservices)
+                  * [Monolithic](#monolithic)
+            * [Publish Blog post](#publish-blog-post)
+                  * [Microservices](#microservices-1)
+                  * [Monolithic](#monolithic-1)
+            * [Query Blog posts](#query-blog-posts)
+                  * [Microservices](#microservices-2)
+                  * [Monolithic](#monolithic-2)
+            * [Create Project](#create-project)
+                  * [Microservices](#microservices-3)
+                  * [Monolithic](#monolithic-3)
+            * [Query Projects](#query-projects)
+                  * [Microservices](#microservices-4)
+                  * [Monolithic](#monolithic-4)
+            * [WebSocket on the gateway](#websocket-on-the-gateway)
+                  * [Microservices](#microservices-5)
+      * [About AXON](#about-axon)
+         * [Commands](#commands)
+         * [Events](#events)
+         * [Domain](#domain)
+         * [Repositories](#repositories)
+         * [Event Stores](#event-stores)
+         * [Event Bus](#event-bus)
+         * [Sagas](#sagas)
+         * [Testing](#testing)
+         * [Spring support](#spring-support)
+      * [References and further reading](#references-and-further-reading)
+
 ## What is cloud native
 
 To understand “cloud native,” we must first understand “cloud.”
@@ -112,66 +178,148 @@ $ git clone https://github.com/idugalic/micro-company.git
 ### Step 2 (Optional): Build the project
 Please note that images are available on the docker hub (https://hub.docker.com/u/idugalic), so if you do not want to build the services, simply skip to Step 3
 
-Build the project:
+#### Build the project
  
 ```bash
-$ cd microservice-company
+$ cd micro-company
 $ mvn clean install
 ```
 
-### Step 3: Run the application as
-
-- microservices on localhost or
-- monolithic on localhost or
-- microservices on swarm (mode) cluster of virtual machines
-
-
-#### Run microservices on localhost
+#### Build docker images via maven
 
 ```bash
-$ cd microservice-company/docker
-$ docker-compose up -d 
+$ DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build
 ```
+
+or to build and push images via maven (requires username and password of docker repo):
+
+```bash
+$ DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build -DpushImage
+```
+### Step 3: Run the application as
+
+- monolithic on localhost or
+- microservices on localhost via docker or
+- microservices on docker swarm (mode) - local cluster
+- microservices on docker swarm (mode) - AWS cluster
+- microservices on Pivotal Cloud Foundry - PCF Dev
 
 #### Run monolithic on localhost
 
+##### Docker
 ```bash
-$ cd microservice-company/docker
+$ cd micro-company/docker
 $ docker-compose -f docker-compose-monolithic.yml up -d 
 ```
+##### Maven
+```bash
+$ cd micro-company
+$ mvn clean install
+$ cd micro-company/monolithic
+$ mvn spring-boot:run
+```
+##### Eclipse
+Run as Spring Boot Project. 
+I can advice for Boot Dashboard to be used as well.
 
-#### Run microservices on Swarm (mode) cluster - 1.12+ (docker BETA is required !!!)
+#### Run microservices on localhost via docker
+
+```bash
+$ cd micro-company/docker
+$ docker-compose up -d 
+```
+
+#### Run microservices on Docker Swarm (mode) - local cluster (docker 1.12+ BETA is required !!!)
+
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
-By executing command/script below, you will:
+```bash
+$ cd micro-company/docker
+$ . ./swarm-mode-local.sh
+```
+By executing command/script you will:
 
 - create 4 virtual machines (VirtualBox is required). One 'swarm master', and three 'swarm nodes'
 - initialize cluster on the swarm master
 - join nodes to the cluster
 - create a stack by deploying distributed bundle
 
+Please, follow the instructions in the console log, and have fun :)
+
+#### Run microservices on Docker Swarm (mode) - AWS cluster (docker 1.12+ BETA is required !!!)
+
+Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
+
+We will deploy services on AWS infrastucture. So you have to prepare it:
+
+- Step1:  Register for AWS - beta (https://beta.docker.com/docs/).
+- Step2:  Login to your account as a root, and create user (not root) that will be used latter. (http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)
+- Step3:  Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair).
+- Step4:  Once You have registered for Docker AWS Beta, create stack on AWS by using CloudFormation template - Follow the instructions in the email from Docker.
+- Step 5 Run the script bellow and follow instructions.
+
+
 ```bash
-$ cd microservice-company/docker
-$ . ./swarm-mode-local.sh
+$ cd micro-company/docker
+$ . ./swarm-mode-aws.sh
 ```
-Please follow the instructions in the console log and have fun :)
+
+#### Run microservices on Pivotal Cloud Foundry - PCF Dev
+Run services on local workstation with PCF Dev
+
+- Run Mongo database locally. Mine is running on 192.168.0.15:27017
+- Download and install PCF: https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction
+- Start PCF Dev: `$ cf dev start -m 8192 `
+- Login to PCF Dev (email:admin; password:admin): `$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation`
+- Create user service - configserver: `$ cf cups configserver -p '{"uri":"http://configserver.local.pcfdev.io"}'`
+- Create user service - registry: `$ cf cups registry -p '{"uri":"http://registry.local.pcfdev.io"}'`
+- Create user service - authserver: `$ cf cups authserver -p '{"uri":"http://authserver.local.pcfdev.io"}'`
+- Create user service - mongo: `$ cf cups mongo -p '{"uri":"mongodb://192.168.0.15:27017"}'`
+- Create cloud foundry service instance - mysql: `$ cf create-service p-mysql 512mb mysql`
+- Create cloud foundry service instance - rabbit: `$ cf create-service p-rabbitmq standard rabbit`
+- Open your browser and point to https://local.pcfdev.io. Explore !
+
+
+##### CLI
+Push microservices in command line:
+
+```bash
+$ cd micro-company/
+$ mvn clean install
+$ cf push -f configserver/manifest.yml -p target/configserver-0.0.1-SNAPSHOT.jar
+$ cf push -f registry/manifest.yml -p registry/target/registry-0.0.1-SNAPSHOT.jar
+$ cf push -f authserver/manifest.yml -p authserver/target/authserver-0.0.1-SNAPSHOT.jar
+$ cf push -f command-side-blog-service/manifest.yml -p command-side-blog-service/target/command-side-blog-service-0.0.1-SNAPSHOT.jar
+$ cf push -f command-side-project-service/manifest.yml -p command-side-project-service/target/command-side-project-service-0.0.1-SNAPSHOT.jar
+$ cf push -f query-side-blog-service/manifest.yml -p query-side-blog-service/target/query-side-blog-service-0.0.1-SNAPSHOT.jar
+$ cf push -f query-side-project-service/manifest.yml -p query-side-project-service/target/query-side-project-service-0.0.1-SNAPSHOT.jar
+$ cf push -f api-gateway/manifest.yml -p api-gateway/target/api-gateway-0.0.1-SNAPSHOT.jar
+$ cf push -f adminserver/manifest.yml -p adminserver/target/adminserver-1.3.3.RELEASE.jar
+
+```
+
+##### Eclipse
+Push microservices with 'Boot Dashboard':
+
+- Add local (dev) cloud foundry target (https://api.local.pcfdev.io).
+- Once you are connected, start dragging the projects to this instance.
+
+
+NOTE: Please run 'configserver' first, followed by 'registry' and other services.
 
 ### Issuing Commands & Queries with CURL
-Please note that my current docker host IP is 127.0.0.1
 
 #### Create Blog post
 
 ###### Microservices
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands
-
-```
-or on gateway:
-
-```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogpostcommands 
 
+```
+or on the PCF:
+```bash
+$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' api-gateway.local.pcfdev.io/command/blog/blogpostcommands 
 ```
 ###### Monolithic
 ```bash
@@ -182,12 +330,6 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawConten
 #### Publish Blog post
 
 ###### Microservices
-
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
-
-```
-or on gateway:
 
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:9000/command/blog/blogpostcommands/{id}/publishcommand
@@ -203,13 +345,13 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23
 #### Query Blog posts
 
 ###### Microservices
-```bash
-$ curl http://127.0.0.1:8081/blogposts
-```
-or on gateway:
 
 ```bash
 $ curl http://127.0.0.1:9000/query/blog/blogposts
+```
+or on the PCF:
+```bash
+$ curl api-gateway.local.pcfdev.io/query/blog/blogposts
 ```
 ###### Monolithic
 ```bash
@@ -219,12 +361,6 @@ $ curl http://127.0.0.1:8080/blogposts
 #### Create Project
 
 ###### Microservices
-```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8082/projectcommands
-
-```
-
-or on gateway:
 
 ```bash
 $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:9000/command/project/projectcommands
@@ -239,10 +375,6 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":
 #### Query Projects
 
 ###### Microservices
-```bash
-$ curl http://127.0.0.1:8083/projects
-```
- or on gateway:
  
  ```bash
 $ curl http://127.0.0.1:9000/query/project/projects
@@ -256,6 +388,7 @@ $ curl http://127.0.0.1:8080/projects
 
 ###### Microservices
 All the events will be sent to browser via WebSocket and displayed on http://127.0.0.1:9000/socket/index.html
+or on the PCF: http://api-gateway.local.pcfdev.io/socket/index.html
 
 
 ## About AXON

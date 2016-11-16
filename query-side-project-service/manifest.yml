@@ -1,0 +1,13 @@
+---
+applications:
+- name: query-side-project
+  memory: 768M
+  host: query-side-project
+  domain: local.pcfdev.io
+  services:
+  - configserver
+  - registry
+  - authserver
+  - mongo
+  - mysql
+  - rabbit

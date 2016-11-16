@@ -1,0 +1,12 @@
+---
+applications:
+- name: api-gateway
+  memory: 768M
+  host: api-gateway
+  domain: local.pcfdev.io
+  services:
+  - configserver
+  - registry
+  - authserver
+  - mongo
+  - rabbit
