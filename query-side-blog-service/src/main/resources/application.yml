@@ -1,0 +1,5 @@
+axon:
+  eventhandling:
+    processors:
+      default:
+        source: messageSourceBlog

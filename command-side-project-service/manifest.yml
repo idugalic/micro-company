@@ -8,5 +8,4 @@ applications:
   - configserver
   - registry
   - authserver
-  - mongo
   - rabbit

@@ -17,8 +17,8 @@
 	<properties>
 		<start-class>com.idugalic.commandside.project.Application</start-class>
 	</properties>
-	
-	
+
+
 	<dependencies>
 		<dependency>
 			<groupId>com.idugalic</groupId>
@@ -104,12 +104,12 @@
 			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
-<dependency>
-    <groupId>com.thoughtworks.xstream</groupId>
-    <artifactId>xstream</artifactId>
-    <version>1.4.9</version>
-</dependency>
-		
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+
 	</dependencies>
 
 
@@ -140,7 +140,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>${docker.plugin.version}</version>
 				<configuration>
-				    <skipDockerBuild>false</skipDockerBuild>
+					<skipDockerBuild>false</skipDockerBuild>
 					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
 					<imageTags>
 						<imageTag>${project.version}</imageTag>

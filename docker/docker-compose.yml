@@ -62,13 +62,6 @@ services:
      - "9000:9000"
     entrypoint: ./wait-for-it.sh configserver:8888 -t 60 --
     command: java -Dspring.profiles.active=docker -jar /app.jar
-  my-mongo:
-    image: mongo:3.0.4
-    hostname: mongodb
-    command: mongod --smallfiles
-    ports:
-      - "27017:27017"
-    
   my-rabbit:
     image: rabbitmq:3-management
     hostname: rabbitmq

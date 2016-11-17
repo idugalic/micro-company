@@ -1,2 +1,5 @@
 server:
   port: 8082
+axon:
+  amqp:
+    exchange: project.events.fanout.exchange

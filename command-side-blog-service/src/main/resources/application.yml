@@ -1,2 +1,5 @@
 server:
   port: 8080
+axon:
+  amqp:
+    exchange: blog.events.fanout.exchange

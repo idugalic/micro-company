@@ -5,6 +5,7 @@ import com.idugalic.common.blog.event.BlogPostPublishedEvent;
 import com.idugalic.queryside.blog.domain.BlogPost;
 import com.idugalic.queryside.blog.repository.BlogPostRepository;
 
+import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventsourcing.SequenceNumber;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+@ProcessingGroup("default")
 @Component
 public class BlogPostViewEventHandler {
 
