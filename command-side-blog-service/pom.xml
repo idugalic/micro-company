@@ -43,6 +43,14 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -103,11 +111,11 @@
 			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
 		</dependency>
 		<dependency>
-    <groupId>com.thoughtworks.xstream</groupId>
-    <artifactId>xstream</artifactId>
-    <version>1.4.9</version>
-</dependency>
-		
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+
 	</dependencies>
 
 
@@ -138,7 +146,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>${docker.plugin.version}</version>
 				<configuration>
-				    <skipDockerBuild>false</skipDockerBuild>
+					<skipDockerBuild>false</skipDockerBuild>
 					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
 					<imageTags>
 						<imageTag>${project.version}</imageTag>
