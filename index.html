@@ -466,7 +466,7 @@ $ <span class="pl-c1">.</span> ./swarm-mode-aws.sh</pre></div>
 
 <div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> micro-company/
 $ mvn clean install
-$ cf push -f configserver/manifest.yml -p target/configserver-0.0.1-SNAPSHOT.jar
+$ cf push -f configserver/manifest.yml -p configserver/target/configserver-0.0.1-SNAPSHOT.jar
 $ cf push -f registry/manifest.yml -p registry/target/registry-0.0.1-SNAPSHOT.jar
 $ cf push -f authserver/manifest.yml -p authserver/target/authserver-0.0.1-SNAPSHOT.jar
 $ cf push -f command-side-blog-service/manifest.yml -p command-side-blog-service/target/command-side-blog-service-0.0.1-SNAPSHOT.jar
