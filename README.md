@@ -1,4 +1,4 @@
-# Application 'Micro Company' ![status](https://travis-ci.org/idugalic/micro-company.svg?branch=master)
+# Application 'Micro Company' (Axonframework 3.0-RC1) ![status](https://travis-ci.org/idugalic/micro-company.svg?branch=master)
 
 This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.
 
@@ -92,13 +92,12 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 
 ### Technologies
 
-- [Spring Boot](http://projects.spring.io/spring-boot/) (v1.3.8.RELEASE)
+- [Spring Boot](http://projects.spring.io/spring-boot/) (v1.4.1.RELEASE)
 - [Spring Cloud](http://projects.spring.io/spring-cloud/)
 - [Spring Data](http://projects.spring.io/spring-data/)
 - [Spring Data REST](http://projects.spring.io/spring-data-rest/)
-- [Axon Framework](http://www.axonframework.org/) (v2.4)
+- [Axon Framework](http://www.axonframework.org/) (v3.0-RC1)
 - [RabbitMQ](https://www.rabbitmq.com/) (v3.5.4) Axon supports any Spring AMQP supported platform.
-- [MongoDB](https://www.mongodb.com/) (v.2.14) Axon also supports JDBC & JPA based event-stores.
 
 
 ### Key benefits
@@ -115,7 +114,7 @@ The domain is literally split into a *command-side* microservice application and
 
 Communication between the two microservices is `event-driven` and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).
 
-The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
+The **command-side** processes commands. Commands are actions which change state in some way. The execution of these commands results in `Events` being generated which are persisted by Axon  and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.
 
 The **query-side** is an event-listener and processor. It listens for the `Events` and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a *materialised view* which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.
 
