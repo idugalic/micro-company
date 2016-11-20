@@ -442,7 +442,7 @@ $ <span class="pl-c1">.</span> ./swarm-mode-aws.sh</pre></div>
 </li>
 <li>Start PCF Dev: <code>$ cf dev start -m 8192</code>
 </li>
-<li>Login to PCF Dev (email:admin; password:admin): <code>$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation</code>
+<li>Login to PCF Dev: <code>$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u admin -p admin -o pcfdev-org</code>
 </li>
 <li>Create user service - configserver: <code>$ cf cups configserver -p '{"uri":"http://configserver.local.pcfdev.io"}'</code>
 </li>
