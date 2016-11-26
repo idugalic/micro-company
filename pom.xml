@@ -30,6 +30,7 @@
 		<module>api-gateway</module>
 		<module>adminserver</module>
 		<module>monolithic</module>
+		<module>documentation</module>
 	</modules>
 
 	<properties>
