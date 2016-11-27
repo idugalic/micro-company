@@ -59,10 +59,10 @@ public class DocumentationApplication {
        
         Person user = model.addPerson("User", "A user");
         
-        // ### API Gateway ###
+        // ## API Gateway ##
         Container uiApplication = mySoftwareSystem.addContainer("UI Application - API Gateway", "Allows users to manage their profile, blogs and projects", "Angular");
 
-        // ### Command side ###
+        // ## Command side ##
         Container eventStoreDatabase = mySoftwareSystem.addContainer("Event Store", "Stores all events (evensourcing).", "MySQL");
         eventStoreDatabase.addTags(DATASTORE_TAG);
         
@@ -72,7 +72,7 @@ public class DocumentationApplication {
         Container projectCommandService = mySoftwareSystem.addContainer("Project Command Service", "The point of access for project mangement - command side.", "Java and Spring Boot");
         projectCommandService.addTags(MICROSERVICE_TAG);
        
-        //### Query side ###
+        //## Query side ##
         Container blogQueryService = mySoftwareSystem.addContainer("Blog Query Service", "The point of access for blog materialized views - query side.", "Java and Spring Boot");
         blogQueryService.addTags(MICROSERVICE_TAG);
 
@@ -85,15 +85,15 @@ public class DocumentationApplication {
         Container projectQueryStore = mySoftwareSystem.addContainer("Project Query Store", "Stores information about Projects - materialized view", "MySQL");
         projectQueryStore.addTags(DATASTORE_TAG);
 
-        // ### Bus ###
+        // ## Bus ##
         Container messageBus = mySoftwareSystem.addContainer("Message Bus", "Transport for business events.", "RabbitMQ");
         messageBus.addTags(MESSAGE_BUS_TAG);
 
-        // ##### Relations ####
+        // ### Relations ###
         user.uses(mySoftwareSystem, "Uses");
         user.uses(uiApplication, "Uses");
        
-        // # Blog
+        // #### Blog ####
         uiApplication.uses(blogCommandService, "Creates & publish blog posts", "JSON/HTTPS", InteractionStyle.Synchronous);
         blogCommandService.uses(eventStoreDatabase, "Stores blog events in", "JDBC", InteractionStyle.Synchronous);
         eventStoreDatabase.uses(messageBus, "Sends/Tails all events to", "", InteractionStyle.Asynchronous);
@@ -101,7 +101,7 @@ public class DocumentationApplication {
         blogQueryService.uses(blogQueryStore, "Stores blog data in", "", InteractionStyle.Synchronous);
         uiApplication.uses(blogQueryService, "Read & search blog posts", "JSON/HTTPS", InteractionStyle.Synchronous);
 
-        //# Project
+        //#### Project ####
         uiApplication.uses(projectCommandService, "Creates & edit projects", "JSON/HTTPS", InteractionStyle.Synchronous);
         projectCommandService.uses(eventStoreDatabase, "Stores project events in", "JDBC", InteractionStyle.Synchronous);
         eventStoreDatabase.uses(messageBus, "Sends/Tails all events to", "", InteractionStyle.Asynchronous);
@@ -111,12 +111,14 @@ public class DocumentationApplication {
 
         messageBus.uses(uiApplication, "Sends all events to", "WebSocket", InteractionStyle.Asynchronous);
 
-        //Create views
+        // ## Create views ##
         ViewSet views = workspace.getViews();
         
+        // ### Static context view ###
         SystemContextView contextView = views.createSystemContextView(mySoftwareSystem, "Context", "The System Context diagram for the 'micro-company' application");
         contextView.addAllElements();
 
+        // ### Static container view ###
         ContainerView containerView = views.createContainerView(mySoftwareSystem, "Containers", null);
         containerView.addAllElements();
         
@@ -127,10 +129,8 @@ public class DocumentationApplication {
         dynamicViewCreateBlog.add(blogCommandService, eventStoreDatabase);
         dynamicViewCreateBlog.add(eventStoreDatabase, messageBus);
 
-        dynamicViewCreateBlog.startParallelSequence();
         dynamicViewCreateBlog.add(messageBus, blogQueryService);
         dynamicViewCreateBlog.add(messageBus, uiApplication);
-        dynamicViewCreateBlog.endParallelSequence();
 
         dynamicViewCreateBlog.add(blogQueryService, blogQueryStore);
         
@@ -139,7 +139,26 @@ public class DocumentationApplication {
         dynamicViewQueryBlog.add(user, uiApplication);
         dynamicViewQueryBlog.add(uiApplication, "Consume blog rest API", blogQueryService);
         dynamicViewQueryBlog.add(blogQueryService, "Query the blog store", blogQueryStore);
+        
+        // ### Dynamic view - Create Project ###
+        DynamicView dynamicViewCreateProject = views.createDynamicView(mySoftwareSystem, "Create Project", "This diagram shows what happens when a user creates a project.");
+        dynamicViewCreateProject.add(user, uiApplication);
+        dynamicViewCreateProject.add(uiApplication, projectCommandService);
+        dynamicViewCreateProject.add(projectCommandService, eventStoreDatabase);
+        dynamicViewCreateProject.add(eventStoreDatabase, messageBus);
 
+        dynamicViewCreateProject.add(messageBus, projectQueryService);
+        dynamicViewCreateProject.add(messageBus, uiApplication);
+
+        dynamicViewCreateProject.add(projectQueryService, projectQueryStore);
+        
+        // ### Dynamic view - Query Projects ###
+        DynamicView dynamicViewQueryProjects = views.createDynamicView(mySoftwareSystem, "Query Projects", "This diagram shows what happens when a user query a projects.");
+        dynamicViewQueryProjects.add(user, uiApplication);
+        dynamicViewQueryProjects.add(uiApplication, "Consume project rest API", projectQueryService);
+        dynamicViewQueryProjects.add(projectQueryService, "Query the project store", projectQueryStore);
+        
+        // ## Styles ##
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.ELEMENT).color("#000000");
         styles.addElementStyle(Tags.PERSON).background("#ffbf00").shape(Shape.Person);
