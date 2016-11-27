@@ -58,41 +58,59 @@ public class DocumentationApplication {
        
         Person user = model.addPerson("User", "A user");
         
-        Container customerApplication = mySoftwareSystem.addContainer("Customer Application", "Allows customers to manage their profile.", "Angular");
+        // ### API Gateway ###
+        Container uiApplication = mySoftwareSystem.addContainer("UI Application - API Gateway", "Allows users to manage their profile, blogs and projects", "Angular");
 
-        Container customerService = mySoftwareSystem.addContainer("Customer Service", "The point of access for customer information.", "Java and Spring Boot");
-        customerService.addTags(MICROSERVICE_TAG);
+        // ### Command side ###
+        Container eventStoreDatabase = mySoftwareSystem.addContainer("Event Store", "Stores all events (evensourcing).", "MySQL");
+        eventStoreDatabase.addTags(DATASTORE_TAG);
+        
+        Container blogCommandService = mySoftwareSystem.addContainer("Blog Command Service", "The point of access for blog mangement - command side.", "Java and Spring Boot");
+        blogCommandService.addTags(MICROSERVICE_TAG);
+
+        Container projectCommandService = mySoftwareSystem.addContainer("Project Command Service", "The point of access for project mangement - command side.", "Java and Spring Boot");
+        projectCommandService.addTags(MICROSERVICE_TAG);
        
-        Container customerDatabase = mySoftwareSystem.addContainer("Customer Database", "Stores customer information.", "Oracle 12c");
-        customerDatabase.addTags(DATASTORE_TAG);
+        //### Query side ###
+        Container blogQueryService = mySoftwareSystem.addContainer("Blog Query Service", "The point of access for blog materialized views - query side.", "Java and Spring Boot");
+        blogQueryService.addTags(MICROSERVICE_TAG);
 
-        Container reportingService = mySoftwareSystem.addContainer("Reporting Service", "Creates normalised data for reporting purposes.", "Ruby");
-        reportingService.addTags(MICROSERVICE_TAG);
-       
-        Container reportingDatabase = mySoftwareSystem.addContainer("Reporting Database", "Stores a normalised version of all business data for ad hoc reporting purposes.", "MySQL");
-        reportingDatabase.addTags(DATASTORE_TAG);
+        Container projectQueryService = mySoftwareSystem.addContainer("Project Query Service", "The point of access for project materialized views - query side.", "Java and Spring Boot");
+        projectQueryService.addTags(MICROSERVICE_TAG);
+        
+        Container blogQueryStore = mySoftwareSystem.addContainer("Blog Query Store", "Stores information about Blog posts - materialized view", "MySQL");
+        blogQueryStore.addTags(DATASTORE_TAG);
+        
+        Container projectQueryStore = mySoftwareSystem.addContainer("Project Query Store", "Stores information about Projects - materialized view", "MySQL");
+        projectQueryStore.addTags(DATASTORE_TAG);
 
-        Container auditService = mySoftwareSystem.addContainer("Audit Service", "Provides organisation-wide auditing facilities.", "C# .NET");
-        auditService.addTags(MICROSERVICE_TAG);
-       
-        Container auditStore = mySoftwareSystem.addContainer("Audit Store", "Stores information about events that have happened.", "Event Store");
-        auditStore.addTags(DATASTORE_TAG);
-
+        // ### Bus ###
         Container messageBus = mySoftwareSystem.addContainer("Message Bus", "Transport for business events.", "RabbitMQ");
         messageBus.addTags(MESSAGE_BUS_TAG);
 
+        // ##### Relations ####
         user.uses(mySoftwareSystem, "Uses");
-        user.uses(customerApplication, "Uses");
-        customerApplication.uses(customerService, "Updates customer information using", "JSON/HTTPS", InteractionStyle.Synchronous);
-        customerService.uses(messageBus, "Sends customer update events to", "", InteractionStyle.Asynchronous);
-        customerService.uses(customerDatabase, "Stores data in", "JDBC", InteractionStyle.Synchronous);
-        customerService.uses(customerApplication, "Sends events to", "WebSocket", InteractionStyle.Asynchronous);
-        messageBus.uses(reportingService, "Sends customer update events to", "", InteractionStyle.Asynchronous);
-        messageBus.uses(auditService, "Sends customer update events to", "", InteractionStyle.Asynchronous);
-        reportingService.uses(reportingDatabase, "Stores data in", "", InteractionStyle.Synchronous);
-        auditService.uses(auditStore, "Stores events in", "", InteractionStyle.Synchronous);
+        user.uses(uiApplication, "Uses");
+       
+        // # Blog
+        uiApplication.uses(blogCommandService, "Creates & publish blog posts", "JSON/HTTPS", InteractionStyle.Synchronous);
+        blogCommandService.uses(eventStoreDatabase, "Stores blog events in", "JDBC", InteractionStyle.Synchronous);
+        eventStoreDatabase.uses(messageBus, "Sends/Tails all events to", "", InteractionStyle.Asynchronous);
+        messageBus.uses(blogQueryService, "Sends blog events to", "", InteractionStyle.Asynchronous);
+        blogQueryService.uses(blogQueryStore, "Stores blog data in", "", InteractionStyle.Synchronous);
+        uiApplication.uses(blogQueryService, "Read & search blog posts", "JSON/HTTPS", InteractionStyle.Synchronous);
 
-        //create some views
+        //# Project
+        uiApplication.uses(projectCommandService, "Creates & edit projects", "JSON/HTTPS", InteractionStyle.Synchronous);
+        projectCommandService.uses(eventStoreDatabase, "Stores project events in", "JDBC", InteractionStyle.Synchronous);
+        eventStoreDatabase.uses(messageBus, "Sends/Tails all events to", "", InteractionStyle.Asynchronous);
+        messageBus.uses(projectQueryService, "Sends project events to", "", InteractionStyle.Asynchronous);
+        projectQueryService.uses(projectQueryStore, "Stores project data in", "", InteractionStyle.Synchronous);
+        uiApplication.uses(projectQueryService, "Read & search projects", "JSON/HTTPS", InteractionStyle.Synchronous);
+
+        messageBus.uses(uiApplication, "Sends all events to", "WebSocket", InteractionStyle.Asynchronous);
+
+        //Create views
         ViewSet views = workspace.getViews();
         
         SystemContextView contextView = views.createSystemContextView(mySoftwareSystem, "Context", "The System Context diagram for the 'micro-company' application");
