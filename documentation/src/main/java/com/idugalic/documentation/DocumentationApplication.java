@@ -16,6 +16,7 @@ import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;
 import com.structurizr.view.ContainerView;
+import com.structurizr.view.DynamicView;
 import com.structurizr.view.Routing;
 import com.structurizr.view.Shape;
 import com.structurizr.view.Styles;
@@ -118,6 +119,26 @@ public class DocumentationApplication {
 
         ContainerView containerView = views.createContainerView(mySoftwareSystem, "Containers", null);
         containerView.addAllElements();
+        
+        // ### Dynamic view - Create/Publish Blog post ###
+        DynamicView dynamicViewCreateBlog = views.createDynamicView(mySoftwareSystem, "Create Blog/Publish post", "This diagram shows what happens when a user creates/publishes a blog post.");
+        dynamicViewCreateBlog.add(user, uiApplication);
+        dynamicViewCreateBlog.add(uiApplication, blogCommandService);
+        dynamicViewCreateBlog.add(blogCommandService, eventStoreDatabase);
+        dynamicViewCreateBlog.add(eventStoreDatabase, messageBus);
+
+        dynamicViewCreateBlog.startParallelSequence();
+        dynamicViewCreateBlog.add(messageBus, blogQueryService);
+        dynamicViewCreateBlog.add(messageBus, uiApplication);
+        dynamicViewCreateBlog.endParallelSequence();
+
+        dynamicViewCreateBlog.add(blogQueryService, blogQueryStore);
+        
+        // ### Dynamic view - Query Blog posts ###
+        DynamicView dynamicViewQueryBlog = views.createDynamicView(mySoftwareSystem, "Query Blog post", "This diagram shows what happens when a user query a blog post/s.");
+        dynamicViewQueryBlog.add(user, uiApplication);
+        dynamicViewQueryBlog.add(uiApplication, "Consume blog rest API", blogQueryService);
+        dynamicViewQueryBlog.add(blogQueryService, "Query the blog store", blogQueryStore);
 
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.ELEMENT).color("#000000");
