@@ -268,7 +268,7 @@ Run services on local workstation with PCF Dev
 
 - Download and install PCF: https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction
 - Start PCF Dev: `$ cf dev start -m 8192 `
-- Login to PCF Dev (email:admin; password:admin): `$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation`
+- Login to PCF Dev" `$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u admin -p admin -o pcfdev-org`
 - Create user service - configserver: `$ cf cups configserver -p '{"uri":"http://configserver.local.pcfdev.io"}'`
 - Create user service - registry: `$ cf cups registry -p '{"uri":"http://registry.local.pcfdev.io"}'`
 - Create user service - authserver: `$ cf cups authserver -p '{"uri":"http://authserver.local.pcfdev.io"}'`
