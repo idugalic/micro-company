@@ -1,5 +1,1 @@
-axon:
-  eventhandling:
-    processors:
-      default:
-        source: messageSourceProject
+

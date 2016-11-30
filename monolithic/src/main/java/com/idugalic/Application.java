@@ -1,20 +1,13 @@
 package com.idugalic;
 
-import com.idugalic.commandside.blog.aggregate.BlogPostAggregate;
-import com.idugalic.commandside.project.aggregate.ProjectAggregate;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import org.axonframework.commandhandling.AggregateAnnotationCommandHandler;
-import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.commandhandling.model.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication

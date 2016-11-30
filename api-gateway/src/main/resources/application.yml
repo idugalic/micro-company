@@ -1,5 +1,0 @@
-axon:
-  eventhandling:
-    processors:
-      default:
-        source: messageSourceApiGateway
