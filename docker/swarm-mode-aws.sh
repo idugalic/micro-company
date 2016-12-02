@@ -30,4 +30,4 @@ export DOCKER_HOST=localhost:2374
 echo "Deploying the bundle"
 echo "####################"
 
-docker deploy --file micro-company.dab micro-company
+docker stack deploy --compose-file docker-compose-v3.yml micro-company
