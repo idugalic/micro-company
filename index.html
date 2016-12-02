@@ -15,7 +15,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h2><a href="http://idugalic.github.io/projects">projects</a>/micro-company</h2>
+        <h1>Micro-company</h1>
         <p>Rest-full, Hipermedia-based distributed application. Spring boot &amp; cloud. CQRS. Eventsourcing. Axonframework. Microservices. Docker.</p>
 
         <p class="view"><a href="https://github.com/idugalic/micro-company">View the Project on GitHub <small>idugalic/micro-company</small></a></p>
@@ -211,24 +211,6 @@ In the context of this application, cloud refers to Platform as a Service. PaaS 
 
 <p><img src="https://i.imgsafe.org/cb15eb4553.png" alt="Microservice Architecture - Ivan Dugalic"></p>
 
-<h3><a id="c4model" class="anchor" href="#c4model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C4 software architecture model</h3>
-<p>The "C4 model" is a simple hierarchical way to think about the static structures of a software system in terms of containers, components and classes (or code).</p>
-<form id="myEmbeddedDiagramForm" target="myEmbeddedDiagram" method="post" action="https://structurizr.com/embed/22311" style="display: none;">
-    <input name="apiKey" value="0381589e-3031-47a9-b2f0-1aa2c13a7f61"/>
-    <input name="diagram" value="Containers" />
-    <input name="diagramSelector" value="true" />
-    <input name="iframe" value="myEmbeddedDiagram" />
-</form>
-<iframe id="myEmbeddedDiagram" name="myEmbeddedDiagram" width="100%" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
-
-<script type="text/javascript">
-    document.getElementById('myEmbeddedDiagramForm').submit();
-</script>
-
-<script type="text/javascript" src="https://structurizr.com/static/js/structurizr-responsive-embed.js"></script>
-
-<a href="https://structurizr.com/public/22311">Link to structurizr public diagrams</a>
-
 <h3>
 <a id="patterns-and-techniques" class="anchor" href="#patterns-and-techniques" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Patterns and techniques:</h3>
 
@@ -244,16 +226,14 @@ In the context of this application, cloud refers to Platform as a Service. PaaS 
 
 <ul>
 <li>
-<a href="http://projects.spring.io/spring-boot/">Spring Boot</a> (v1.3.8.RELEASE)</li>
+<a href="http://projects.spring.io/spring-boot/">Spring Boot</a> (v1.4.1.RELEASE)</li>
 <li><a href="http://projects.spring.io/spring-cloud/">Spring Cloud</a></li>
 <li><a href="http://projects.spring.io/spring-data/">Spring Data</a></li>
 <li><a href="http://projects.spring.io/spring-data-rest/">Spring Data REST</a></li>
 <li>
-<a href="http://www.axonframework.org/">Axon Framework</a> (v2.4)</li>
+<a href="http://www.axonframework.org/">Axon Framework</a> (v3.0-RC1)</li>
 <li>
 <a href="https://www.rabbitmq.com/">RabbitMQ</a> (v3.5.4) Axon supports any Spring AMQP supported platform.</li>
-<li>
-<a href="https://www.mongodb.com/">MongoDB</a> (v.2.14) Axon also supports JDBC &amp; JPA based event-stores.</li>
 </ul>
 
 <h3>
@@ -273,13 +253,13 @@ In the context of this application, cloud refers to Platform as a Service. PaaS 
 
 <p>Communication between the two microservices is <code>event-driven</code> and the demo uses RabbitMQ messaging as a means of passing the events between processes (VM's).</p>
 
-<p>The <strong>command-side</strong> processes commands. Commands are actions which change state in some way. The execution of these commands results in <code>Events</code> being generated which are persisted by Axon (using MongoDB) and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.</p>
+<p>The <strong>command-side</strong> processes commands. Commands are actions which change state in some way. The execution of these commands results in <code>Events</code> being generated which are persisted by Axon  and propagated out to other VM's (as many VM's as you like) via RabbitMQ messaging. In event-sourcing, events are the sole records in the system. They are used by the system to describe and re-build aggregates on demand, one event at a time.</p>
 
 <p>The <strong>query-side</strong> is an event-listener and processor. It listens for the <code>Events</code> and processes them in whatever way makes the most sense. In this application, the query-side just builds and maintains a <em>materialised view</em> which tracks the state of the individual agregates (Product, Blog, Customer, ...). The query-side can be replicated many times for scalability and the messages held by the RabbitMQ queues are durable, so they can be temporarily stored on behalf of the event-listener if it goes down.</p>
 
 <p>The command-side and the query-side both have REST API's which can be used to access their capabilities.</p>
 
-<p>Read the <a href="http://www.axonframework.org/download/">Axon documentation</a> for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured.</p>
+<p>Read the <a href="http://www.axonframework.org/download/">Axon documentation</a> for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).</p>
 
 <h3>
 <a id="services" class="anchor" href="#services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Services</h3>
@@ -455,20 +435,17 @@ $ <span class="pl-c1">.</span> ./swarm-mode-aws.sh</pre></div>
 <p>Run services on local workstation with PCF Dev</p>
 
 <ul>
-<li>Run Mongo database locally. Mine is running on 192.168.0.15:27017</li>
 <li>Download and install PCF: <a href="https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction">https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry-dev/introduction</a>
 </li>
 <li>Start PCF Dev: <code>$ cf dev start -m 8192</code>
 </li>
-<li>Login to PCF Dev: <code>$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u admin -p admin -o pcfdev-org</code>
+<li>Login to PCF Dev" <code>$ cf login -a https://api.local.pcfdev.io --skip-ssl-validation -u admin -p admin -o pcfdev-org</code>
 </li>
 <li>Create user service - configserver: <code>$ cf cups configserver -p '{"uri":"http://configserver.local.pcfdev.io"}'</code>
 </li>
 <li>Create user service - registry: <code>$ cf cups registry -p '{"uri":"http://registry.local.pcfdev.io"}'</code>
 </li>
 <li>Create user service - authserver: <code>$ cf cups authserver -p '{"uri":"http://authserver.local.pcfdev.io"}'</code>
-</li>
-<li>Create user service - mongo: <code>$ cf cups mongo -p '{"uri":"mongodb://192.168.0.15:27017"}'</code>
 </li>
 <li>Create cloud foundry service instance - mysql: <code>$ cf create-service p-mysql 512mb mysql</code>
 </li>
