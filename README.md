@@ -1,4 +1,4 @@
-# Application 'Micro Company' (Axonframework 3.0-RC1) ![status](https://travis-ci.org/idugalic/micro-company.svg?branch=master)
+# Application 'Micro Company' ![status](https://travis-ci.org/idugalic/micro-company.svg?branch=master)
 
 This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.
 
