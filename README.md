@@ -33,8 +33,8 @@ This project is intended to demonstrate end-to-end best practices for building a
                * [Maven](#maven)
                * [Eclipse](#eclipse)
             * [Run microservices on localhost via docker](#run-microservices-on-localhost-via-docker)
-            * [Run microservices on Docker Swarm (mode) - local cluster (docker 1.12  BETA is required !!!)](#run-microservices-on-docker-swarm-mode---local-cluster-docker-112-beta-is-required-)
-            * [Run microservices on Docker Swarm (mode) - AWS cluster (docker 1.12  BETA is required !!!)](#run-microservices-on-docker-swarm-mode---aws-cluster-docker-112-beta-is-required-)
+            * [Run microservices on Docker Swarm (mode) - Local cluster](#run-microservices-on-docker-swarm-mode---local-cluster)
+            * [Run microservices on Docker Swarm (mode) - AWS cluster](#run-microservices-on-docker-swarm-mode---aws-cluster)
             * [Run microservices on Pivotal Cloud Foundry - PCF Dev](#run-microservices-on-pivotal-cloud-foundry---pcf-dev)
                * [CLI](#cli)
                * [Eclipse](#eclipse-1)
@@ -229,9 +229,9 @@ $ cd micro-company/docker
 $ docker-compose up -d 
 ```
 
-#### Run microservices on Docker Swarm (mode) - local cluster (docker version: 1.13.0 rc2 beta3)
+#### Run microservices on Docker Swarm (mode) - Local cluster
 
-Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
+Docker Engine 1.12+ includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
 ```bash
 $ cd micro-company/docker
@@ -246,17 +246,16 @@ By executing command/script you will:
 
 Please, follow the instructions in the console log, and have fun :)
 
-#### Run microservices on Docker Swarm (mode) - AWS cluster (docker version: 1.13.0 rc2 beta31)
+#### Run microservices on Docker Swarm (mode) - AWS cluster
 
-Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
+Docker Engine 1.12+ includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
 We will deploy services on AWS infrastucture. So you have to prepare it:
 
-- Step1:  Register for AWS - beta (https://beta.docker.com/docs/).
-- Step2:  Login to your account as a root, and create user (not root) that will be used latter. (http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)
-- Step3:  Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair).
-- Step4:  Once You have registered for Docker AWS Beta, create stack on AWS by using CloudFormation template - Follow the instructions in the email from Docker.
-- Step 5 Run the script bellow and follow instructions.
+- Step 1: Login to your AWS account as a root, and create user (not root) that will be used latter. (http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)
+- Step 2: Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair).
+- Step 3: Create stack on AWS by using CloudFormation template - https://blog.docker.com/2016/11/docker-aws-public-beta/ (https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=Docker&templateURL=https://docker-for-aws.s3.amazonaws.com/aws/beta/aws-v1.13.0-rc2-beta12.json)
+- Step 4: Run the shell script bellow and follow instructions.
 
 
 ```bash
