@@ -19,33 +19,37 @@ docker-machine create \
  	-d virtualbox \
  	swnode3
 
-# Point your local docker client to the swarm master
-eval $(docker-machine env swmaster)
 
 # Configure swarm mode cluster - initialization on master
-docker $(docker-machine config swmaster) swarm init \
-	--advertise-addr $(docker-machine ip swmaster):2377
-
+eval $(docker-machine env swmaster)
+docker swarm init --advertise-addr $(docker-machine ip swmaster):2377
+jointoken=$(docker swarm join-token --quiet worker)
 
 # Configure swarm mode cluster - join nodes
-docker $(docker-machine config swnode1) swarm join --token $(docker swarm join-token --quiet worker) $(docker-machine ip swmaster):2377
-docker $(docker-machine config swnode2) swarm join --token $(docker swarm join-token --quiet worker) $(docker-machine ip swmaster):2377
-docker $(docker-machine config swnode3) swarm join --token $(docker swarm join-token --quiet worker) $(docker-machine ip swmaster):2377
+eval $(docker-machine env swnode1)
+docker swarm join --token $jointoken $(docker-machine ip swmaster):2377
+eval $(docker-machine env swnode2)
+docker swarm join --token $jointoken $(docker-machine ip swmaster):2377
+eval $(docker-machine env swnode3)
+docker swarm join --token $jointoken $(docker-machine ip swmaster):2377
+
 
 # Create Bundle from compose file
 # docker-compose pull adminserver api-gateway authserver circuit-breaker command-side-blog command-side-project configserver query-side-blog query-side-project registry my-rabbit my-mongo
 # docker-compose bundle -o micro-company.dab
 
 #List all nodes
+eval $(docker-machine env swmaster)
 echo "-------------------------"
 echo "######### Nodes: ########"
 echo "-------------------------"
 docker node ls
 
 # Create a stack using docker deploy command
-docker deploy --file micro-company.dab micro-company
+docker stack deploy --compose-file docker-compose-v3.yml micro-company
 
 # List all services
+eval $(docker-machine env swmaster)
 echo "-------------------------"
 echo "####### Services: #######"
 echo "-------------------------"

@@ -98,6 +98,7 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 - [Spring Data REST](http://projects.spring.io/spring-data-rest/)
 - [Axon Framework](http://www.axonframework.org/) (v3.0-RC1)
 - [RabbitMQ](https://www.rabbitmq.com/) (v3.5.4) Axon supports any Spring AMQP supported platform.
+- [Docker](https://www.docker.com/) (v1.13.0-rc2-beta3)
 
 
 ### Key benefits
@@ -228,7 +229,7 @@ $ cd micro-company/docker
 $ docker-compose up -d 
 ```
 
-#### Run microservices on Docker Swarm (mode) - local cluster (docker 1.12+ BETA is required !!!)
+#### Run microservices on Docker Swarm (mode) - local cluster (docker version: 1.13.0 rc2 beta3)
 
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
@@ -245,7 +246,7 @@ By executing command/script you will:
 
 Please, follow the instructions in the console log, and have fun :)
 
-#### Run microservices on Docker Swarm (mode) - AWS cluster (docker 1.12+ BETA is required !!!)
+#### Run microservices on Docker Swarm (mode) - AWS cluster (docker version: 1.13.0 rc2 beta31)
 
 Docker Engine 1.12 includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
