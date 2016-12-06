@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { BlogPostsModule } from "./blog-posts/blog-posts.module"
-import { ProjectsModule } from "./projects/projects.module"
+import { BlogPostsModule } from './blog-posts/blog-posts.module';
+import { ProjectsModule } from './projects/projects.module';
 
 
 const appRoutes: Routes = [];
