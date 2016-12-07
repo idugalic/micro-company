@@ -2,4 +2,10 @@
 <p>
   app/blog-posts/blog-post-list/blog-post-list.compoment - content
 </p>
+<ul>
+     <li *ngFor="let blogPost of blogPosts">
+       {{blogPost.id}} - {{blogPost.title}} - {{blogPost.slug}} - {{blogPost.renderContent}} - {{blogPost.publishAt}} - {{blogPost.category}}
+     </li>
+</ul>
+{{errorMessage}}
 <router-outlet></router-outlet>
