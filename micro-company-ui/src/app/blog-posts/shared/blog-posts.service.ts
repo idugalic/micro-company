@@ -12,20 +12,14 @@ export class BlogPostsService {
 
   constructor (private http: Http) {}
 
-  public getBlogPosts (): Observable<BlogPostModel[]> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.get(this.blogPostUrl, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
-  }
-
-  private extractData(res: Response) {
+  private extractListData(res: Response) {
     let body = res.json();
     return body._embedded.blogposts || { };
   }
-
+  private extractSingleData(res: Response) {
+    let body = res.json();
+    return body || { };
+  }
   private handleError (error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
@@ -39,5 +33,21 @@ export class BlogPostsService {
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
+
+  public getBlogPosts (): Observable<BlogPostModel[]> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(this.blogPostUrl, options)
+                    .map(this.extractListData)
+                    .catch(this.handleError);
+  }
+
+  public getBlogPost(id: string): Observable<BlogPostModel> {
+    const url = `${this.blogPostUrl}/${id}`;
+    return this.http.get(url)
+                  .map(this.extractSingleData)
+                  .catch(this.handleError);
+}
 
 }

@@ -13,13 +13,15 @@ export class BlogPostListComponent implements OnInit {
   blogPosts: BlogPostModel[];
   errorMessage: string;
 
-  constructor(blogPostsService: BlogPostsService) {
-    blogPostsService.getBlogPosts().subscribe(
+  constructor(private blogPostsService: BlogPostsService) {  }
+
+  ngOnInit(): void {
+    this.getBlogPosts();
+  }
+
+  getBlogPosts(): void {
+    this.blogPostsService.getBlogPosts().subscribe(
                                       blogPosts => this.blogPosts = blogPosts,
                                       error =>  this.errorMessage = <any>error);
   }
-
-  ngOnInit() {
-  }
-
 }

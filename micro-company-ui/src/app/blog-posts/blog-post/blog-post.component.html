@@ -2,3 +2,7 @@
 <p>
   app/blog-posts/blog-post/blog-post.compoment - content
 </p>
+{{errorMessage}}
+<div *ngIf="blogPost">
+  {{blogPost.title}} - {{blogPost.renderContent}} - {{blogPost.publishAt}} - {{blogPost.category}}
+</div>
