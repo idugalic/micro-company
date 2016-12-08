@@ -5,11 +5,13 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-### Run backend server
-The backend server is used to serve rest API:
+### Run back-end server
+The back-end server (localhost:8080) is used to serve rest API:
 
-- http://127.0.0.1:8080/blogposts
-- http://127.0.0.1:8080/projects
+- http://localhost:8080/swagger-ui.html#/blog-controller
+- http://localhost:8080/swagger-ui.html#/project-controller
+
+Run it
 
 #### with Docker
 ```bash
