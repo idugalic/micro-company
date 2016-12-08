@@ -1,11 +1,20 @@
-<h3>List</h3>
-<p>
-  app/blog-posts/blog-post-list/blog-post-list.compoment - content
-</p>
-<ul>
-     <li *ngFor="let blogPost of blogPosts">
-       <a [routerLink]="[blogPost.id]">{{ blogPost.title }}</a> - {{blogPost.renderContent}} - {{blogPost.publishAt}} - {{blogPost.category}}
-     </li>
-</ul>
-{{errorMessage}}
+<md-card >
+  <md-card-title>List</md-card-title>
+
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Publish At</th>
+      <th>Category</th>
+    </tr>
+    <tr *ngFor="let blogPost of blogPosts">
+      <td><a [routerLink]="[blogPost.id]">{{ blogPost.title }}</a></td>
+      <td>{{blogPost.renderContent}}</td>
+      <td>{{blogPost.publishAt | date}}</td>
+      <td>{{blogPost.category}}</td>
+    </tr>
+  </table>
+
+</md-card>
 <router-outlet></router-outlet>

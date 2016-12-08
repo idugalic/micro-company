@@ -2,7 +2,7 @@ export class BlogPostModel {
   id: number;
   title: string;
   renderContent: string;
-  slug: string;
+  publicSlug: string;
   draft: boolean;
   publishAt: Date;
   category: string;

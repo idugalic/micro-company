@@ -1,8 +1,33 @@
-<h3>Detail</h3>
-<p>
-  app/blog-posts/blog-post/blog-post.compoment - content
-</p>
-{{errorMessage}}
-<div *ngIf="blogPost">
-  {{blogPost.title}} - {{blogPost.renderContent}} - {{blogPost.publishAt}} - {{blogPost.category}}
-</div>
+ <md-card >
+   <md-card-title>Detail</md-card-title>
+
+   <md-card-content>
+     <md-list class="app-list" *ngIf="blogPost">
+       <md-list-item>
+         <h3 md-line>Title</h3>
+         <p md-line>{{blogPost.title}}</p>
+       </md-list-item>
+       <md-list-item>
+         <h3 md-line>Publish at</h3>
+         <p md-line>{{blogPost.publishAt | date}}</p>
+       </md-list-item>
+       <md-list-item>
+         <h3 md-line>Category</h3>
+         <p md-line>{{blogPost.category}}</p>
+       </md-list-item>
+       <md-list-item>
+         <h3 md-line>Slug</h3>
+         <p md-line>{{blogPost.publicSlug}}</p>
+       </md-list-item>
+       <md-list-item>
+         <h3 md-line>Draft</h3>
+         <p md-line>{{blogPost.draft}}</p>
+       </md-list-item>
+       <md-list-item>
+         <h3 md-line>Content</h3>
+         <p md-line>{{blogPost.renderContent}}</p>
+       </md-list-item>
+     </md-list>
+  </md-card-content>
+
+</md-card>

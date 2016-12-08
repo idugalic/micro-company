@@ -1,9 +1,30 @@
-<h1>
-  {{title}}
-</h1>
+<md-sidenav-layout>
 
-<nav>
-  <a routerLink="/blog" routerLinkActive="active">Blog</a>
-  <a routerLink="/projects" routerLinkActive="active">Projects</a>
-</nav>
-<router-outlet></router-outlet>
+  <md-sidenav #sidenav mode="side">
+    <md-list class="app-list">
+      <md-list-item>
+        <a routerLink="/blog" routerLinkActive="active">Blog</a>
+      </md-list-item>
+      <md-list-item>
+        <a routerLink="/projects" routerLinkActive="active">Projects</a>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+
+  <md-toolbar color="primary">
+    <button class="app-icon-button" (click)="sidenav.toggle()">
+      <i class="material-icons app-toolbar-menu">menu</i>
+    </button>
+    {{title}}
+    <span class="app-toolbar-filler"></span>
+    <nav>
+      <a routerLink="/blog" routerLinkActive="active">Blog</a>
+      <a routerLink="/projects" routerLinkActive="active">Projects</a>
+    </nav>
+  </md-toolbar>
+
+  <div class="app-content">
+    <router-outlet></router-outlet>
+  </div>
+
+</md-sidenav-layout>

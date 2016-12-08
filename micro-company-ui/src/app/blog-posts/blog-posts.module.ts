@@ -6,10 +6,13 @@ import { BlogPostsComponent } from './blog-posts.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { BlogPostListComponent } from './blog-post-list/blog-post-list.component';
 
+import { MaterialModule } from '@angular/material';
+
 @NgModule({
   imports: [
     CommonModule,
-    BlogPostsRoutingModule
+    BlogPostsRoutingModule,
+    MaterialModule
   ],
   declarations: [BlogPostsComponent, BlogPostComponent, BlogPostListComponent]
 })
