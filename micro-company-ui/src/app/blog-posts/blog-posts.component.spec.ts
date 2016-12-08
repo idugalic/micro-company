@@ -2,9 +2,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
 import { BlogPostsComponent } from './blog-posts.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from '@angular/material';
 
 
 describe('BlogPostsComponent', () => {
@@ -14,7 +14,7 @@ describe('BlogPostsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ BlogPostsComponent ],
-      imports: [ RouterTestingModule ]
+      imports: [ RouterTestingModule, MaterialModule]
     })
     .compileComponents();
   }));

@@ -1,5 +1,22 @@
-<h3>List</h3>
-<p>
-  app/projects/project-list/project-list.compoment - content
-</p>
+<md-card >
+  <md-card-title>List</md-card-title>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Repo URL</th>
+      <th>Site URL</th>
+      <th>Description</th>
+      <th>Category</th>
+    </tr>
+    <tr *ngFor="let project of projects">
+      <td><a [routerLink]="[project.id]">{{ project.name }}</a></td>
+      <td>{{project.repoUrl}}</td>
+      <td>{{project.siteUrl}}</td>
+      <td>{{project.description}}</td>
+      <td>{{project.category}}</td>
+    </tr>
+  </table>
+
+</md-card>
 <router-outlet></router-outlet>

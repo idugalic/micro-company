@@ -1,4 +1,29 @@
-<h3>Detail</h3>
-<p>
-  app/projects/project/project.compoment - content
-</p>
+<md-card >
+  <md-card-title>Detail</md-card-title>
+
+  <md-card-content>
+    <md-list class="app-list" *ngIf="project">
+      <md-list-item>
+        <h3 md-line>Name</h3>
+        <p md-line>{{project.name}}</p>
+      </md-list-item>
+      <md-list-item>
+        <h3 md-line>Repo URL</h3>
+        <p md-line>{{project.repoUrl}}</p>
+      </md-list-item>
+      <md-list-item>
+        <h3 md-line>Site URL</h3>
+        <p md-line>{{project.siteUrl}}</p>
+      </md-list-item>
+      <md-list-item>
+        <h3 md-line>Description</h3>
+        <p md-line>{{project.description}}</p>
+      </md-list-item>
+      <md-list-item>
+        <h3 md-line>Category</h3>
+        <p md-line>{{project.category}}</p>
+      </md-list-item>
+    </md-list>
+ </md-card-content>
+
+</md-card>

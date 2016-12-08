@@ -5,6 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { ProjectsComponent } from './projects.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from '@angular/material';
 
 
 describe('ProjectsComponent', () => {
@@ -14,7 +15,7 @@ describe('ProjectsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ProjectsComponent ],
-      imports: [ RouterTestingModule ]
+      imports: [ RouterTestingModule, MaterialModule ]
     })
     .compileComponents();
   }));
