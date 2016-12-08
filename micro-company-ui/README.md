@@ -1,9 +1,28 @@
-# MicroCompanyUI
+# Micro Company UI
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.21.
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+### Run backend server
+The backend server is used to serve rest API:
+
+- http://127.0.0.1:8080/blogposts
+- http://127.0.0.1:8080/projects
+
+#### with Docker
+```bash
+$ cd micro-company/docker
+$ docker-compose -f docker-compose-monolithic.yml up -d
+```
+#### or with Maven
+```bash
+$ cd micro-company
+$ mvn clean install
+$ cd micro-company/monolithic
+$ mvn spring-boot:run
+```
 
 ## Code scaffolding
 
