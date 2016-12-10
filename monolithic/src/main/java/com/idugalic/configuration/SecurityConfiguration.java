@@ -9,6 +9,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/**
+ * A security configuration.
+ * 
+ * @author idugalic
+ *
+ */
 @Configuration
 @EnableResourceServer
 class SecurityConfiguration extends ResourceServerConfigurerAdapter {

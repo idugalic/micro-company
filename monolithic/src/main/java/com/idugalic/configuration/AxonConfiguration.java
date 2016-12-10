@@ -9,6 +9,13 @@ import org.axonframework.monitoring.NoOpMessageMonitor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * A configuration for axonframework.
+ * Axonframework is used to support eventsourcing and CQRS.
+ * 
+ * @author idugalic
+ *
+ */
 @Configuration
 public class AxonConfiguration {
     

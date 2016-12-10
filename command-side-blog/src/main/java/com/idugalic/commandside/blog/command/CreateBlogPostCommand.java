@@ -13,6 +13,12 @@ import javax.validation.constraints.NotNull;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * A command for creating a blog post.
+ * 
+ * @author idugalic
+ *
+ */
 public class CreateBlogPostCommand extends AuditableAbstractCommand {
 
     @TargetAggregateIdentifier

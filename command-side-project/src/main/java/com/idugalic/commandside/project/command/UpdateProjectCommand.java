@@ -8,6 +8,12 @@ import javax.validation.constraints.NotNull;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * A command for updating the project.
+ * 
+ * @author idugalic
+ *
+ */
 public class UpdateProjectCommand extends AuditableAbstractCommand {
 
     @TargetAggregateIdentifier

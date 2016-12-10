@@ -25,12 +25,12 @@ import com.structurizr.view.ViewSet;
 
 /**
  * 
- * @author idugalic
- * 
- * Software architecture diagrams with structurizr.com
+ * Software architecture diagrams with structurizr.com. 
  * 
  * Static diagrams, whether drawn on a whiteboard or with a general purpose diagramming tool such as Microsoft Visio, tend to get out of date quickly and often don't reflect the structure of the code. 
  * On the other hand, automatically generated diagrams, such as UML class diagrams created by reverse-engineering the code, typically show far too much detail, limiting their usefulness.
+ *
+ * @author idugalic
  */
 @SpringBootApplication
 public class DocumentationApplication {

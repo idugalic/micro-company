@@ -7,6 +7,12 @@ import java.util.Date;
 
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 
+/**
+ * A command for publishing a blog post.
+ * 
+ * @author idugalic
+ *
+ */
 public class PublishBlogPostCommand extends AuditableAbstractCommand {
 
     @TargetAggregateIdentifier

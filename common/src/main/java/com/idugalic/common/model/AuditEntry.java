@@ -6,6 +6,12 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * A class which encapsulates 'who' and 'when' has perform some action.
+ * 
+ * @author idugalic
+ *
+ */
 public class AuditEntry {
     private String who;
     private Date when;

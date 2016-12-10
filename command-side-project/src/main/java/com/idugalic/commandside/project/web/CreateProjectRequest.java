@@ -1,5 +1,11 @@
 package com.idugalic.commandside.project.web;
 
+/**
+ * A web request data transfer object for {@link CreateProjectCommand}
+ * 
+ * @author idugalic
+ *
+ */
 public class CreateProjectRequest {
 
     private String name;

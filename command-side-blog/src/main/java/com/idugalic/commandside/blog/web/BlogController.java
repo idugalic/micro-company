@@ -22,6 +22,12 @@ import com.idugalic.commandside.blog.command.CreateBlogPostCommand;
 import com.idugalic.commandside.blog.command.PublishBlogPostCommand;
 import com.idugalic.common.model.AuditEntry;
 
+/**
+ * A web controller for managing {@link BlogPostAggregate} - create/update only.
+ * 
+ * @author idugalic
+ *
+ */
 @RestController
 @RequestMapping(value = "/blogpostcommands")
 public class BlogController {

@@ -11,6 +11,12 @@ import javax.validation.constraints.NotNull;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * A command for creating a project.
+ * 
+ * @author idugalic
+ *
+ */
 public class CreateProjectCommand extends AuditableAbstractCommand {
 
     @TargetAggregateIdentifier

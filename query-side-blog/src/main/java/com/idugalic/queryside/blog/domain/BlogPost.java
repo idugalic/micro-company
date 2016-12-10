@@ -11,6 +11,12 @@ import javax.persistence.Version;
 import com.idugalic.common.blog.event.BlogPostCreatedEvent;
 import com.idugalic.common.blog.model.BlogPostCategory;
 
+/**
+ * A JPA entity. It represents materialized view of a {@link BlogPostAggregate}
+ * 
+ * @author idugalic
+ *
+ */
 @Entity
 public class BlogPost {
     @Id

@@ -13,6 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Event handler for {@link ProjrcttCreatedEvent}
+ * 
+ * @author idugalic
+ *
+ */
 @ProcessingGroup("default")
 @Component
 public class ProjectViewEventHandler{

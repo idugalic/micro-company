@@ -14,6 +14,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * Event handlers for {@link BlogPostCreatedEvent}, {@link BlogPostPublishedEvent}
+ * 
+ * @author idugalic
+ *
+ */
 @ProcessingGroup("default")
 @Component
 public class BlogPostViewEventHandler {

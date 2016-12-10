@@ -2,6 +2,12 @@ package com.idugalic.commandside.blog.web;
 
 import java.util.Date;
 
+/**
+ * A web request data transfer object for {@link PublishBLogPostCommand}
+ * 
+ * @author idugalic
+ *
+ */
 public class PublishBlogPostRequest {
 
     private Date publishAt;

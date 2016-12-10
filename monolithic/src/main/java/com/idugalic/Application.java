@@ -14,6 +14,12 @@ import org.springframework.core.env.Environment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * An application for my company - monolithic
+ * 
+ * @author idugalic
+ *
+ */
 @SpringBootApplication
 public class Application {
 

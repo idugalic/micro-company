@@ -15,7 +15,12 @@ import org.axonframework.spring.stereotype.Aggregate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
-
+/**
+ * A Project aggregate root.
+ * 
+ * @author idugalic
+ *
+ */
 @Aggregate
 public class ProjectAggregate {
 

@@ -4,6 +4,12 @@ import java.util.Date;
 
 import com.idugalic.common.blog.model.BlogPostCategory;
 
+/**
+ * A web request data transfer object for {@link CreateBlogPostCommand}
+ * 
+ * @author idugalic
+ *
+ */
 public class CreateBlogPostRequest {
 
     private String title;
