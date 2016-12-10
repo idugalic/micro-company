@@ -6,7 +6,7 @@
 	<artifactId>monolithic</artifactId>
 	<packaging>jar</packaging>
 	<name>Monolithic</name>
-	<description>Monolithic Archicteture</description>
+	<description>Monolithic</description>
 
 	<parent>
 		<groupId>com.idugalic</groupId>
