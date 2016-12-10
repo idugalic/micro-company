@@ -34,24 +34,7 @@ public class Application {
     
     @Bean
     @Primary
-    public ObjectMapper fooObjectMapper() {
+    public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
-    
-//    @Bean
-//    AggregateAnnotationCommandHandler<BlogPostAggregate> blogPostAggregateCommandHandler(Repository<BlogPostAggregate> eventSourcingRepository, CommandBus commandBus) {
-//        AggregateAnnotationCommandHandler<BlogPostAggregate> handler = new AggregateAnnotationCommandHandler<BlogPostAggregate>(
-//                BlogPostAggregate.class,
-//                eventSourcingRepository);
-//        return handler;
-//    }
-//    
-//    @Bean
-//    AggregateAnnotationCommandHandler<ProjectAggregate> projectAggregateCommandHandler(Repository<ProjectAggregate> eventSourcingRepository, CommandBus commandBus) {
-//        AggregateAnnotationCommandHandler<ProjectAggregate> handler = new AggregateAnnotationCommandHandler<ProjectAggregate>(
-//                ProjectAggregate.class,
-//                eventSourcingRepository);
-//        return handler;
-//    }
-
 }
