@@ -131,7 +131,8 @@ $ docker-compose -f docker-compose-monolithic.yml up -d
 
 
 ### Issuing Commands & Queries with CURL
-Please note that my current docker host IP is 127.0.0.1
+
+Auto generated Swagger documentation is available here: http://127.0.0.1:8080/swagger-ui.html
 
 #### Create Blog post
 
