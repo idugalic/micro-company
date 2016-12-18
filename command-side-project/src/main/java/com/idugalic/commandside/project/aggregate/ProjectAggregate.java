@@ -8,17 +8,22 @@ import com.idugalic.common.project.event.ProjectUpdatedEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.axonframework.commandhandling.annotation.CommandHandler;
-import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
-import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
-import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
+import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.commandhandling.model.AggregateIdentifier;
+import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.spring.stereotype.Aggregate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
+/**
+ * A Project aggregate root.
+ * 
+ * @author idugalic
+ *
+ */
+@Aggregate
+public class ProjectAggregate {
 
-@SuppressWarnings("rawtypes")
-public class ProjectAggregate extends AbstractAnnotatedAggregateRoot {
-
-    private static final long serialVersionUID = 2043271011232572733L;
     private static final Logger LOG = LoggerFactory.getLogger(ProjectAggregate.class);
 
     /**

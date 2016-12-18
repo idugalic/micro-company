@@ -22,6 +22,12 @@ import com.idugalic.commandside.project.command.CreateProjectCommand;
 import com.idugalic.commandside.project.command.UpdateProjectCommand;
 import com.idugalic.common.model.AuditEntry;
 
+/**
+ * A web controller for managing {@link ProjectAggregate} - create/update only.
+ * 
+ * @author idugalic
+ *
+ */
 @RestController
 @RequestMapping(value = "/projectcommands")
 public class ProjectController {

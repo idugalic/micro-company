@@ -1,11 +1,16 @@
 package com.idugalic.queryside.project.domain;
 
+import com.idugalic.common.project.event.ProjectCreatedEvent;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Version;
-
-import com.idugalic.common.project.event.ProjectCreatedEvent;
-
+/**
+ * A JPA entity. It represents materialized view of a {@link ProjectAggregate}
+ * 
+ * @author idugalic
+ *
+ */
 @Entity
 public class Project {
     @Id

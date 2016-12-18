@@ -1,7 +1,7 @@
 info:
   app:
-    name: Monotihic
-    description: Monotihic - Application - All in one ;)
+    name: Monolitihic
+    description: Monolitihic - Application - All in one ;)
 
 server:
   port: 8080

@@ -6,7 +6,7 @@
 	<artifactId>monolithic</artifactId>
 	<packaging>jar</packaging>
 	<name>Monolithic</name>
-	<description>Monolithic Archicteture</description>
+	<description>Monolithic</description>
 
 	<parent>
 		<groupId>com.idugalic</groupId>
@@ -41,6 +41,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.axonframework</groupId>
+			<artifactId>axon-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.axonframework</groupId>
 			<artifactId>axon-amqp</artifactId>
 		</dependency>
 		<dependency>
@@ -59,7 +63,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-security</artifactId>
@@ -87,6 +91,21 @@
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.9</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.4.0</version>
 		</dependency>
 	</dependencies>
 
@@ -118,7 +137,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>${docker.plugin.version}</version>
 				<configuration>
-				    <skipDockerBuild>false</skipDockerBuild>
+					<skipDockerBuild>false</skipDockerBuild>
 					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
 					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
 					<resources>

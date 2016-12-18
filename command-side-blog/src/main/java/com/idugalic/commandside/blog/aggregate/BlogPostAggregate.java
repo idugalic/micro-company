@@ -1,14 +1,5 @@
 package com.idugalic.commandside.blog.aggregate;
 
-import java.util.Date;
-
-import org.axonframework.commandhandling.annotation.CommandHandler;
-import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot;
-import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
-import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.idugalic.commandside.blog.aggregate.exception.PublishBlogPostException;
 import com.idugalic.commandside.blog.command.CreateBlogPostCommand;
 import com.idugalic.commandside.blog.command.PublishBlogPostCommand;
@@ -16,10 +7,26 @@ import com.idugalic.common.blog.event.BlogPostCreatedEvent;
 import com.idugalic.common.blog.event.BlogPostPublishedEvent;
 import com.idugalic.common.blog.model.BlogPostCategory;
 
-@SuppressWarnings("rawtypes")
-public class BlogPostAggregate extends AbstractAnnotatedAggregateRoot {
+import java.util.Date;
 
-    private static final long serialVersionUID = 2043271011122572822L;
+import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.commandhandling.model.AggregateIdentifier;
+import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.spring.stereotype.Aggregate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;
+
+/**
+ * A BlogPost aggregate root.
+ * 
+ * @author idugalic
+ *
+ */
+@Aggregate
+public class BlogPostAggregate{
+
     private static final Logger LOG = LoggerFactory.getLogger(BlogPostAggregate.class);
 
     /**

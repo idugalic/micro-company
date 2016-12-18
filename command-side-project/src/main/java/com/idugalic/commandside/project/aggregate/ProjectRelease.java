@@ -4,7 +4,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.util.Assert;
-
+/**
+ * A unique release of a project.
+ * 
+ * @author idugalic
+ *
+ */
 public class ProjectRelease implements Comparable<ProjectRelease> {
 
     private static final Pattern PRERELEASE_PATTERN = Pattern.compile("[A-Za-z0-9\\.\\-]+?(M|RC)\\d+");
