@@ -2,7 +2,7 @@ title: Micro-company
 description: Rest-full, Hipermedia-based distributed application. Spring boot & cloud. CQRS. Eventsourcing. Axonframework. Microservices. Docker.
 google_analytics: 
 show_downloads: true
-theme: jekyll-theme-dinky
+theme: jekyll-theme-minimal
 
 gems:
   - jekyll-mentions
