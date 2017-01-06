@@ -62,7 +62,7 @@ public class ProjectControllerTest {
         CreateProjectRequest request = new CreateProjectRequest();
         given(this.commandGateway.sendAndWait(any(CreateProjectCommand.class))).willThrow(new CommandExecutionException("Test", new JSR303ViolationException(new HashSet())));
         
-        this.mvc.perform(post("/projectcommands")
+        this.mvc.perform(post("/api/projectcommands")
                 .content(this.jsonCreate.write(request).getJson())
                 .contentType(contentType))
                 .andExpect(status().isBadRequest());
@@ -73,7 +73,7 @@ public class ProjectControllerTest {
         CreateProjectRequest request = new CreateProjectRequest();
         given(this.commandGateway.sendAndWait(any(CreateProjectCommand.class))).willReturn("Success");
         
-        this.mvc.perform(post("/projectcommands")
+        this.mvc.perform(post("/api/projectcommands")
                 .content(this.jsonCreate.write(request).getJson())
                 .contentType(contentType))
                 .andExpect(status().isCreated());

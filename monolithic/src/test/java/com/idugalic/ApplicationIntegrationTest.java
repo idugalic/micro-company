@@ -69,7 +69,7 @@ public class ApplicationIntegrationTest {
 
         HttpEntity<CreateBlogPostRequest> request = new HttpEntity<>(createBlogPostRequest);
 
-        ResponseEntity<String> response = restTemplate.exchange("/blogpostcommands", HttpMethod.POST, request, String.class);
+        ResponseEntity<String> response = restTemplate.exchange("/api/blogpostcommands", HttpMethod.POST, request, String.class);
         System.out.println("################ "+response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
@@ -80,7 +80,7 @@ public class ApplicationIntegrationTest {
 
         HttpEntity<CreateProjectRequest> request = new HttpEntity<>(createProjectRequest);
 
-        ResponseEntity<String> response = restTemplate.exchange("/projectcommands", HttpMethod.POST, request, String.class);
+        ResponseEntity<String> response = restTemplate.exchange("/api/projectcommands", HttpMethod.POST, request, String.class);
         System.out.println("################ "+response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
@@ -92,7 +92,7 @@ public class ApplicationIntegrationTest {
         createBlogPostRequest.setTitle(null);
         HttpEntity<CreateBlogPostRequest> request = new HttpEntity<>(createBlogPostRequest);
 
-        ResponseEntity<String> response = restTemplate.exchange("/blogpostcommands", HttpMethod.POST, request, String.class);
+        ResponseEntity<String> response = restTemplate.exchange("/api/blogpostcommands", HttpMethod.POST, request, String.class);
         System.out.println("################ "+response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 
@@ -104,7 +104,7 @@ public class ApplicationIntegrationTest {
         createProjectRequest.setName(null);
         HttpEntity<CreateProjectRequest> request = new HttpEntity<>(createProjectRequest);
 
-        ResponseEntity<String> response = restTemplate.exchange("/projectcommands", HttpMethod.POST, request, String.class);
+        ResponseEntity<String> response = restTemplate.exchange("/api/projectcommands", HttpMethod.POST, request, String.class);
         System.out.println("################ "+response.getBody());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
 

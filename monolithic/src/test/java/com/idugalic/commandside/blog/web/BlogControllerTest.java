@@ -62,7 +62,7 @@ public class BlogControllerTest {
         CreateBlogPostRequest request = new CreateBlogPostRequest();
         given(this.commandGateway.sendAndWait(any(CreateBlogPostCommand.class))).willThrow(new CommandExecutionException("Test", new JSR303ViolationException(new HashSet())));
         
-        this.mvc.perform(post("/blogpostcommands")
+        this.mvc.perform(post("/api/blogpostcommands")
                 .content(this.jsonCreate.write(request).getJson())
                 .contentType(contentType))
                 .andExpect(status().isBadRequest());
@@ -73,7 +73,7 @@ public class BlogControllerTest {
         CreateBlogPostRequest request = new CreateBlogPostRequest();
         given(this.commandGateway.sendAndWait(any(CreateBlogPostCommand.class))).willReturn("Success");
         
-        this.mvc.perform(post("/blogpostcommands")
+        this.mvc.perform(post("/api/blogpostcommands")
                 .content(this.jsonCreate.write(request).getJson())
                 .contentType(contentType))
                 .andExpect(status().isCreated());

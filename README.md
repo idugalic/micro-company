@@ -320,7 +320,7 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawConten
 ```
 ###### Monolithic
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands
+$ curl -H "Content-Type: application/json" -X POST -d '{"title":"xyz","rawContent":"xyz","publicSlug": "publicslug","draft": true,"broadcast": true,"category": "ENGINEERING", "publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/api/blogpostcommands
 
 ```
 
@@ -335,7 +335,7 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23
 ###### Monolithic
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/blogpostcommands/{id}/publishcommand
+$ curl -H "Content-Type: application/json" -X POST -d '{"publishAt": "2016-12-23T14:30:00+00:00"}' http://127.0.0.1:8080/api/blogpostcommands/{id}/publishcommand
 
 ```
 
@@ -352,7 +352,7 @@ $ curl api-gateway.local.pcfdev.io/query/blog/blogposts
 ```
 ###### Monolithic
 ```bash
-$ curl http://127.0.0.1:8080/blogposts
+$ curl http://127.0.0.1:8080/api/blogposts
 ```
 
 #### Create Project
@@ -366,7 +366,7 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":
 ###### Monolithic
 
 ```bash
-$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8080/projectcommands
+$ curl -H "Content-Type: application/json" -X POST -d '{"name":"Name","repoUrl":"URL","siteUrl": "siteUrl","description": "sdfsdfsdf"}' http://127.0.0.1:8080/api/projectcommands
 
 ```
 #### Query Projects
@@ -378,7 +378,7 @@ $ curl http://127.0.0.1:9000/query/project/projects
 ```
 ###### Monolithic
 ```bash
-$ curl http://127.0.0.1:8080/projects
+$ curl http://127.0.0.1:8080/api/projects
 ```
 
 #### WebSocket on the gateway

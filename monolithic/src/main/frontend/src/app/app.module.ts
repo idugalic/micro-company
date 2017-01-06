@@ -19,7 +19,7 @@ import { MaterialModule } from '@angular/material';
     BlogPostsModule,
     ProjectsModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

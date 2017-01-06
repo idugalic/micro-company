@@ -8,7 +8,7 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ProjectsService {
-  private projectsUrl = 'http://127.0.0.1:8080/projects';  // URL to web API, should be externalized
+  private projectsUrl = '/api/projects';  // URL to web API, should be externalized
 
   constructor (private http: Http) {}
 
