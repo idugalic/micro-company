@@ -12,7 +12,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      imports: [ RouterTestingModule, MaterialModule ]
+      imports: [ RouterTestingModule, MaterialModule.forRoot() ]
     });
   });
 
