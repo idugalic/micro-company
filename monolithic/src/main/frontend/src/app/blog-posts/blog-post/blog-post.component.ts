@@ -8,8 +8,7 @@ import 'rxjs/add/operator/filter';
 @Component({
   selector: 'app-blog-post',
   templateUrl: './blog-post.component.html',
-  styleUrls: ['./blog-post.component.css'],
-  providers: [BlogPostsService]
+  styleUrls: ['./blog-post.component.css']
 })
 export class BlogPostComponent implements OnInit {
 

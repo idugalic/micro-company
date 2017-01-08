@@ -45,6 +45,16 @@ export class ProjectsService {
     return this.http.get(url)
                   .map(this.extractSingleData)
                   .catch(this.handleError);
-}
+  }
+
+  public addProject(project: ProjectModel): Observable<any> {
+    const url = `/api/projectcommands`;
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(url, project , options).catch(this.handleError);
+  }
+
 
 }

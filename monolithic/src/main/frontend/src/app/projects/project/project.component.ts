@@ -8,8 +8,7 @@ import 'rxjs/add/operator/filter';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css'],
-  providers: [ProjectsService]
+  styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
 

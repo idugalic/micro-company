@@ -1,0 +1,31 @@
+<md-card >
+  <md-card-title>New Project</md-card-title>
+
+  <md-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+        <p>
+            <label>Name</label>
+            <input type="text" formControlName="name">
+        </p>
+        <p>
+            <label>Repo URL</label>
+            <input type="text" formControlName="repoUrl">
+        </p>
+        <p>
+            <label>Site URL</label>
+            <input type="text" formControlName="siteUrl">
+        </p>
+        <p>
+            <label>Description</label>
+            <input type="text" formControlName="description">
+        </p>
+        <p>
+            <label>Category</label>
+            <input type="text" formControlName="category">
+        </p>
+        <p>
+            <button type="submit" [disabled]="!form.valid">Submit</button>
+        </p>
+    </form>
+  </md-card-content>
+</md-card >

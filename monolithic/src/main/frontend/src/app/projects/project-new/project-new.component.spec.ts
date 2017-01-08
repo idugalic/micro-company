@@ -2,29 +2,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { BlogPostListComponent } from './blog-post-list.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BlogPostsService } from '../shared/blog-posts.service';
+
+import { ProjectNewComponent } from './project-new.component';
+import { ProjectsService } from '../shared/projects.service';
 import { EventManager } from '../../shared/event-manager.service';
 
-
-describe('BlogPostListComponent', () => {
-  let component: BlogPostListComponent;
-  let fixture: ComponentFixture<BlogPostListComponent>;
+describe('ProjectNewComponent', () => {
+  let component: ProjectNewComponent;
+  let fixture: ComponentFixture<ProjectNewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlogPostListComponent ],
+      declarations: [ ProjectNewComponent ],
       imports: [ RouterTestingModule, MaterialModule, ReactiveFormsModule],
-      providers: [BlogPostsService, EventManager]
+      providers: [ProjectsService, EventManager]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BlogPostListComponent);
+    fixture = TestBed.createComponent(ProjectNewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

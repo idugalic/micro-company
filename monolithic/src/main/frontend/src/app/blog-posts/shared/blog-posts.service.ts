@@ -50,4 +50,13 @@ export class BlogPostsService {
                   .catch(this.handleError);
 }
 
+public addBlogPost(post: BlogPostModel): Observable<any> {
+  const url = `/api/blogpostcommands`;
+
+  let headers = new Headers({ 'Content-Type': 'application/json' });
+  let options = new RequestOptions({ headers: headers });
+
+  return this.http.post(url, post , options).catch(this.handleError);
+}
+
 }
