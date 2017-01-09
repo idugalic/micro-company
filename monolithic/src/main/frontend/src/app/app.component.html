@@ -1,6 +1,6 @@
-<md-sidenav-layout>
+<md-sidenav-container>
 
-  <md-sidenav #sidenav mode="side">
+  <!-- <md-sidenav #sidenav mode="side">
     <md-list class="app-list">
       <md-list-item>
         <a routerLink="/blog" routerLinkActive="active">Blog</a>
@@ -9,17 +9,17 @@
         <a routerLink="/projects" routerLinkActive="active">Projects</a>
       </md-list-item>
     </md-list>
-  </md-sidenav>
+  </md-sidenav> -->
 
   <md-toolbar color="primary">
-    <button class="app-icon-button" (click)="sidenav.toggle()">
+    <!-- <button class="app-icon-button" (click)="sidenav.toggle()">
       <i class="material-icons app-toolbar-menu">menu</i>
-    </button>
+    </button> -->
     <h1>{{title}}</h1>
     <span class="app-toolbar-filler"></span>
     <nav>
-      <a routerLink="/blog" routerLinkActive="active">Blog</a>
-      <a routerLink="/projects" routerLinkActive="active">Projects</a>
+      <a routerLink="/blog" routerLinkActive="active" style="color:White">Blog</a>
+      <a routerLink="/projects" routerLinkActive="active" style="color:White">Projects</a>
     </nav>
   </md-toolbar>
 
@@ -27,4 +27,4 @@
     <router-outlet></router-outlet>
   </div>
 
-</md-sidenav-layout>
+</md-sidenav-container>

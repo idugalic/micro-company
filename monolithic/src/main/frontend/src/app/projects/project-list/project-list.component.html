@@ -1,9 +1,7 @@
 <md-card >
-  <md-card-title>List</md-card-title>
-
-  <a [routerLink]="'action/new'">Create new</a>
-
+ <md-card-content>
   <table>
+    <thead>
     <tr>
       <th>Name</th>
       <th>Repo URL</th>
@@ -11,6 +9,8 @@
       <th>Description</th>
       <th>Category</th>
     </tr>
+    </thead>
+    <tbody>
     <tr *ngFor="let project of projects">
       <td><a [routerLink]="[project.id]">{{ project.name }}</a></td>
       <td>{{project.repoUrl}}</td>
@@ -18,7 +18,11 @@
       <td>{{project.description}}</td>
       <td>{{project.category}}</td>
     </tr>
+    </tbody>
   </table>
-
+  </md-card-content>
+  <md-card-actions>
+        <button md-button [routerLink]="'action/new'">Create New Project</button>
+   </md-card-actions>
 </md-card>
 <router-outlet></router-outlet>

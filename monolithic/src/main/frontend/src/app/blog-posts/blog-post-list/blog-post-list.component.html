@@ -1,8 +1,5 @@
 <md-card >
-  <md-card-title>List</md-card-title>
-
-  <a [routerLink]="'action/new'">Create new</a>
-
+ <md-card-content>
   <table>
     <tr>
       <th>Title</th>
@@ -17,6 +14,9 @@
       <td>{{blogPost.category}}</td>
     </tr>
   </table>
-
+ </md-card-content>
+ <md-card-actions>
+      <button md-button [routerLink]="'action/new'">Create New Post</button>
+ </md-card-actions>
 </md-card>
 <router-outlet></router-outlet>

@@ -3,29 +3,24 @@
 
   <md-card-content>
     <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
-        <p>
-            <label>Name</label>
-            <input type="text" formControlName="name">
-        </p>
-        <p>
-            <label>Repo URL</label>
-            <input type="text" formControlName="repoUrl">
-        </p>
-        <p>
-            <label>Site URL</label>
-            <input type="text" formControlName="siteUrl">
-        </p>
-        <p>
-            <label>Description</label>
-            <input type="text" formControlName="description">
-        </p>
-        <p>
-            <label>Category</label>
-            <input type="text" formControlName="category">
-        </p>
-        <p>
-            <button type="submit" [disabled]="!form.valid">Submit</button>
-        </p>
+      <md-input-container floatingPlaceholder=true style="width: 100%">
+          <input md-input placeholder="Name" formControlName="name">
+      </md-input-container>
+      <md-input-container floatingPlaceholder=true style="width: 100%">
+          <input md-input placeholder="Repository URL" formControlName="repoUrl">
+      </md-input-container>
+      <md-input-container floatingPlaceholder=true style="width: 100%">
+          <input md-input placeholder="Site URL" formControlName="siteUrl">
+      </md-input-container>
+      <md-input-container floatingPlaceholder=true style="width: 100%">
+          <input md-input placeholder="Category" formControlName="category">
+      </md-input-container>
+      <md-input-container floatingPlaceholder=true style="width: 100%">
+          <textarea md-input placeholder="Description" formControlName="description"></textarea>
+      </md-input-container>
+      <p>
+          <button md-raised-button color="primary"  type="submit" [disabled]="!form.valid">Submit</button>
+      </p>
     </form>
   </md-card-content>
 </md-card >

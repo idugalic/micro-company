@@ -11,7 +11,11 @@
 
 .app-sidenav {
   padding: 10px;
-  min-width: 100px;
+  min-width: 50px;
+}
+
+md-sidenav {
+  width: 200px;
 }
 
 .app-content md-checkbox {
@@ -84,5 +88,5 @@ td, th {
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #f4f6f9;
 }

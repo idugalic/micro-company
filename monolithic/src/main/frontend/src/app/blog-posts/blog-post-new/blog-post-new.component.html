@@ -3,43 +3,37 @@
 
   <md-card-content>
     <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
-        <p>
-            <label>Title</label>
-            <input type="text" formControlName="title">
+        <md-input-container floatingPlaceholder=true style="width: 100%">
+            <input md-input placeholder="Title" formControlName="title">
+        </md-input-container>
+        <md-input-container floatingPlaceholder=true style="width: 100%">
+            <textarea md-input placeholder="Content" formControlName="rawContent"></textarea>
+        </md-input-container>
+        <md-input-container floatingPlaceholder=true style="width: 100%">
+            <input md-input placeholder="Public Slug" formControlName="publicSlug">
+        </md-input-container>
+        <p style="width: 100%">
+          <md-select placeholder="Category" formControlName="category" style="width: 100%">
+            <md-option value="ENGINEERING">Engineering</md-option>
+            <md-option value="RELEASES">Releases</md-option>
+            <md-option value="NEWS_AND_EVENTS">News and Events</md-option>
+          </md-select>
         </p>
-        <p>
-            <label>Content</label>
-            <input type="text" formControlName="rawContent">
-        </p>
-        <p>
-            <label>Public Slug</label>
-            <input type="text" formControlName="publicSlug">
-        </p>
-        <p>
-            <label>Draft</label>
-            <input type="text" formControlName="draft">
-        </p>
+        <md-checkbox color="primary" formControlName="draft" [checked]="true">
+          Draft
+        </md-checkbox>
+        <md-checkbox color="primary" formControlName="broadcast" [checked]="true">
+          Broadcast
+        </md-checkbox>
 
-        <p>
-          <label>Category</label>
-          <select formControlName="category">
-            <option value="ENGINEERING">Engineering</option>
-            <option value="RELEASES">Releases</option>
-            <option value="NEWS_AND_EVENTS">News and Events</option>
-          </select>
-        </p>
-        <p>
-            <label>Broadcast</label>
-            <input type="text" formControlName="broadcast">
-        </p>
-        <p>
+
+        <p style="width: 100%">
             <label>Publish At</label>
             <ng2-datepicker formControlName="publishAt"></ng2-datepicker>
-          
         </p>
 
         <p>
-            <button type="submit" [disabled]="!form.valid">Submit</button>
+            <button md-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
         </p>
     </form>
   </md-card-content>
