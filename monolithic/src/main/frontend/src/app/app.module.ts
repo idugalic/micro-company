@@ -9,10 +9,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from '@angular/material';
 import { EventManager } from './shared/event-manager.service';
 import { DatePickerModule } from 'ng2-datepicker';
+import { customHttpProvider } from './shared/interceptor/http.provider';
+import { alertServiceProvider } from './shared/alert/alert.provider';
+import { AlertComponent } from './shared/alert/alert.component';
+import { AlertErrorComponent } from './shared/alert/alert-error.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, AlertErrorComponent, AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -22,9 +29,10 @@ import { DatePickerModule } from 'ng2-datepicker';
     ProjectsModule,
     AppRoutingModule,
     DatePickerModule,
+    NgbModule.forRoot(),
     MaterialModule.forRoot()
   ],
-  providers: [EventManager],
+  providers: [EventManager, customHttpProvider(), alertServiceProvider()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

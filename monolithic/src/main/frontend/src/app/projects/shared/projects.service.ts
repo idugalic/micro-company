@@ -8,7 +8,8 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ProjectsService {
-  private projectsUrl = '/api/projects';  // URL to web API, should be externalized
+  private projectsQueryBaseUrl = '/api/projects';
+  private projectsCommandBaseUrl = '/api/projectcommands';
 
   constructor (private http: Http) {}
 
@@ -20,40 +21,24 @@ export class ProjectsService {
     let body = res.json();
     return body || { };
   }
-  private handleError (error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
+
 
   public getProjects (): Observable<ProjectModel[]> {
-    return this.http.get(this.projectsUrl)
-                    .map(this.extractListData)
-                    .catch(this.handleError);
+    return this.http.get(this.projectsQueryBaseUrl)
+                    .map(this.extractListData);
   }
 
   public getProject(id: string): Observable<ProjectModel> {
-    const url = `${this.projectsUrl}/${id}`;
+    const url = `${this.projectsQueryBaseUrl}/${id}`;
     return this.http.get(url)
-                  .map(this.extractSingleData)
-                  .catch(this.handleError);
+                  .map(this.extractSingleData);
   }
 
   public addProject(project: ProjectModel): Observable<any> {
-    const url = `/api/projectcommands`;
-
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(url, project , options).catch(this.handleError);
+    return this.http.post(this.projectsCommandBaseUrl, project , options);
   }
 
 
