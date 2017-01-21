@@ -273,13 +273,14 @@ docker-machine start swmaster
 
 Docker Engine 1.12+ includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
 
-We will deploy services on AWS infrastucture. So you have to prepare it:
+We will deploy services on AWS infrastucture. You have to prepare it.
+Please note that steps 1 and 3 are optional. You don't have to create users or key pars if you already have them.
 
 - Step 1: Login to your AWS account as a root, and create user (not root) that will be used latter. (http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)
-- Step 2: Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair).
-- Step 3: Create stack on AWS by using CloudFormation template - https://blog.docker.com/2016/11/docker-aws-public-beta/ (https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=Docker&templateURL=https://docker-for-aws.s3.amazonaws.com/aws/beta/aws-v1.13.0-rc2-beta12.json)
-- Step 4: Run the shell script bellow and follow instructions.
-
+- Step 2: Login with your new account https://signin.aws.amazon.com/console 
+- Step 3: Create Your Key Pair Using Amazon EC2. Please note that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'. (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair).
+- Step 4: Create stack on AWS by using CloudFormation template - https://blog.docker.com/2016/11/docker-aws-public-beta/ (https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=Docker&templateURL=https://docker-for-aws.s3.amazonaws.com/aws/beta/aws-v1.13.0-rc2-beta12.json)
+- Step 5: Run the shell script bellow and follow instructions.
 
 ```bash
 $ cd micro-company/docker
