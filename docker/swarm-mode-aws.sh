@@ -4,11 +4,11 @@ set -e
 
 
 echo "-------------------------"
-echo "### Docker for AWS - public beta ###"
+echo "### Docker for AWS ###"
 echo "-------------------------"
 echo "Step1:  Login to your account as a root and create user that will be used latter (http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)"
 echo "Step2:  Create Your Key Pair Using Amazon EC2. Please not that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem' file. (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair)"
-echo "Step3:  Create stack on AWS by using CloudFormation template - https://blog.docker.com/2016/11/docker-aws-public-beta/ (https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=Docker&templateURL=https://docker-for-aws.s3.amazonaws.com/aws/beta/aws-v1.13.0-rc2-beta12.json)"
+echo "Step3:  Create stack on AWS by using CloudFormation template - https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=Docker&templateURL=https://editions-us-east-1.s3.amazonaws.com/aws/stable/Docker.tmpl"
 echo "-----------------------------------------------------------------------------------------------------------------------------"
 
 echo "#################################################################################################################"
