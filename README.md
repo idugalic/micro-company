@@ -246,7 +246,10 @@ By executing this script you will:
 
 Please, follow the instructions in the console log, and have fun :)
 
-NOTE: 
+##### Experimental features
+
+- Aggregated logs of a service
+- Docker build has a new experimental --squash
 
 In version 1.13 the experimental features are now part of the standard binaries and can be enabled by running the Deamon with the --experimental flag. Let’s do just this. First we need to change the dockerd profile and add the flag:
 ```bash
@@ -260,6 +263,12 @@ EXTRA_ARGS='
 
 '
 ```
+Save the changes as reboot the leader node:
+```bash
+docker-machine stop swmaster
+docker-machine start swmaster
+```
+
 #### Run microservices on Docker Swarm (mode) - AWS cluster
 
 Docker Engine 1.12+ includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
