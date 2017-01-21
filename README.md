@@ -237,15 +237,29 @@ Docker Engine 1.12+ includes swarm mode for natively managing a cluster of Docke
 $ cd micro-company/docker
 $ . ./swarm-mode-local.sh
 ```
-By executing command/script you will:
+By executing this script you will:
 
 - create 4 virtual machines (VirtualBox is required). One 'swarm master', and three 'swarm nodes'
 - initialize cluster on the swarm master
 - join nodes to the cluster
-- create a stack by deploying distributed bundle
+- deploy services using a `docker-compose.yml` file directly
 
 Please, follow the instructions in the console log, and have fun :)
 
+NOTE: 
+
+In version 1.13 the experimental features are now part of the standard binaries and can be enabled by running the Deamon with the --experimental flag. Let’s do just this. First we need to change the dockerd profile and add the flag:
+```bash
+$ docker-machine ssh swmaster -t sudo vi /var/lib/boot2docker/profile
+```
+add the --experimental flag to the EXTRA_ARGS variable. In my case the file looks like this after the modification
+```
+EXTRA_ARGS='
+--label provider=virtualbox
+--experimental
+
+'
+```
 #### Run microservices on Docker Swarm (mode) - AWS cluster
 
 Docker Engine 1.12+ includes swarm mode for natively managing a cluster of Docker Engines called a swarm. https://docs.docker.com/engine/swarm
