@@ -277,7 +277,7 @@ We will deploy services on AWS infrastucture. You have to prepare it.
 Please note that steps 1 and 3 are optional. You don't have to create users or key pars if you already have them.
 
 - Step 1: Login to your AWS account as a root, and create user (not root) that will be used latter. Follow the [guide.](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)
-- Step 2: [Login](https://My_AWS_Account_ID.signin.aws.amazon.com/console/) with your new user account.
+- Step 2: [Login](https://signin.aws.amazon.com/console/) with your new user account.
 - Step 3: [Create Your Key Pair Using Amazon EC2.](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair) Please note that the key will be downloaded by the browser. In my case it is '/Users/idugalic/.ssh/idugalic.pem'.
 - Step 4: [Create stack on AWS by using CloudFormation template](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=Docker&templateURL=https://editions-us-east-1.s3.amazonaws.com/aws/stable/Docker.tmpl)
 - Step 5: Run the shell script bellow and follow instructions.
