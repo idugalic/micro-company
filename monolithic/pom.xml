@@ -17,8 +17,8 @@
 	<properties>
 		<start-class>com.idugalic.Application</start-class>
 		<frontend-plugin.version>0.0.27</frontend-plugin.version>
-		<node.version>v5.7.0</node.version>
-		<npm.version>3.10.6</npm.version>
+		<node.version>v7.5.0</node.version>
+		<npm.version>4.1.2</npm.version>
 	</properties>
 
 	<dependencies>
