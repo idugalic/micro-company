@@ -500,4 +500,5 @@ Those days, each mature framework in Java world should have some sort of Spring 
   * https://blog.docker.com/2016/02/containers-as-a-service-caas/
   * http://www.kennybastani.com/2016/04/event-sourcing-microservices-spring-cloud.html
   * https://benwilcock.wordpress.com/2016/06/20/microservices-with-spring-boot-axon-cqrses-and-docker/
+  * https://www.infoq.com/articles/microservices-aggregates-events-cqrs-part-2-richardson?utm_source=twitter&utm_campaign=calendar&utm_medium=link
   
