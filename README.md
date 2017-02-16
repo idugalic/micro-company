@@ -490,15 +490,14 @@ Those days, each mature framework in Java world should have some sort of Spring 
 
   * http://martinfowler.com/articles/microservices.html
   * http://microservices.io/
-  * http://www.slideshare.net/chris.e.richardson/developing-eventdriven-microservices-with-event-sourcing-and-cqrs-phillyete
   * http://12factor.net/
   * http://pivotal.io/platform/migrating-to-cloud-native-application-architectures-ebook
   * http://pivotal.io/beyond-the-twelve-factor-app
   * http://www.infoq.com/news/2016/01/cqrs-axon-example
+  * https://www.infoq.com/articles/microservices-aggregates-events-cqrs-part-2-richardson
   * http://www.axonframework.org
-  * http://blog.arungupta.me/docker-swarm-cluster-using-consul/
-  * https://blog.docker.com/2016/02/containers-as-a-service-caas/
+  * http://blog.arungupta.me/deploy-docker-compose-services-swarm/
   * http://www.kennybastani.com/2016/04/event-sourcing-microservices-spring-cloud.html
   * https://benwilcock.wordpress.com/2016/06/20/microservices-with-spring-boot-axon-cqrses-and-docker/
-  * https://www.infoq.com/articles/microservices-aggregates-events-cqrs-part-2-richardson
+  
   
