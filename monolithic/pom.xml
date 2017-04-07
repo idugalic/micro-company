@@ -17,8 +17,8 @@
 	<properties>
 		<start-class>com.idugalic.Application</start-class>
 		<frontend-plugin.version>0.0.27</frontend-plugin.version>
-		<node.version>v7.5.0</node.version>
-		<npm.version>4.1.2</npm.version>
+		<node.version>v7.8.0</node.version>
+		<npm.version>4.4.4</npm.version>
 	</properties>
 
 	<dependencies>
@@ -169,6 +169,7 @@
 					<npmVersion>${npm.version}</npmVersion>
 					<installDirectory>target</installDirectory>
 				</configuration>
+				<!--
 				<executions>
 					<execution>
 						<id>install node and npm</id>
@@ -198,6 +199,7 @@
 						</configuration>
 					</execution>
 				</executions>
+				-->
 			</plugin>
 
 		</plugins>
