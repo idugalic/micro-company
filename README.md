@@ -1,4 +1,4 @@
-# [projects](http://idugalic.github.io/projects)/micro-company ![status](https://travis-ci.org/idugalic/micro-company.svg?branch=master)
+# [projects](http://idugalic.github.io/projects)/micro-company [![Build Status](https://travis-ci.org/idugalic/micro-company.svg?branch=master)](https://travis-ci.org/idugalic/micro-company)
 
 This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.
 
