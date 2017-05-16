@@ -92,13 +92,13 @@ Microservices enable businesses to innovate faster and stay ahead of the competi
 
 ### Technologies
 
-- [Spring Boot](http://projects.spring.io/spring-boot/) (v1.4.1.RELEASE)
-- [Spring Cloud](http://projects.spring.io/spring-cloud/)
-- [Spring Data](http://projects.spring.io/spring-data/)
+- [Spring Boot](http://projects.spring.io/spring-boot/) (v1.5.3.RELEASE)
+- [Spring Cloud](http://projects.spring.io/spring-cloud/) (Dalston.RELEASE)
+- [Spring Data](http://projects.spring.io/spring-data/) (train: Ingalls-SR3)
 - [Spring Data REST](http://projects.spring.io/spring-data-rest/)
-- [Axon Framework](http://www.axonframework.org/) (v3.0-RC1)
+- [Axon Framework](http://www.axonframework.org/) (v3.0.4)
 - [RabbitMQ](https://www.rabbitmq.com/) (v3.5.4) Axon supports any Spring AMQP supported platform.
-- [Docker](https://www.docker.com/) (v1.13)
+- [Docker](https://www.docker.com/) (v17.05.0-ce-mac11)
 
 
 ### Key benefits
