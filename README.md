@@ -206,6 +206,15 @@ $ DOCKER_HOST=unix:///var/run/docker.sock mvn docker:build -DpushImage
 
 #### Run monolithic on localhost
 
+This version of the application is deployed as a single monolithic application.
+
+Domain Driven Design is applied through Event Sourcing and CQRS. How Event Sourcing enables deployment flexibility - the application can be deployed as a monolith.
+
+The domain is literally split into a command-side component and a query-side component (this is CQRS in its most literal form).
+
+Communication between the two components is event-driven and the demo uses simple event store (Database in this case - JPA) as a means of passing the events between components. RabbitMQ is not needed in this case.
+
+
 ##### Docker
 ```bash
 $ cd micro-company/docker
@@ -485,6 +494,19 @@ Of course, you should also test your Sagas. There is a special Annotated Saga Te
 ### Spring support 
 
 Those days, each mature framework in Java world should have some sort of Spring support. Each of Axon's components can be configured as a Spring bean. Axon provides also a namespace shortcut for almost everything it has, so the configuration is as short as it has to be.
+
+## The lab
+This project has been migrated to a github organization http://ivans-innovation-lab.github.io/. There we can practice the Twelve-Factor App methodology.
+
+You will learn how we:
+
+- made decisions to use one pattern against the other,
+- changed architecture, organization (culture) and process over time to respond to new requirements,
+- made a foundation for successful digitalization.
+
+The ultimate goal is to deliver better software faster. Today, that invariably means continuous delivery – for an installed product – or continuous deployment for an -aaS product.
+
+The source code is hosted on Github: https://github.com/ivans-innovation-lab
 
 ## References and further reading
 
