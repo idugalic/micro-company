@@ -1,1 +1,1 @@
-*.js linguist-language=Java
+api-gateway/src/main/resources/static/* linguist-vendored=false
