@@ -1,6 +1,6 @@
 # [projects](http://idugalic.github.io/projects)/micro-company [![Build Status](https://travis-ci.org/idugalic/micro-company.svg?branch=master)](https://travis-ci.org/idugalic/micro-company)
 
-This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using Spring Cloud.
+This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using [Spring Cloud](https://spring.io/projects/spring-cloud) and [Axon](https://axoniq.io/).
 
 ## Table of Contents
 
@@ -81,13 +81,13 @@ The microservice architectural style is an approach to developing a single appli
 
 Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
 
-![Microservice Architecture - Ivan Dugalic](https://i.imgsafe.org/cb15eb4553.png)
+![Microservice Architecture - Ivan Dugalic](micro-company.PNG)
 
 ### Patterns and techniques:
 
 1. Microservices
 2. Command and Query Responsibility Separation (CQRS)
-3. DDD - Event Sourcing
+3. Event Sourcing
 4. DDD - Agregates
 
 ### Technologies
@@ -121,7 +121,7 @@ The **query-side** is an event-listener and processor. It listens for the `Event
 
 The command-side and the query-side both have REST API's which can be used to access their capabilities.
 
-Read the [Axon documentation](http://www.axonframework.org/download/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured (spoiler: it's mostly spring-context XML for the setup and some Java extensions and annotations within the code).
+Read the [Axon documentation](https://docs.axoniq.io/reference-guide/) for the finer details of how Axon generally operates to bring you CQRS and Event Sourcing to your apps, as well as lots of detail on how it all get's configured.
 
 ### Services
 
@@ -517,7 +517,7 @@ The source code is hosted on Github: https://github.com/ivans-innovation-lab
   * http://pivotal.io/beyond-the-twelve-factor-app
   * http://www.infoq.com/news/2016/01/cqrs-axon-example
   * https://www.infoq.com/articles/microservices-aggregates-events-cqrs-part-2-richardson
-  * http://www.axonframework.org
+  * https://axoniq.io/
   * http://blog.arungupta.me/deploy-docker-compose-services-swarm/
   * http://www.kennybastani.com/2016/04/event-sourcing-microservices-spring-cloud.html
   * https://benwilcock.wordpress.com/2016/06/20/microservices-with-spring-boot-axon-cqrses-and-docker/
