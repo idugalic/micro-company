@@ -1,4 +1,4 @@
-# [projects](http://idugalic.github.io/projects)/micro-company [![Build Status](https://travis-ci.org/idugalic/micro-company.svg?branch=master)](https://travis-ci.org/idugalic/micro-company)
+# [projects](http://idugalic.github.io/projects)/micro-company ![Java CI with Maven](https://github.com/idugalic/micro-company/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
 This project is intended to demonstrate end-to-end best practices for building a cloud native, event driven microservice architecture using [Spring Cloud](https://spring.io/projects/spring-cloud) and [Axon](https://axoniq.io/).
 
