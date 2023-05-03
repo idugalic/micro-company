@@ -23,9 +23,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>	com.structurizr</groupId>
+			<groupId>com.structurizr</groupId>
 			<artifactId>structurizr-core</artifactId>
-			<version>1.0.0-RC2</version>
+			<version>1.0.0-RC4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
