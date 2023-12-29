@@ -1,4 +1,4 @@
-FROM java:8
+FROM eclipse-temurin:8
 VOLUME /tmp
 ADD *.jar /app.jar
 ADD wait-for-it.sh /wait-for-it.sh
