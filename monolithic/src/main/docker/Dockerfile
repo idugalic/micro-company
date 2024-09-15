@@ -1,4 +1,4 @@
-FROM eclipse-temurin:8
+FROM eclipse-temurin:11
 VOLUME /tmp
 ADD *.jar /app.jar
 RUN bash -c 'touch /app.jar'

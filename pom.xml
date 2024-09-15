@@ -35,10 +35,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<axon.version>3.4.4</axon.version>
 		<spring-cloud.version>Dalston.RELEASE</spring-cloud.version>
-		<spring-boot.version>1.5.3.RELEASE</spring-boot.version>
+		<spring-boot.version>1.5.22.RELEASE</spring-boot.version>
 		<spring-data-releasetrain.version>Ingalls-SR3</spring-data-releasetrain.version>
 		<docker.image.prefix>idugalic</docker.image.prefix>
 		<docker.plugin.version>0.4.9</docker.plugin.version>
@@ -156,7 +156,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>1.5.11.RELEASE</version>
+				<version>1.5.22.RELEASE</version>
 			</plugin>
 			<plugin>
 				<groupId>com.spotify</groupId>
