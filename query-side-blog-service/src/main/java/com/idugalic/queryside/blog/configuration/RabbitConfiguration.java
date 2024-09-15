@@ -75,7 +75,7 @@ public class RabbitConfiguration {
 
             @RabbitListener(queues = "${spring.application.queue}")
             @Override
-            public void onMessage(Message message, Channel channel) throws Exception {
+            public void onMessage(Message message, Channel channel) {
                 super.onMessage(message, channel);
             }
         };
