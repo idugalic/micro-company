@@ -38,7 +38,7 @@ public class BlogPostViewEventHandler {
     @EventHandler
     public void handle(BlogPostPublishedEvent event, @SequenceNumber Long version) {
         LOG.info("BlogPostCreatedEvent: [{}] ", event.getId());
-        BlogPost post = blogPostRepository.findOne(event.getId());
+        BlogPost post = blogPostRepository.findById(event.getId()).get();
         post.setDraft(false);
         post.setPublishAt(event.getPublishAt());
         post.setVersion(version);

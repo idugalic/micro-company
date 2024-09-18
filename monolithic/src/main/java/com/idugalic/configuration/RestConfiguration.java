@@ -5,10 +5,13 @@ import com.idugalic.queryside.project.domain.Project;
 
 import java.lang.reflect.Method;
 
-import org.springframework.boot.autoconfigure.web.WebMvcRegistrationsAdapter;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
@@ -26,9 +29,13 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @Configuration
 public class RestConfiguration extends RepositoryRestMvcConfiguration {
 
+    public RestConfiguration(ApplicationContext context, ObjectFactory<ConversionService> conversionService) {
+		super(context, conversionService);
+	}
+    
     @Bean
-    public WebMvcRegistrationsAdapter webMvcRegistrationsHandlerMapping() {
-        return new WebMvcRegistrationsAdapter() {
+    public WebMvcRegistrations webMvcRegistrationsHandlerMapping() {
+        return new WebMvcRegistrations() {
             @Override
             public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
                 return new RequestMappingHandlerMapping() {

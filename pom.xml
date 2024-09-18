@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="https://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -37,9 +38,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
 		<axon.version>3.4.4</axon.version>
-		<spring-cloud.version>Dalston.RELEASE</spring-cloud.version>
-		<spring-boot.version>1.5.22.RELEASE</spring-boot.version>
-		<spring-data-releasetrain.version>Ingalls-SR3</spring-data-releasetrain.version>
+		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+		<spring-boot.version>2.0.9.RELEASE</spring-boot.version>
 		<docker.image.prefix>idugalic</docker.image.prefix>
 		<docker.plugin.version>0.4.9</docker.plugin.version>
 	</properties>
@@ -53,14 +53,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- Override Spring Data release train provided by Spring Boot -->
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-releasetrain</artifactId>
-				<version>${spring-data-releasetrain.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
@@ -73,6 +65,17 @@
 				<artifactId>spring-boot-starter-test</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.security.oauth</groupId>
+				<artifactId>spring-security-oauth2</artifactId>
+				<version>2.5.2.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-jwt</artifactId>
+				<version>1.1.1.RELEASE</version>
+			</dependency>
+
 
 			<dependency>
 				<groupId>commons-lang</groupId>
@@ -104,12 +107,17 @@
 				<groupId>org.hsqldb</groupId>
 				<artifactId>hsqldb</artifactId>
 				<scope>runtime</scope>
-				<version>2.0.0</version>
+				<version>2.7.3</version>
 			</dependency>
 			<dependency>
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
-				<version>2.9.4</version>
+				<version>2.13.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>3.30.2-GA</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -156,7 +164,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>1.5.22.RELEASE</version>
+				<version>2.0.9.RELEASE</version>
 			</plugin>
 			<plugin>
 				<groupId>com.spotify</groupId>

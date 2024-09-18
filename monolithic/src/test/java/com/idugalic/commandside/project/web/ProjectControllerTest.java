@@ -11,7 +11,7 @@ import org.axonframework.messaging.interceptors.JSR303ViolationException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
@@ -23,7 +23,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -60,7 +59,7 @@ public class ProjectControllerTest {
     public void createProjectWithValidationErrorTest() throws Exception {
         
         CreateProjectRequest request = new CreateProjectRequest();
-        given(this.commandGateway.sendAndWait(any(CreateProjectCommand.class))).willThrow(new CommandExecutionException("Test", new JSR303ViolationException(new HashSet())));
+        given(this.commandGateway.sendAndWait(Mockito.any(CreateProjectCommand.class))).willThrow(new CommandExecutionException("Test", new JSR303ViolationException(new HashSet())));
         
         this.mvc.perform(post("/api/projectcommands")
                 .content(this.jsonCreate.write(request).getJson())
@@ -71,7 +70,7 @@ public class ProjectControllerTest {
     public void createProjectWithSuccessTest() throws Exception {
         
         CreateProjectRequest request = new CreateProjectRequest();
-        given(this.commandGateway.sendAndWait(any(CreateProjectCommand.class))).willReturn("Success");
+        given(this.commandGateway.sendAndWait(Mockito.any(CreateProjectCommand.class))).willReturn("Success");
         
         this.mvc.perform(post("/api/projectcommands")
                 .content(this.jsonCreate.write(request).getJson())
