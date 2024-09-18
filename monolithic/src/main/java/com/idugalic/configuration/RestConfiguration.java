@@ -1,5 +1,8 @@
 package com.idugalic.configuration;
 
+import com.idugalic.queryside.blog.domain.BlogPost;
+import com.idugalic.queryside.project.domain.Project;
+
 import java.lang.reflect.Method;
 
 import org.springframework.beans.factory.ObjectFactory;
@@ -17,9 +20,6 @@ import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import com.idugalic.queryside.blog.domain.BlogPost;
-import com.idugalic.queryside.project.domain.Project;
-
 /**
  * A configuration of rest data respositories for {@link BlogPost} and {@link Project}.
  * 
@@ -29,45 +29,44 @@ import com.idugalic.queryside.project.domain.Project;
 @Configuration
 public class RestConfiguration extends RepositoryRestMvcConfiguration {
 
-	public RestConfiguration(final ApplicationContext context, final ObjectFactory<ConversionService> conversionService) {
+    public RestConfiguration(ApplicationContext context, ObjectFactory<ConversionService> conversionService) {
 		super(context, conversionService);
 	}
+    
+    @Bean
+    public WebMvcRegistrations webMvcRegistrationsHandlerMapping() {
+        return new WebMvcRegistrations() {
+            @Override
+            public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
+                return new RequestMappingHandlerMapping() {
+                    private final static String API_BASE_PATH = "api";
 
-	@Bean
-	public WebMvcRegistrations webMvcRegistrationsHandlerMapping() {
-		return new WebMvcRegistrations() {
-			@Override
-			public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
-				return new RequestMappingHandlerMapping() {
-					private final static String API_BASE_PATH = "api";
+                    @Override
+                    protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
+                        Class<?> beanType = method.getDeclaringClass();
+                        if (AnnotationUtils.findAnnotation(beanType, RestController.class) != null) {
+                            PatternsRequestCondition apiPattern = new PatternsRequestCondition(API_BASE_PATH)
+                                    .combine(mapping.getPatternsCondition());
 
-					@Override
-					protected void registerHandlerMethod(final Object handler, final Method method, RequestMappingInfo mapping) {
-						final Class<?> beanType = method.getDeclaringClass();
-						if (AnnotationUtils.findAnnotation(beanType, RestController.class) != null) {
-							final PatternsRequestCondition apiPattern = new PatternsRequestCondition(API_BASE_PATH)
-									.combine(mapping.getPatternsCondition());
+                            mapping = new RequestMappingInfo(mapping.getName(), apiPattern,
+                                    mapping.getMethodsCondition(), mapping.getParamsCondition(),
+                                    mapping.getHeadersCondition(), mapping.getConsumesCondition(),
+                                    mapping.getProducesCondition(), mapping.getCustomCondition());
+                        }
 
-							mapping = new RequestMappingInfo(mapping.getName(), apiPattern,
-									mapping.getMethodsCondition(), mapping.getParamsCondition(),
-									mapping.getHeadersCondition(), mapping.getConsumesCondition(),
-									mapping.getProducesCondition(), mapping.getCustomCondition());
-						}
-
-						super.registerHandlerMethod(handler, method, mapping);
-					}
-				};
-			}
-		};
-	}
-
-	@Configuration
-	static class RestConfigurationExposeId extends RepositoryRestConfigurerAdapter {
-		@Override
-		public void configureRepositoryRestConfiguration(final RepositoryRestConfiguration config) {
-			config.exposeIdsFor(BlogPost.class, Project.class);
-			config.setBasePath("/api");
-		}
-	}
+                        super.registerHandlerMethod(handler, method, mapping);
+                    }
+                };
+            }
+        };
+    }
+    @Configuration
+    static class RestConfigurationExposeId extends RepositoryRestConfigurerAdapter {
+        @Override
+        public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+            config.exposeIdsFor(BlogPost.class, Project.class);
+            config.setBasePath("/api");
+        }
+    }
 
 }
