@@ -107,12 +107,12 @@
 				<groupId>org.hsqldb</groupId>
 				<artifactId>hsqldb</artifactId>
 				<scope>runtime</scope>
-				<version>2.4.1</version>
+				<version>2.7.3</version>
 			</dependency>
 			<dependency>
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
-				<version>2.9.4</version>
+				<version>2.13.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.javassist</groupId>
