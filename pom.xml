@@ -40,7 +40,6 @@
 		<axon.version>3.4.4</axon.version>
 		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
 		<spring-boot.version>2.0.9.RELEASE</spring-boot.version>
-		<spring-data-releasetrain.version>Ingalls-SR3</spring-data-releasetrain.version>
 		<docker.image.prefix>idugalic</docker.image.prefix>
 		<docker.plugin.version>0.4.9</docker.plugin.version>
 	</properties>
@@ -53,14 +52,6 @@
 				<version>${spring-boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
-			<!-- Override Spring Data release train provided by Spring Boot -->
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-releasetrain</artifactId>
-				<version>${spring-data-releasetrain.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -116,12 +107,17 @@
 				<groupId>org.hsqldb</groupId>
 				<artifactId>hsqldb</artifactId>
 				<scope>runtime</scope>
-				<version>2.0.0</version>
+				<version>2.4.1</version>
 			</dependency>
 			<dependency>
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
 				<version>2.9.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>3.30.2-GA</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
