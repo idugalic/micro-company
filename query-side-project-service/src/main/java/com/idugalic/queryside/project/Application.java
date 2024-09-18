@@ -13,24 +13,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @SpringBootApplication
 @EnableDiscoveryClient
 public class Application {
-	public static void main(final String... args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String... args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	@Bean
-	public AuditorAware<String> auditorAware() {
-		return new AuditorAware<String>() {
-			@Override
-			public Optional<String> getCurrentAuditor() {
-				final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    @Bean
+    public AuditorAware<String> auditorAware() {
+        return new AuditorAware<String>() {
+            public Optional<String> getCurrentAuditor() {
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-				if (authentication == null || !authentication.isAuthenticated()) {
-					return Optional.empty();
-				}
+                if (authentication == null || !authentication.isAuthenticated()) {
+                    return Optional.empty();
+                }
 
-				return Optional.of(authentication.getName());
-			}
-		};
-	}
+                return Optional.of(authentication.getName());
+            }
+        };
+    }
 
 }
