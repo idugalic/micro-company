@@ -1,5 +1,7 @@
 package com.idugalic.queryside.blog;
 
+import java.util.Optional;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -11,23 +13,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @SpringBootApplication
 @EnableDiscoveryClient
 public class Application {
-    public static void main(String... args) {
-        SpringApplication.run(Application.class, args);
-    }
+	public static void main(final String... args) {
+		SpringApplication.run(Application.class, args);
+	}
 
-    @Bean
-    public AuditorAware<String> auditorAware() {
-        return new AuditorAware<String>() {
-            public String getCurrentAuditor() {
-                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	@Bean
+	public AuditorAware<String> auditorAware() {
+		return new AuditorAware<String>() {
+			@Override
+			public Optional<String> getCurrentAuditor() {
+				final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-                if (authentication == null || !authentication.isAuthenticated()) {
-                    return null;
-                }
+				if (authentication == null || !authentication.isAuthenticated()) {
+					return Optional.empty();
+				}
 
-                return authentication.getName();
-            }
-        };
-    }
+				return Optional.of(authentication.getName());
+			}
+		};
+	}
 
 }
